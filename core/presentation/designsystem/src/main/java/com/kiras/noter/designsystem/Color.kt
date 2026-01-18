@@ -44,3 +44,17 @@ val getPurpleColor: Color
 val getPinkColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) PinkDarkTheme else PinkLightTheme
+
+val getCalendarSelectedItemColor: Color
+    get() = Grey2
+
+val getCalendarUnselectedItemColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Color.Black else Color.White
+
+val getCalenderSelectedItemBorderColor: Color
+    get() = Color.Transparent
+
+val getCalendarUnselectedItemBorderColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Color.White else Color.Black

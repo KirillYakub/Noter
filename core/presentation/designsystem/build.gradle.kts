@@ -39,6 +39,10 @@ android {
     }
 }
 
+configurations.all {
+    exclude(group = "com.intellij", module = "annotations")
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -47,5 +51,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    debugImplementation(libs.androidx.compose.ui.tooling)
+
     implementation(libs.bundles.compose)
+    implementation(platform(libs.androidx.compose.bom))
+
+    implementation(project(":core:domain"))
 }

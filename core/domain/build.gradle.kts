@@ -11,3 +11,9 @@ kotlin {
         optIn.add("kotlin.RequiresOptIn")
     }
 }
+configurations.all {
+    exclude(group = "com.intellij", module = "annotations")
+}
+dependencies {
+    implementation(libs.kotlinx.coroutines.core)
+}

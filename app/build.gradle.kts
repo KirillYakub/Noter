@@ -62,4 +62,6 @@ dependencies {
     implementation(libs.bundles.koin)
 
     implementation(project(":core:database"))
+    implementation(project(":core:data"))
+    implementation(project(":core:presentation:designsystem"))
 }
