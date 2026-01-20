@@ -48,7 +48,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.bundles.compose)
+    implementation(libs.bundles.koin.compose)
 
     implementation(project(":core:domain"))
     implementation(project(":core:presentation:ui"))
+    implementation(project(":core:presentation:designsystem"))
 }

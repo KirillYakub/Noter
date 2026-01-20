@@ -15,6 +15,9 @@ interface NotesDao {
     @Query("SELECT * FROM noteentity")
     fun getAllNotes(): Flow<List<NoteEntity>>
 
+    @Query("SELECT * FROM noteentity WHERE createTime BETWEEN :start AND :end")
+    fun getNotesByDay(start: Long, end: Long): Flow<List<NoteEntity>>
+
     @Query("SELECT * FROM noteentity WHERE id = :id")
     suspend fun getNoteById(id: String): NoteEntity
 

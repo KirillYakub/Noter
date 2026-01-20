@@ -19,6 +19,13 @@ class OfflineFirstNoteRepositoryImpl(
         return localDataSource.getNotes()
     }
 
+    override fun getNotesByDay(
+        dayStart: Long,
+        dayEnd: Long,
+    ): Flow<List<Note>> {
+        return localDataSource.getNotesByDay(dayStart, dayEnd)
+    }
+
     override suspend fun fetchNotes(): EmptyResult<DataError> {
         TODO("Not yet implemented")
     }

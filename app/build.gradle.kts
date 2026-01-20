@@ -64,4 +64,5 @@ dependencies {
     implementation(project(":core:database"))
     implementation(project(":core:data"))
     implementation(project(":core:presentation:designsystem"))
+    implementation(project(":feature:notes"))
 }

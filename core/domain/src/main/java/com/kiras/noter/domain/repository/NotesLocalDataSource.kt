@@ -13,4 +13,5 @@ interface NotesLocalDataSource {
     suspend fun upsertNote(note: Note): Result<NoteId, DataError.Local>
     suspend fun deleteNote(id: NoteId)
     suspend fun deleteAllNotes()
+    fun getNotesByDay(dayStart: Long, dayEnd: Long): Flow<List<Note>>
 }

@@ -22,6 +22,15 @@ class RoomNotesLocalDataSourceImpl(
         }
     }
 
+    override fun getNotesByDay(
+        dayStart: Long,
+        dayEnd: Long,
+    ): Flow<List<Note>> {
+        return notesDao.getNotesByDay(dayStart, dayEnd).map { notes ->
+            notes.map { it.toNote() }
+        }
+    }
+
     override suspend fun getNote(id: NoteId): Note {
         return notesDao.getNoteById(id).toNote()
     }

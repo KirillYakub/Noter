@@ -44,7 +44,7 @@ fun CalendarItem(
     ) {
         Column(
             modifier = Modifier.padding(15.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(5.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(

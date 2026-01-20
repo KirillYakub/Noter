@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="add_note">Add note</string>
+    <string name="go_back">Go back</string>
+    <string name="like_note">Like note</string>
+    <string name="add_note_to_folder">Add note to folder</string>
+    <string name="send_note">Send note</string>
+</resources>

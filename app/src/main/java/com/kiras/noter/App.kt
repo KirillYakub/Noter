@@ -4,6 +4,7 @@ import android.app.Application
 import com.kiras.noter.data.di.coreDataModule
 import com.kiras.noter.database.di.databaseModule
 import com.kiras.noter.di.appModule
+import com.kiras.noter.notes.presentation.notes_overview.di.notesOverviewViewModelModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
@@ -20,7 +21,8 @@ class App : Application() {
             modules(
                 appModule,
                 databaseModule,
-                coreDataModule
+                coreDataModule,
+                notesOverviewViewModelModule
             )
         }
     }

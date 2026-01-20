@@ -21,31 +21,37 @@ import com.kiras.noter.designsystem.PinkLightTheme
 fun NoteOverviewItem(
     title: String,
     content: String,
-    color: Color
+    color: Color,
+    onClick: () -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = color
-        )
+        ),
+        onClick = onClick
     ) {
         Column(
             modifier = Modifier
                 .padding(15.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Black,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                text = content,
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Black,
-                overflow = TextOverflow.Ellipsis
-            )
+            if(title.isNotBlank()) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Black,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            if(content.isNotBlank()) {
+                Text(
+                    text = content,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Black,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }
@@ -57,7 +63,8 @@ fun NoteOverviewItemPreview() {
         NoteOverviewItem(
             title = "Lorem ipsum",
             content = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad",
-            color = PinkLightTheme
+            color = PinkLightTheme,
+            onClick = {}
         )
     }
 }

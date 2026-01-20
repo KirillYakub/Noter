@@ -8,7 +8,7 @@ fun NoterTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        typography = typography,
+        typography = Typography,
         content = content
     )
 }

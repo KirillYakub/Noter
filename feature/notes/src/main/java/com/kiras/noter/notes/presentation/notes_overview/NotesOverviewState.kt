@@ -1,10 +1,14 @@
 package com.kiras.noter.notes.presentation.notes_overview
 
+import androidx.compose.foundation.text.input.TextFieldState
+import com.kiras.noter.notes.presentation.notes_overview.model.CalendarDayUi
 import com.kiras.noter.notes.presentation.notes_overview.model.NoteDisplay
 import com.kiras.noter.notes.presentation.notes_overview.model.NoteUi
 
 data class NotesOverviewState(
-    val searchQuery: String = "",
+    val searchQuery: TextFieldState = TextFieldState(),
     val noteDisplay: NoteDisplay = NoteDisplay.GRID,
+    val calendarDays: List<CalendarDayUi> = emptyList(),
+    val selectedDayId: String? = null,
     val notes: List<NoteUi> = emptyList()
 )

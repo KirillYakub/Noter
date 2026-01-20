@@ -5,7 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-val typography = Typography(
+val Typography = Typography(
 
     // Body
     bodySmall = TextStyle(
@@ -22,6 +22,13 @@ val typography = Typography(
         fontFamily = Inter,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp
+    ),
+
+    // Title
+    titleMedium = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
     ),
 
     // Label
