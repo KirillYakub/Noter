@@ -37,6 +37,11 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     ),
+    labelMedium = TextStyle(
+        fontFamily = Inter,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp
+    ),
 
     // Headline
     headlineMedium = TextStyle(
@@ -49,6 +54,6 @@ val Typography = Typography(
     displayMedium = TextStyle(
         fontFamily = Inter,
         fontWeight = FontWeight.Medium,
-        fontSize = 48.sp
+        fontSize = 36.sp
     )
 )

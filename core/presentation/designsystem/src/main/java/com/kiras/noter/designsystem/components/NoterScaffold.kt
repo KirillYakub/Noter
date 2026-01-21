@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun NoterScaffold(
     modifier: Modifier = Modifier,
+    containerColor: Color,
     topAppBar: @Composable () -> Unit = {},
     floatingActionButton: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit
@@ -22,7 +23,7 @@ fun NoterScaffold(
         modifier = modifier,
         topBar = topAppBar,
         floatingActionButton = floatingActionButton,
-        containerColor = if(isSystemInDarkTheme()) Color.Black else Color.White,
+        containerColor = containerColor,
         content = { padding ->
             Box(
                 modifier = Modifier.fillMaxSize(),

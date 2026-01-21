@@ -61,8 +61,11 @@ dependencies {
 
     implementation(libs.bundles.koin)
 
+    implementation(libs.androidx.navigation.compose)
+
     implementation(project(":core:database"))
     implementation(project(":core:data"))
     implementation(project(":core:presentation:designsystem"))
-    implementation(project(":feature:notes"))
+    implementation(project(":feature:presentation"))
+    implementation(project(":feature:data"))
 }

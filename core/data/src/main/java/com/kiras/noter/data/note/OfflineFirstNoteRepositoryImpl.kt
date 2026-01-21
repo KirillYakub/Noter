@@ -26,11 +26,15 @@ class OfflineFirstNoteRepositoryImpl(
         return localDataSource.getNotesByDay(dayStart, dayEnd)
     }
 
+    override suspend fun getNote(id: NoteId): Note {
+        return localDataSource.getNote(id)
+    }
+
     override suspend fun fetchNotes(): EmptyResult<DataError> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun upsertRun(note: Note): EmptyResult<DataError> {
+    override suspend fun upsertNote(note: Note): EmptyResult<DataError> {
         val result = localDataSource.upsertNote(note)
 
         //Implement logic to push data on server

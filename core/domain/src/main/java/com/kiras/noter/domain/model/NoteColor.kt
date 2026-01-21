@@ -6,5 +6,6 @@ enum class NoteColor {
     YELLOW,
     ORANGE,
     PURPLE,
-    PINK
+    PINK,
+    DEFAULT,
 }

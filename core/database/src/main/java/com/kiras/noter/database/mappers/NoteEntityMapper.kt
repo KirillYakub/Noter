@@ -13,7 +13,6 @@ fun NoteEntity.toNote(): Note {
         content = content,
         color = color,
         createTime = Instant.ofEpochMilli(createTime).atZone(ZoneId.systemDefault()),
-        updateTime = Instant.ofEpochMilli(updateTime).atZone(ZoneId.systemDefault())
     )
 }
 
@@ -24,6 +23,5 @@ fun Note.toNoteEntity(): NoteEntity {
         content = content,
         color = color,
         createTime = createTime.toInstant().toEpochMilli(),
-        updateTime = updateTime.toInstant().toEpochMilli()
     )
 }

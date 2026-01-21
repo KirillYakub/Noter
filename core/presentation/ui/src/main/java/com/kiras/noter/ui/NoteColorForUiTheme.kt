@@ -3,6 +3,7 @@ package com.kiras.noter.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.kiras.noter.designsystem.getBlueColor
+import com.kiras.noter.designsystem.getDefaultColor
 import com.kiras.noter.designsystem.getGreenColor
 import com.kiras.noter.designsystem.getOrangeColor
 import com.kiras.noter.designsystem.getPinkColor
@@ -19,5 +20,6 @@ fun NoteColor.getColorForUiTheme(): Color {
         NoteColor.ORANGE -> getOrangeColor
         NoteColor.PURPLE -> getPurpleColor
         NoteColor.PINK -> getPinkColor
+        NoteColor.DEFAULT -> getDefaultColor
     }
 }

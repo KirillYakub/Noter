@@ -13,6 +13,5 @@ data class NoteEntity(
     val title: String,
     val content: String,
     val color: NoteColor,
-    val createTime: Long,
-    val updateTime: Long
+    val createTime: Long
 )

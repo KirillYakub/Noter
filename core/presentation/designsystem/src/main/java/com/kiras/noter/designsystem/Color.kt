@@ -47,6 +47,10 @@ val getPinkColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) PinkDarkTheme else PinkLightTheme
 
+val getDefaultColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Color.Black else Color.White
+
 val getCalendarSelectedItemColor: Color
     get() = Grey2
 
@@ -67,4 +71,4 @@ val getSearchBarColor: Color
 
 val getNoteAddButtonColor: Color
     @Composable
-    get() = if(isSystemInDarkTheme()) Color.Black else Mandarin
+    get() = if(isSystemInDarkTheme()) Mandarin else Color.Black

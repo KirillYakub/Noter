@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -47,6 +48,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
+
     implementation(libs.bundles.koin)
     implementation(libs.org.mongodb.bson)
 

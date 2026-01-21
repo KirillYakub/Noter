@@ -1,9 +1,12 @@
 package com.kiras.noter
 
 import android.app.Application
+import com.kiras.noter.data.di.clockProviderModule
 import com.kiras.noter.data.di.coreDataModule
+import com.kiras.noter.data.di.noteUseCaseModule
 import com.kiras.noter.database.di.databaseModule
 import com.kiras.noter.di.appModule
+import com.kiras.noter.notes.presentation.note_page.di.notePageViewModelModule
 import com.kiras.noter.notes.presentation.notes_overview.di.notesOverviewViewModelModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -22,7 +25,10 @@ class App : Application() {
                 appModule,
                 databaseModule,
                 coreDataModule,
-                notesOverviewViewModelModule
+                notesOverviewViewModelModule,
+                noteUseCaseModule,
+                clockProviderModule,
+                notePageViewModelModule
             )
         }
     }
