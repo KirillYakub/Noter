@@ -48,5 +48,7 @@ dependencies {
 
     implementation(libs.bundles.koin)
 
+    implementation(libs.org.mongodb.bson)
+
     implementation(project(":feature:domain"))
 }

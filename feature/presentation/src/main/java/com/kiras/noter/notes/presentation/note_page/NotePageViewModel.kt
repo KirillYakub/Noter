@@ -57,14 +57,22 @@ class NotePageViewModel(
             .debounce(300)
             .distinctUntilChanged()
             .onEach { notePageStateLatest ->
-                if(notePageStateLatest.isNoteBlank() || noteCreateTime == null) return@onEach
-                noteUseCase.upsertNote(note =
-                    notePageStateLatest.noteUi.toNote(noteCreateTime!!)
-                )
+                when {
+                    noteCreateTime == null -> return@onEach
+                    notePageStateLatest.isNoteBlank() -> {
+                        noteUseCase.deleteNote(id = notePageStateLatest.noteUi.id)
+                    }
+                    else -> {
+                        noteUseCase.upsertNote(note =
+                            notePageStateLatest.noteUi.toNote(
+                                createTimeAsZoneDateTime = noteCreateTime!!
+                            )
+                        )
+                    }
+                }
             }
-            .launchIn(viewModelScope)
+            .launchIn(applicationScope)
     }
-
 
     fun onAction(action: NotePageActions) {
         when(action) {
@@ -92,6 +100,13 @@ class NotePageViewModel(
                         noteUi = noteUi.copy(
                             title = action.title
                         )
+                    )
+                }
+            }
+            is NotePageActions.OnAlignChange -> {
+                notePageState = with(notePageState) {
+                    copy(
+                        alignment = action.align
                     )
                 }
             }

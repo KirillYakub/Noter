@@ -16,7 +16,7 @@ fun Note.toNoteUi(): NoteUi {
         .format(createTimeInLocalTime)
 
     return NoteUi(
-        id = id,
+        id = id!!,
         title = title,
         content = content,
         color = color,

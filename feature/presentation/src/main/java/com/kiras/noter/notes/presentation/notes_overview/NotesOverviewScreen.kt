@@ -50,10 +50,6 @@ private fun NotesOverviewScreen(
     state: NotesOverviewState,
     onAction: (NotesOverviewActions) -> Unit,
 ) {
-    val topAppBarState = rememberTopAppBarState()
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
-        state = topAppBarState
-    )
     NoterScaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = if(isSystemInDarkTheme()) Color.Black else Color.White,
@@ -62,7 +58,6 @@ private fun NotesOverviewScreen(
                 modifier = Modifier.fillMaxWidth(),
                 state = state.searchQuery,
                 hint = stringResource(id = R.string.search),
-                scrollBehavior = scrollBehavior,
                 onMenuClick = {}
             )
         },

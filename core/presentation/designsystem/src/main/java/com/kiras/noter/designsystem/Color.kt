@@ -69,6 +69,10 @@ val getSearchBarColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) Grey2 else Grey1
 
+val getBottomSheetColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey2 else Grey1
+
 val getNoteAddButtonColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) Mandarin else Color.Black

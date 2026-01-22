@@ -37,12 +37,10 @@ fun NoterOverviewStatusBar(
     modifier: Modifier = Modifier,
     state: TextFieldState,
     hint: String,
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
     onMenuClick: () -> Unit
 ) {
     TopAppBar(
         modifier = modifier,
-        scrollBehavior = scrollBehavior,
         title = {
             Row(
                 modifier = Modifier.fillMaxWidth(),

@@ -25,22 +25,21 @@ import com.kiras.noter.designsystem.SendIcon
 @Composable
 fun NotePageStatusBar(
     modifier: Modifier = Modifier,
+    isBackgroundColorDefault: Boolean,
     onBackClick: () -> Unit,
     onLikeClick: () -> Unit,
     onFolderClick: () -> Unit,
     onSendClick: () -> Unit,
-    scrollBehavior: TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
 ) {
     TopAppBar(
         modifier = modifier,
-        scrollBehavior = scrollBehavior,
         title = { },
         navigationIcon = {
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = BackIcon,
                     contentDescription = stringResource(R.string.go_back),
-                    tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                    tint = if(isBackgroundColorDefault) Color.White else Grey2
                 )
             }
         },
@@ -49,21 +48,21 @@ fun NotePageStatusBar(
                 Icon(
                     imageVector = LikeIcon,
                     contentDescription = stringResource(R.string.like_note),
-                    tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                    tint = if(isBackgroundColorDefault) Color.White else Grey2
                 )
             }
             IconButton(onClick = onFolderClick) {
                 Icon(
                     imageVector = FolderIcon,
                     contentDescription = stringResource(R.string.add_note_to_folder),
-                    tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                    tint = if(isBackgroundColorDefault) Color.White else Grey2
                 )
             }
             IconButton(onClick = onSendClick) {
                 Icon(
                     imageVector = SendIcon,
                     contentDescription = stringResource(R.string.send_note),
-                    tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                    tint = if(isBackgroundColorDefault) Color.White else Grey2
                 )
             }
         },
@@ -80,6 +79,7 @@ fun NotePageStatusBarPreview() {
     NoterTheme {
         NotePageStatusBar(
             modifier = Modifier.fillMaxWidth(),
+            isBackgroundColorDefault = true,
             onBackClick = {},
             onLikeClick = {},
             onFolderClick = {},

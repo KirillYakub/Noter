@@ -3,4 +3,10 @@
     <string name="search">Search</string>
     <string name="write_title_here">Write title</string>
     <string name="write_here">Write more</string>
+    <string name="alignment">Alignment</string>
+    <string name="align_left_icon">Align left icon</string>
+    <string name="align_justify_icon">Align justify icon</string>
+    <string name="align_center_icon">Align center icon</string>
+    <string name="align_end_icon">Align end icon</string>
+    <string name="color">Color</string>
 </resources>

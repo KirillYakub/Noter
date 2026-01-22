@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,21 +23,21 @@ fun NotesList(
     noteDisplay: NoteDisplay,
     onNoteClick: (String) -> Unit
 ) {
-    LazyVerticalGrid(
+    LazyVerticalStaggeredGrid(
         modifier = Modifier
             .fillMaxWidth()
             .padding(18.dp),
-        columns = GridCells.Fixed(if(noteDisplay == NoteDisplay.LIST) 1 else 2),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        columns = StaggeredGridCells.Fixed(if(noteDisplay == NoteDisplay.LIST) 1 else 2),
+        verticalItemSpacing = 12.dp,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(items = notes, key = { it.id!! }) { note ->
+        items(items = notes, key = { it.id }) { note ->
             NoteOverviewItem(
                 content = note.content,
                 title = note.title,
                 color = note.color.getColorForUiTheme(),
                 isColorDefault = note.color == NoteColor.DEFAULT,
-                onClick = { onNoteClick(note.id!!) }
+                onClick = { onNoteClick(note.id) }
             )
         }
     }

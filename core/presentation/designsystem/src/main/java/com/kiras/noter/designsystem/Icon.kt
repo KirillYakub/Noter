@@ -31,3 +31,19 @@ val FolderIcon: ImageVector
 val SendIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.send_icon)
+
+val AlignLeftIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.align_left_icon)
+
+val AlignCenterIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.align_center_icon)
+
+val AlignRightIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.align_end_icon)
+
+val AlignJustifyIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.align_justify_icon)
