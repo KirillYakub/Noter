@@ -19,9 +19,18 @@ val PurpleDarkTheme = Color(0xFFDA8FFF)
 val PinkDarkTheme = Color(0xFFFF92FB)
 
 val Grey1 = Color(0xFFE4E4E4)
-val Grey2 = Color(0xFF323232)
+val Grey2 = Color(0xFFDEDEDE)
+val Grey3 = Color(0xFF515151)
+val Grey4 = Color(0xFF323232)
 
-val Mandarin = Color(0xFFFF9900)
+val MandarinLightTheme = Color(0xFFFFAD33)
+val MandarinDarkTheme = Color(0xFFFF9900)
+
+val LimeLightTheme = Color(0xFF41FF6A)
+val LimeDarkTheme = Color(0xFF00FF37)
+
+val RedLightTheme = Color(0xFFFF6969)
+val RedDarkTheme = Color(0xFFFF0000)
 
 val getBlueColor: Color
     @Composable
@@ -52,7 +61,7 @@ val getDefaultColor: Color
     get() = if(isSystemInDarkTheme()) Color.Black else Color.White
 
 val getCalendarSelectedItemColor: Color
-    get() = Grey2
+    get() = Grey4
 
 val getCalendarUnselectedItemColor: Color
     @Composable
@@ -67,12 +76,44 @@ val getCalendarUnselectedItemBorderColor: Color
 
 val getSearchBarColor: Color
     @Composable
-    get() = if(isSystemInDarkTheme()) Grey2 else Grey1
+    get() = if(isSystemInDarkTheme()) Grey4 else Grey1
 
 val getBottomSheetColor: Color
     @Composable
-    get() = if(isSystemInDarkTheme()) Grey2 else Grey1
+    get() = if(isSystemInDarkTheme()) Grey4 else Grey1
 
 val getNoteAddButtonColor: Color
     @Composable
-    get() = if(isSystemInDarkTheme()) Mandarin else Color.Black
+    get() = if(isSystemInDarkTheme()) MandarinDarkTheme else Color.Black
+
+val getAuthTextFieldsTextColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey2 else Grey4
+
+val getAuthTextFieldsIconsColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey2 else Grey3
+
+val getAuthTextFieldsColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey4 else Grey1
+
+val getAuthCheckIconColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) LimeDarkTheme else LimeLightTheme
+
+val getAuthCloseIconColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) RedDarkTheme else RedLightTheme
+
+val getLoginButtonColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) GreenDarkTheme else GreenDarkTheme
+
+val getActiveAuthButtonColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) MandarinDarkTheme else MandarinLightTheme
+
+val getNonActiveAuthButtonColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey3 else Grey2

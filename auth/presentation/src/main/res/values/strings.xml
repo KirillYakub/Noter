@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon">Icon</string>
+    <string name="password_is_visible">Password visible</string>
+    <string name="password_is_hidden">Password hidden</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="your_email">Your email</string>
+    <string name="at_least_8_characters">At least 8 characters</string>
+    <string name="at_least_one_number">At least one number</string>
+    <string name="contains_lowercase_character">Contains lowercase character</string>
+    <string name="contains_uppercase_character">Contains uppercase character</string>
+    <string name="register">Register</string>
+</resources>

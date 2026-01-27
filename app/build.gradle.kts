@@ -68,4 +68,6 @@ dependencies {
     implementation(project(":core:presentation:designsystem"))
     implementation(project(":feature:presentation"))
     implementation(project(":feature:data"))
+    implementation(project(":auth:data"))
+    implementation(project(":auth:presentation"))
 }

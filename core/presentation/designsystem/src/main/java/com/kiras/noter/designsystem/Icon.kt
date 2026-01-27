@@ -47,3 +47,83 @@ val AlignRightIcon: ImageVector
 val AlignJustifyIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.align_justify_icon)
+
+val AuthIcon1: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_1)
+
+val AuthIcon2: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_2)
+
+val AuthIcon3: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_3)
+
+val AuthIcon4: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_4)
+
+val AuthIcon5: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_5)
+
+val AuthIcon6: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_6)
+
+val AuthIcon7: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_7)
+
+val AuthIcon8: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_8)
+
+val AuthIcon9: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_9)
+
+val AuthIcon10: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_10)
+
+val AuthIcon11: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_11)
+
+val AuthIcon12: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_12)
+
+val AuthIcon13: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_13)
+
+val AuthIcon14: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_14)
+
+val AuthIcon15: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.user_icon_15)
+
+val EmailIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.email_icon)
+
+val PasswordIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.lock_icon)
+
+val EyeIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.eye_icon)
+
+val CloseIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.close_icon)
+
+val CheckIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.check_icon)

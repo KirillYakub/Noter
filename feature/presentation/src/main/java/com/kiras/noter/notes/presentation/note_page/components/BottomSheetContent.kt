@@ -1,10 +1,8 @@
 package com.kiras.noter.notes.presentation.note_page.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -29,11 +26,10 @@ import com.kiras.noter.designsystem.AlignCenterIcon
 import com.kiras.noter.designsystem.AlignJustifyIcon
 import com.kiras.noter.designsystem.AlignLeftIcon
 import com.kiras.noter.designsystem.AlignRightIcon
-import com.kiras.noter.designsystem.Grey2
+import com.kiras.noter.designsystem.Grey4
 import com.kiras.noter.domain.model.NoteColor
 import com.kiras.noter.notes.R
 import com.kiras.noter.notes.presentation.note_page.NotePageActions
-import com.kiras.noter.notes.presentation.note_page.NotePageState
 import com.kiras.noter.notes.presentation.note_page.model.NoteAlignment
 import com.kiras.noter.ui.getColorForUiTheme
 
@@ -71,7 +67,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignLeftIcon,
                         contentDescription = stringResource(R.string.align_left_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                        tint = if(isSystemInDarkTheme()) Color.White else Grey4
                     )
                 }
                 IconButton(
@@ -82,7 +78,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignJustifyIcon,
                         contentDescription = stringResource(R.string.align_justify_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                        tint = if(isSystemInDarkTheme()) Color.White else Grey4
                     )
                 }
                 IconButton(
@@ -93,7 +89,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignCenterIcon,
                         contentDescription = stringResource(R.string.align_center_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                        tint = if(isSystemInDarkTheme()) Color.White else Grey4
                     )
                 }
                 IconButton(
@@ -104,7 +100,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignRightIcon,
                         contentDescription = stringResource(R.string.align_end_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey2
+                        tint = if(isSystemInDarkTheme()) Color.White else Grey4
                     )
                 }
             }
