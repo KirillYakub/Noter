@@ -7,12 +7,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.kiras.noter.notes.presentation.note_page.NotePageScreenRoot
 import com.kiras.noter.notes.presentation.notes_overview.NotesOverviewScreenRoot
 import com.kiras.noter.notes.presentation.util.NotePage
 import com.kiras.noter.notes.presentation.util.NotesOverview
+import com.kiras.noter.presentation.intro.IntroScreenRoot
+import com.kiras.noter.presentation.login.LoginScreenRoot
 import com.kiras.noter.presentation.registration.RegisterScreenRoot
+import com.kiras.noter.presentation.util.Intro
 import com.kiras.noter.presentation.util.Login
 import com.kiras.noter.presentation.util.Registration
 
@@ -21,7 +23,7 @@ fun NavigationRoot(navHostController: NavHostController) {
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navHostController,
-        startDestination = Registration
+        startDestination = Intro
     ) {
         authGraph(navHostController)
         notesGraph(navHostController)
@@ -53,6 +55,22 @@ private fun NavGraphBuilder.notesGraph(navHostController: NavHostController) {
 }
 
 private fun NavGraphBuilder.authGraph(navController: NavHostController) {
+    composable<Intro> {
+        IntroScreenRoot(
+            onRegisterClick = {
+                navController.navigate(Registration) {
+                    launchSingleTop = true
+                    popUpTo(Intro)
+                }
+            },
+            onLoginClick = {
+                navController.navigate(Login) {
+                    launchSingleTop = true
+                    popUpTo(Intro)
+                }
+            }
+        )
+    }
     composable<Registration> {
         RegisterScreenRoot(
             onLoginClick = {
@@ -64,6 +82,13 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
         )
     }
     composable<Login> {
+        LoginScreenRoot(
+            onRegisterClick = {
 
+            },
+            onSuccessfulLoginClick = {
+
+            }
+        )
     }
 }

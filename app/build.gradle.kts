@@ -63,6 +63,8 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
 
+    implementation(libs.androidx.datastore.core)
+
     implementation(project(":core:database"))
     implementation(project(":core:data"))
     implementation(project(":core:presentation:designsystem"))

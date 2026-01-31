@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,7 +15,7 @@ import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.notes.presentation.notes_overview.components.NoteAddButton
 import com.kiras.noter.designsystem.components.NoterScaffold
 import com.kiras.noter.notes.presentation.notes_overview.components.NoterOverviewStatusBar
-import com.kiras.noter.domain.model.NoteColor
+import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.notes.R
 import com.kiras.noter.notes.presentation.notes_overview.components.calendar.CalendarRow
 import com.kiras.noter.notes.presentation.notes_overview.components.note_list.NotesList

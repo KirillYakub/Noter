@@ -27,7 +27,7 @@ import com.kiras.noter.designsystem.AlignJustifyIcon
 import com.kiras.noter.designsystem.AlignLeftIcon
 import com.kiras.noter.designsystem.AlignRightIcon
 import com.kiras.noter.designsystem.Grey4
-import com.kiras.noter.domain.model.NoteColor
+import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.notes.R
 import com.kiras.noter.notes.presentation.note_page.NotePageActions
 import com.kiras.noter.notes.presentation.note_page.model.NoteAlignment

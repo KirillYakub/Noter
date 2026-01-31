@@ -127,3 +127,11 @@ val CloseIcon: ImageVector
 val CheckIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.check_icon)
+
+val LogoDay: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.app_logo_day)
+
+val LogoNight: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.app_logo_night)

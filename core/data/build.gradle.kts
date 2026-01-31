@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -48,6 +48,10 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.bundles.koin)
+
+    implementation(libs.androidx.datastore.core)
+
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(project(":core:domain"))
     implementation(project(":core:database"))

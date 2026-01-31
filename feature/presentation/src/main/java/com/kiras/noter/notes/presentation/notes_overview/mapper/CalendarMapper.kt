@@ -1,6 +1,6 @@
 package com.kiras.noter.notes.presentation.notes_overview.mapper
 
-import com.kiras.noter.domain.model.CalendarDay
+import com.kiras.noter.domain.notes.model.CalendarDay
 import com.kiras.noter.notes.presentation.notes_overview.model.CalendarDayUi
 import java.time.format.DateTimeFormatter
 import java.util.Locale

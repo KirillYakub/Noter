@@ -5,10 +5,12 @@ import com.kiras.noter.data.di.authDataModule
 import com.kiras.noter.data.di.clockProviderModule
 import com.kiras.noter.data.di.coreDataModule
 import com.kiras.noter.data.di.noteUseCaseModule
+import com.kiras.noter.data.di.passwordHasherModule
 import com.kiras.noter.database.di.databaseModule
 import com.kiras.noter.di.appModule
 import com.kiras.noter.notes.presentation.note_page.di.notePageViewModelModule
 import com.kiras.noter.notes.presentation.notes_overview.di.notesOverviewViewModelModule
+import com.kiras.noter.presentation.login.di.loginViewModelModule
 import com.kiras.noter.presentation.registration.di.registrationViewModelModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +35,9 @@ class App : Application() {
                 clockProviderModule,
                 notePageViewModelModule,
                 authDataModule,
-                registrationViewModelModule
+                registrationViewModelModule,
+                loginViewModelModule,
+                passwordHasherModule
             )
         }
     }

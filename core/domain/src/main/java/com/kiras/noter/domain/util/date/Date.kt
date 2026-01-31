@@ -1,6 +1,6 @@
 package com.kiras.noter.domain.util.date
 
-import com.kiras.noter.domain.model.CalendarDay
+import com.kiras.noter.domain.notes.model.CalendarDay
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime

@@ -24,8 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey3
 import com.kiras.noter.designsystem.NoterTheme
-import com.kiras.noter.domain.model.AuthIcon
-import com.kiras.noter.presentation.registration.RegisterAction
+import com.kiras.noter.domain.notes.model.AuthIcon
 import com.kiras.noter.ui.getAuthIcon
 import kotlinx.coroutines.delay
 import kotlin.math.abs

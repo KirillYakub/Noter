@@ -1,4 +1,4 @@
-package com.kiras.noter.domain
+package com.kiras.noter.domain.repository
 
 import com.kiras.noter.domain.util.DataError
 import com.kiras.noter.domain.util.EmptyResult

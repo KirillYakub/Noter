@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.components.NoterBottomSheetScaffold
 import com.kiras.noter.notes.presentation.note_page.components.NotePageStatusBar
-import com.kiras.noter.domain.model.NoteColor
+import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.notes.R
 import com.kiras.noter.notes.presentation.note_page.components.BottomSheetContent
 import com.kiras.noter.notes.presentation.note_page.components.NoteTextField

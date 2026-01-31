@@ -1,6 +1,6 @@
 package com.kiras.noter.notes.mapper
 
-import com.kiras.noter.domain.model.Note
+import com.kiras.noter.domain.notes.model.Note
 import com.kiras.noter.notes.model.NoteUi
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -16,7 +16,7 @@ fun Note.toNoteUi(): NoteUi {
         .format(createTimeInLocalTime)
 
     return NoteUi(
-        id = id!!,
+        id = id,
         title = title,
         content = content,
         color = color,
@@ -24,9 +24,13 @@ fun Note.toNoteUi(): NoteUi {
     )
 }
 
-fun NoteUi.toNote(createTimeAsZoneDateTime: ZonedDateTime): Note {
+fun NoteUi.toNote(
+    ownerAccountId: String,
+    createTimeAsZoneDateTime: ZonedDateTime
+): Note {
     return Note(
         id = id,
+        ownerAccountId = ownerAccountId,
         title = title,
         content = content,
         color = color,

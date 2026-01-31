@@ -11,6 +11,7 @@ import androidx.navigation.toRoute
 import com.kiras.noter.domain.use_case.NoteUseCase
 import com.kiras.noter.notes.mapper.toNote
 import com.kiras.noter.notes.mapper.toNoteUi
+import com.kiras.noter.notes.presentation.note_page.model.NoteDraft
 import com.kiras.noter.notes.presentation.util.NotePage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
@@ -31,14 +32,17 @@ class NotePageViewModel(
     var notePageState by mutableStateOf(NotePageState())
         private set
 
-    private var noteCreateTime: ZonedDateTime? = null
+    private var noteDraft = NoteDraft()
 
     init {
         val args = saveStateHandle.toRoute<NotePage>()
         viewModelScope.launch {
             val note = args.id?.let { id -> noteUseCase.getNote(id) }
                 ?: noteUseCase.createEmptyNote()
-            noteCreateTime = note.createTime
+            noteDraft = NoteDraft(
+                noteCreateTime = note.createTime,
+                ownerAccountId = note.ownerAccountId
+            )
             notePageState = with(notePageState) {
                 val noteUi = note.toNoteUi()
                 copy(
@@ -58,14 +62,15 @@ class NotePageViewModel(
             .distinctUntilChanged()
             .onEach { notePageStateLatest ->
                 when {
-                    noteCreateTime == null -> return@onEach
+                    noteDraft.noteCreateTime == null -> return@onEach
                     notePageStateLatest.isNoteBlank() -> {
                         noteUseCase.deleteNote(id = notePageStateLatest.noteUi.id)
                     }
                     else -> {
                         noteUseCase.upsertNote(note =
                             notePageStateLatest.noteUi.toNote(
-                                createTimeAsZoneDateTime = noteCreateTime!!
+                                ownerAccountId = noteDraft.ownerAccountId!!,
+                                createTimeAsZoneDateTime = noteDraft.noteCreateTime!!
                             )
                         )
                     }

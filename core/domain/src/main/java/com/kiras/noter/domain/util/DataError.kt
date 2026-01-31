@@ -10,6 +10,7 @@ sealed interface DataError: Error {
         UNKNOWN
     }
     enum class Local: DataError {
+        CONFLICT,
         DISC_FULL
     }
 }

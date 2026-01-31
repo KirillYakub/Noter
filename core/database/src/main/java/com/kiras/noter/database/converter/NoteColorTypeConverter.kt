@@ -1,7 +1,7 @@
 package com.kiras.noter.database.converter
 
 import androidx.room.TypeConverter
-import com.kiras.noter.domain.model.NoteColor
+import com.kiras.noter.domain.notes.model.NoteColor
 
 class NoteColorTypeConverter {
 

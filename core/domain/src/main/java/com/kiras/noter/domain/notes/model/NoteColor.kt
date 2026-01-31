@@ -1,4 +1,4 @@
-package com.kiras.noter.domain.model
+package com.kiras.noter.domain.notes.model
 
 enum class NoteColor {
     BLUE,

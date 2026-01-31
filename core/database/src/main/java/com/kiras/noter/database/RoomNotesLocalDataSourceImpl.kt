@@ -4,9 +4,9 @@ import android.database.sqlite.SQLiteFullException
 import com.kiras.noter.database.dao.NotesDao
 import com.kiras.noter.database.mappers.toNote
 import com.kiras.noter.database.mappers.toNoteEntity
-import com.kiras.noter.domain.model.Note
-import com.kiras.noter.domain.repository.NoteId
-import com.kiras.noter.domain.repository.NotesLocalDataSource
+import com.kiras.noter.domain.notes.model.Note
+import com.kiras.noter.domain.notes.repository.NoteId
+import com.kiras.noter.domain.notes.repository.NotesLocalDataSource
 import com.kiras.noter.domain.util.DataError
 import com.kiras.noter.domain.util.Result
 import kotlinx.coroutines.flow.Flow
@@ -16,23 +16,24 @@ class RoomNotesLocalDataSourceImpl(
     private val notesDao: NotesDao
 ): NotesLocalDataSource {
 
-    override fun getNotes(): Flow<List<Note>> {
-        return notesDao.getAllNotes().map { notes ->
+    override fun getNotes(ownerAccountId: String): Flow<List<Note>> {
+        return notesDao.getAllNotes(ownerAccountId).map { notes ->
             notes.map { it.toNote() }
         }
     }
 
     override fun getNotesByDay(
+        ownerAccountId: String,
         dayStart: Long,
         dayEnd: Long,
     ): Flow<List<Note>> {
-        return notesDao.getNotesByDay(dayStart, dayEnd).map { notes ->
+        return notesDao.getNotesByDay(ownerAccountId, dayStart, dayEnd).map { notes ->
             notes.map { it.toNote() }
         }
     }
 
-    override suspend fun getNote(id: NoteId): Note {
-        return notesDao.getNoteById(id).toNote()
+    override suspend fun getNote(ownerAccountId: String, id: NoteId): Note {
+        return notesDao.getNoteById(ownerAccountId, id).toNote()
     }
 
     override suspend fun upsertNote(note: Note): Result<NoteId, DataError.Local> {
@@ -45,11 +46,11 @@ class RoomNotesLocalDataSourceImpl(
         }
     }
 
-    override suspend fun deleteNote(id: NoteId) {
-        notesDao.deleteNoteById(id)
+    override suspend fun deleteNote(ownerAccountId: String, id: NoteId) {
+        notesDao.deleteNoteById(ownerAccountId, id)
     }
 
-    override suspend fun deleteAllNotes() {
-        notesDao.deleteAllNotes()
+    override suspend fun deleteAllNotes(ownerAccountId: String) {
+        notesDao.deleteAllNotes(ownerAccountId)
     }
 }

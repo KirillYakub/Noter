@@ -7,8 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kiras.noter.domain.model.CalendarDay
-import com.kiras.noter.domain.repository.NotesRepository
+import com.kiras.noter.domain.notes.model.CalendarDay
+import com.kiras.noter.domain.notes.repository.NotesRepository
 import com.kiras.noter.domain.util.date.lastMonthToToday
 import com.kiras.noter.domain.util.date.toEpochDayRange
 import com.kiras.noter.notes.presentation.notes_overview.mapper.toCalendarDayUi

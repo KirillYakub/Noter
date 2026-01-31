@@ -9,7 +9,7 @@ import com.kiras.noter.designsystem.getOrangeColor
 import com.kiras.noter.designsystem.getPinkColor
 import com.kiras.noter.designsystem.getPurpleColor
 import com.kiras.noter.designsystem.getYellowColor
-import com.kiras.noter.domain.model.NoteColor
+import com.kiras.noter.domain.notes.model.NoteColor
 
 @Composable
 fun NoteColor.getColorForUiTheme(): Color {

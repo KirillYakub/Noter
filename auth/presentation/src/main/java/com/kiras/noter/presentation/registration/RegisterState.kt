@@ -2,7 +2,7 @@ package com.kiras.noter.presentation.registration
 
 import androidx.compose.foundation.text.input.TextFieldState
 import com.kiras.noter.domain.PasswordValidationState
-import com.kiras.noter.domain.model.AuthIcon
+import com.kiras.noter.domain.notes.model.AuthIcon
 
 data class RegisterState(
     val authIcon: AuthIcon = AuthIcon.ICON_1,

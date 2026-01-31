@@ -14,4 +14,10 @@
     <string name="contains_lowercase_character">Contains lowercase character</string>
     <string name="contains_uppercase_character">Contains uppercase character</string>
     <string name="register">Register</string>
+    <string name="hi_there">Hi There!</string>
+    <string name="do_not_have_an_account">Do not have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="logo">Logo</string>
+    <string name="welcome_to_noter">Welcome to Noter!</string>
+    <string name="note_description">Organize your thoughts, ideas, and tasks effortlessly, all in one place.</string>
 </resources>

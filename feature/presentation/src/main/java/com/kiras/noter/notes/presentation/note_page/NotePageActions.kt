@@ -1,6 +1,6 @@
 package com.kiras.noter.notes.presentation.note_page
 
-import com.kiras.noter.domain.model.NoteColor
+import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.notes.presentation.note_page.model.NoteAlignment
 
 sealed interface NotePageActions {

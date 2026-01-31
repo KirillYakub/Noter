@@ -1,6 +1,6 @@
 package com.kiras.noter.presentation.registration
 
-import com.kiras.noter.domain.model.AuthIcon
+import com.kiras.noter.domain.notes.model.AuthIcon
 
 sealed interface RegisterAction {
     data class OnAuthIconChange(val authIcon: AuthIcon): RegisterAction

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.components.NoterScaffold
 import com.kiras.noter.presentation.R
-import com.kiras.noter.presentation.components.AuthActionButton
+import com.kiras.noter.designsystem.components.NoterActionButton
 import com.kiras.noter.presentation.components.AuthEmailTextField
 import com.kiras.noter.presentation.components.AuthPasswordTextField
 import com.kiras.noter.presentation.registration.components.PasswordRequirement
@@ -99,13 +99,14 @@ private fun RegisterScreen(
                     isValid = state.passwordValidationState.hasNumber,
                     modifier = Modifier.padding(top = 15.dp)
                 )
-                AuthActionButton(
+                NoterActionButton(
                     text = stringResource(id = R.string.register),
                     isLoading = state.isRegistering,
                     enabled = state.canRegister,
                     onClick = { onAction(RegisterAction.OnRegisterClick) },
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(horizontal = 14.dp)
                         .padding(top = 40.dp)
                 )
             }

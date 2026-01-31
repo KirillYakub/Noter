@@ -7,3 +7,6 @@ data object Registration
 
 @Serializable
 data object Login
+
+@Serializable
+data object Intro

@@ -1,32 +1,35 @@
 package com.kiras.noter.domain.use_case
 
-import com.kiras.noter.domain.model.Note
-import com.kiras.noter.domain.model.NoteColor
+import com.kiras.noter.domain.SessionStorage
+import com.kiras.noter.domain.notes.model.Note
+import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.domain.repository.ClockProvider
 import com.kiras.noter.domain.repository.IdProvider
-import com.kiras.noter.domain.repository.NotesRepository
+import com.kiras.noter.domain.notes.repository.NotesRepository
 
 class NoteUseCase(
-    private val repository: NotesRepository,
+    private val notesRepository: NotesRepository,
     private val idProvider: IdProvider,
-    private val clockProvider: ClockProvider
+    private val clockProvider: ClockProvider,
+    private val sessionStorage: SessionStorage
 ) {
+
     suspend fun upsertNote(note: Note) {
-        repository.upsertNote(note =
-            if(note.id == null) note.copy(createTime = clockProvider.now())
-            else note
+        notesRepository.upsertNote(note =
+            note.copy(createTime = clockProvider.now())
         )
     }
 
     suspend fun getNote(id: String): Note {
-        return repository.getNote(id).copy(
+        return notesRepository.getNote(id).copy(
             createTime = clockProvider.now()
         )
     }
 
-    fun createEmptyNote(): Note {
+    suspend fun createEmptyNote(): Note {
         return Note(
             id = idProvider.newId(),
+            ownerAccountId = sessionStorage.get()!!.userId,
             title = "",
             content = "",
             color = NoteColor.DEFAULT,
@@ -35,6 +38,6 @@ class NoteUseCase(
     }
 
     suspend fun deleteNote(id: String) {
-        repository.deleteNote(id)
+        notesRepository.deleteNote(id)
     }
 }

@@ -1,9 +1,10 @@
-package com.kiras.noter.domain.model
+package com.kiras.noter.domain.notes.model
 
 import java.time.ZonedDateTime
 
 data class Note(
-    val id: String? = null,
+    val id: String,
+    val ownerAccountId: String,
     val title: String,
     val content: String,
     val color: NoteColor,

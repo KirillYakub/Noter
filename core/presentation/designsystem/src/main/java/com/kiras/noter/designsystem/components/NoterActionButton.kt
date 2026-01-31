@@ -1,4 +1,4 @@
-package com.kiras.noter.presentation.components
+package com.kiras.noter.designsystem.components
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -18,14 +18,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey1
 import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.getActiveAuthButtonColor
 import com.kiras.noter.designsystem.getNonActiveAuthButtonColor
 
 @Composable
-fun AuthActionButton(
+fun NoterActionButton(
     text: String,
     isLoading: Boolean,
     modifier: Modifier = Modifier,
@@ -43,7 +45,6 @@ fun AuthActionButton(
         ),
         shape = RoundedCornerShape(100.dp),
         modifier = modifier
-            .padding(horizontal = 14.dp)
             .height(IntrinsicSize.Min)
     ) {
         Box(
@@ -66,5 +67,17 @@ fun AuthActionButton(
                     .alpha(if (isLoading) 0f else 1f)
             )
         }
+    }
+}
+
+@Preview
+@Composable
+fun NoterActionButtonPreview() {
+    NoterTheme {
+        NoterActionButton(
+            text = "Login",
+            isLoading = false,
+            onClick = {}
+        )
     }
 }
