@@ -35,10 +35,13 @@ class OfflineFirstAccountRepositoryImpl(
     override suspend fun loginAccount(
         email: String,
         passwordHash: String,
-    ): Account? {
-        return localDataSource.loginAccount(email, passwordHash)?.apply {
-            sessionStorage.set(authInfo = AuthInfo(userId = id))
+    ): EmptyResult<DataError> {
+        val result = localDataSource.loginAccount(email, passwordHash)
+        if(result !is Result.Success) {
+            return result.asEmptyDataResult()
         }
+        sessionStorage.set(authInfo = AuthInfo(userId = result.data))
+        return Result.Success(Unit)
     }
 
     override suspend fun getAccount(id: AccountId): Account? {

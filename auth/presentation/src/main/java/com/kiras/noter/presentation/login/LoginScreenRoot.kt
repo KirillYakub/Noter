@@ -1,5 +1,6 @@
 package com.kiras.noter.presentation.login
 
+import android.widget.Toast
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,14 +36,29 @@ import com.kiras.noter.presentation.R
 import com.kiras.noter.designsystem.components.NoterActionButton
 import com.kiras.noter.presentation.components.AuthEmailTextField
 import com.kiras.noter.presentation.components.AuthPasswordTextField
+import com.kiras.noter.ui.ObserveAsEvents
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreenRoot(
     onRegisterClick: () -> Unit,
-    onSuccessfulLoginClick: () -> Unit,
+    onSuccessfulLogin: () -> Unit,
     viewModel: LoginViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    ObserveAsEvents(viewModel.events) { event ->
+        when (event) {
+            is LoginEvent.Error -> {
+                keyboardController?.hide()
+                Toast.makeText(context, event.error.asString(context), Toast.LENGTH_LONG).show()
+            }
+            LoginEvent.LoginSuccess -> {
+                Toast.makeText(context, R.string.login_success, Toast.LENGTH_LONG).show()
+                onSuccessfulLogin()
+            }
+        }
+    }
     LoginScreen(
         state = viewModel.state,
         onAction = { action ->

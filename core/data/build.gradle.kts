@@ -53,6 +53,8 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.org.mongodb.bson)
+
     implementation(project(":core:domain"))
     implementation(project(":core:database"))
 }

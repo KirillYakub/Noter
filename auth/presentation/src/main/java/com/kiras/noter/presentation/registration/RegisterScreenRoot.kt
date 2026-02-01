@@ -1,5 +1,6 @@
 package com.kiras.noter.presentation.registration
 
+import android.widget.Toast
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,6 +23,7 @@ import com.kiras.noter.presentation.components.AuthPasswordTextField
 import com.kiras.noter.presentation.registration.components.PasswordRequirement
 import com.kiras.noter.presentation.registration.components.RegistrationIconsRow
 import com.kiras.noter.presentation.registration.components.RegistrationTopBar
+import com.kiras.noter.ui.ObserveAsEvents
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -28,6 +32,20 @@ fun RegisterScreenRoot(
     onSuccessfulRegistrationClick: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    ObserveAsEvents(viewModel.events) { event ->
+        when (event) {
+            is RegisterEvent.Error -> {
+                keyboardController?.hide()
+                Toast.makeText(context, event.error.asString(context), Toast.LENGTH_LONG).show()
+            }
+            RegisterEvent.RegistrationSuccess -> {
+                Toast.makeText(context, R.string.registration_success, Toast.LENGTH_LONG).show()
+                onSuccessfulRegistrationClick()
+            }
+        }
+    }
     RegisterScreen(
         state = viewModel.state,
         onAction = { action ->
@@ -86,7 +104,7 @@ private fun RegisterScreen(
                 )
                 PasswordRequirement(
                     text = stringResource(id = R.string.at_least_one_number),
-                    isValid = state.passwordValidationState.hasMinLength,
+                    isValid = state.passwordValidationState.hasNumber,
                     modifier = Modifier.padding(top = 15.dp)
                 )
                 PasswordRequirement(
@@ -96,7 +114,7 @@ private fun RegisterScreen(
                 )
                 PasswordRequirement(
                     text = stringResource(id = R.string.contains_uppercase_character),
-                    isValid = state.passwordValidationState.hasNumber,
+                    isValid = state.passwordValidationState.hasUpperCaseCharacter,
                     modifier = Modifier.padding(top = 15.dp)
                 )
                 NoterActionButton(

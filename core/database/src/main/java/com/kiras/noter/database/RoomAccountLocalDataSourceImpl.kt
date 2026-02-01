@@ -38,8 +38,13 @@ class RoomAccountLocalDataSourceImpl(
     override suspend fun loginAccount(
         email: String,
         passwordHash: String,
-    ): Account? {
-        return accountDao.loginAccount(email, passwordHash)?.toAccount()
+    ): Result<AccountId, DataError.Local> {
+        val account = accountDao.loginAccount(email, passwordHash)?.toAccount()
+        return if (account != null) {
+            Result.Success(account.id)
+        } else {
+            Result.Error(DataError.Local.UNAUTHORIZED)
+        }
     }
 
     override suspend fun getAccount(id: AccountId): Account? {

@@ -17,7 +17,7 @@ import com.kiras.noter.designsystem.AuthIcon6
 import com.kiras.noter.designsystem.AuthIcon7
 import com.kiras.noter.designsystem.AuthIcon8
 import com.kiras.noter.designsystem.AuthIcon9
-import com.kiras.noter.domain.notes.model.AuthIcon
+import com.kiras.noter.domain.accounts.model.AuthIcon
 
 @Composable
 fun AuthIcon.getAuthIcon(): ImageVector {

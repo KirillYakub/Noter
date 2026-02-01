@@ -20,4 +20,6 @@
     <string name="logo">Logo</string>
     <string name="welcome_to_noter">Welcome to Noter!</string>
     <string name="note_description">Organize your thoughts, ideas, and tasks effortlessly, all in one place.</string>
+    <string name="registration_success">Registration successful!</string>
+    <string name="login_success">Login success!</string>
 </resources>

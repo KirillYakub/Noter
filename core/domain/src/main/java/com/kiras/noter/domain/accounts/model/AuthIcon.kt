@@ -1,4 +1,4 @@
-package com.kiras.noter.domain.notes.model
+package com.kiras.noter.domain.accounts.model
 
 enum class AuthIcon {
     ICON_1,

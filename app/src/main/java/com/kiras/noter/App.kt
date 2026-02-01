@@ -2,7 +2,6 @@ package com.kiras.noter
 
 import android.app.Application
 import com.kiras.noter.data.di.authDataModule
-import com.kiras.noter.data.di.clockProviderModule
 import com.kiras.noter.data.di.coreDataModule
 import com.kiras.noter.data.di.noteUseCaseModule
 import com.kiras.noter.data.di.passwordHasherModule
@@ -32,7 +31,6 @@ class App : Application() {
                 coreDataModule,
                 notesOverviewViewModelModule,
                 noteUseCaseModule,
-                clockProviderModule,
                 notePageViewModelModule,
                 authDataModule,
                 registrationViewModelModule,

@@ -19,11 +19,14 @@ import com.kiras.noter.presentation.util.Login
 import com.kiras.noter.presentation.util.Registration
 
 @Composable
-fun NavigationRoot(navHostController: NavHostController) {
+fun NavigationRoot(
+    isLoggedIn: Boolean,
+    navHostController: NavHostController
+) {
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navHostController,
-        startDestination = Intro
+        startDestination = if(!isLoggedIn) Intro else NotesOverview
     ) {
         authGraph(navHostController)
         notesGraph(navHostController)
@@ -74,20 +77,42 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
     composable<Registration> {
         RegisterScreenRoot(
             onLoginClick = {
-
+                navController.navigate(Login) {
+                    launchSingleTop = true
+                    restoreState = true
+                    popUpTo(Registration) {
+                        inclusive = true
+                        saveState = true
+                    }
+                }
             },
             onSuccessfulRegistrationClick = {
-
+                navController.navigate(NotesOverview) {
+                    popUpTo(Intro) {
+                        inclusive = true
+                    }
+                }
             }
         )
     }
     composable<Login> {
         LoginScreenRoot(
             onRegisterClick = {
-
+                navController.navigate(Registration) {
+                    launchSingleTop = true
+                    restoreState = true
+                    popUpTo(Login) {
+                        inclusive = true
+                        saveState = true
+                    }
+                }
             },
-            onSuccessfulLoginClick = {
-
+            onSuccessfulLogin = {
+                navController.navigate(NotesOverview) {
+                    popUpTo(Intro) {
+                        inclusive = true
+                    }
+                }
             }
         )
     }

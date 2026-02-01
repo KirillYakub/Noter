@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_disc_full">Failed to save an account because disc is full</string>
+    <string name="error_email_already_exists">Account with this email already exist</string>
+    <string name="error_account_not_exist">Account with this email and password does not exist</string>
+    <string name="error_unknown">An unknown error</string>
+</resources>

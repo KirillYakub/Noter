@@ -1,6 +1,6 @@
 package com.kiras.noter.data
 
-import com.kiras.noter.domain.repository.ClockProvider
+import com.kiras.noter.domain.ClockProvider
 import java.time.ZonedDateTime
 
 class ClockProviderImpl : ClockProvider {

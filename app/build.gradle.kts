@@ -65,8 +65,11 @@ dependencies {
 
     implementation(libs.androidx.datastore.core)
 
+    implementation(libs.androidx.core.splashscreen)
+
     implementation(project(":core:database"))
     implementation(project(":core:data"))
+    implementation(project(":core:domain"))
     implementation(project(":core:presentation:designsystem"))
     implementation(project(":feature:presentation"))
     implementation(project(":feature:data"))

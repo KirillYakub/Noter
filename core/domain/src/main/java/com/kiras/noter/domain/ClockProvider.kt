@@ -1,4 +1,4 @@
-package com.kiras.noter.domain.repository
+package com.kiras.noter.domain
 
 import java.time.ZonedDateTime
 

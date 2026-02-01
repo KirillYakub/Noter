@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface AccountsRepository {
     suspend fun getAccounts(): Flow<List<Account>>
     suspend fun registerAccount(account: Account): EmptyResult<DataError>
-    suspend fun loginAccount(email: String, passwordHash: String): Account?
+    suspend fun loginAccount(email: String, passwordHash: String): EmptyResult<DataError>
     suspend fun getAccount(id: AccountId): Account?
     suspend fun deleteAccount(id: AccountId)
 }
