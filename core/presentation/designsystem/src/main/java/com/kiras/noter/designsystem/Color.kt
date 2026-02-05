@@ -117,3 +117,7 @@ val getActiveAuthButtonColor: Color
 val getNonActiveAuthButtonColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) Grey3 else Grey2
+
+val getSettingsContainerColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey4 else Grey1

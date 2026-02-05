@@ -1,7 +1,7 @@
 package com.kiras.noter.data.offline_first.account
 
-import com.kiras.noter.domain.AuthInfo
-import com.kiras.noter.domain.SessionStorage
+import com.kiras.noter.domain.accounts.model.AuthInfo
+import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
 import com.kiras.noter.domain.accounts.model.Account
 import com.kiras.noter.domain.accounts.repository.AccountId
 import com.kiras.noter.domain.accounts.repository.AccountsLocalDataSource
@@ -16,10 +16,10 @@ import kotlinx.coroutines.flow.Flow
 class OfflineFirstAccountRepositoryImpl(
     private val localDataSource: AccountsLocalDataSource,
     private val applicationScope: CoroutineScope,
-    private val sessionStorage: SessionStorage
+    private val authActiveSessionStorage: AuthActiveSessionStorage
 ): AccountsRepository {
 
-    override suspend fun getAccounts(): Flow<List<Account>> {
+    override fun getAccounts(): Flow<List<Account>> {
         return localDataSource.getAccounts()
     }
 
@@ -28,7 +28,7 @@ class OfflineFirstAccountRepositoryImpl(
         if(result !is Result.Success) {
             return result.asEmptyDataResult()
         }
-        sessionStorage.set(authInfo = AuthInfo(userId = result.data))
+        authActiveSessionStorage.set(authInfo = AuthInfo(userId = result.data))
         return Result.Success(Unit)
     }
 
@@ -40,7 +40,7 @@ class OfflineFirstAccountRepositoryImpl(
         if(result !is Result.Success) {
             return result.asEmptyDataResult()
         }
-        sessionStorage.set(authInfo = AuthInfo(userId = result.data))
+        authActiveSessionStorage.set(authInfo = AuthInfo(userId = result.data))
         return Result.Success(Unit)
     }
 
@@ -49,8 +49,8 @@ class OfflineFirstAccountRepositoryImpl(
     }
 
     override suspend fun deleteAccount(id: AccountId) {
-        if(id == sessionStorage.get()?.userId) {
-            sessionStorage.set(null)
+        if(id == authActiveSessionStorage.get()?.userId) {
+            authActiveSessionStorage.set(null)
         }
         localDataSource.deleteAccount(id)
     }

@@ -11,12 +11,15 @@ import com.kiras.noter.notes.presentation.note_page.NotePageScreenRoot
 import com.kiras.noter.notes.presentation.notes_overview.NotesOverviewScreenRoot
 import com.kiras.noter.notes.presentation.util.NotePage
 import com.kiras.noter.notes.presentation.util.NotesOverview
+import com.kiras.noter.presentation.accounts.AccountsOverviewScreenRoot
 import com.kiras.noter.presentation.intro.IntroScreenRoot
 import com.kiras.noter.presentation.login.LoginScreenRoot
 import com.kiras.noter.presentation.registration.RegisterScreenRoot
+import com.kiras.noter.presentation.util.Accounts
 import com.kiras.noter.presentation.util.Intro
 import com.kiras.noter.presentation.util.Login
 import com.kiras.noter.presentation.util.Registration
+import com.kiras.noter.presentation.util.Settings
 
 @Composable
 fun NavigationRoot(
@@ -47,6 +50,12 @@ private fun NavGraphBuilder.notesGraph(navHostController: NavHostController) {
                     launchSingleTop = true
                     popUpTo(NotesOverview)
                 }
+            },
+            onMenuClick = {
+                navHostController.navigate(Settings) {
+                    launchSingleTop = true
+                    popUpTo(NotesOverview)
+                }
             }
         )
     }
@@ -60,6 +69,12 @@ private fun NavGraphBuilder.notesGraph(navHostController: NavHostController) {
 private fun NavGraphBuilder.authGraph(navController: NavHostController) {
     composable<Intro> {
         IntroScreenRoot(
+            onAccountsClick = {
+                navController.navigate(Accounts) {
+                    launchSingleTop = true
+                    popUpTo(Intro)
+                }
+            },
             onRegisterClick = {
                 navController.navigate(Registration) {
                     launchSingleTop = true
@@ -72,6 +87,13 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
                     popUpTo(Intro)
                 }
             }
+        )
+    }
+    composable<Accounts> {
+        AccountsOverviewScreenRoot(
+            onBackClick = { navController.navigateUp() },
+            onAccountDelete = {},
+            onAccountClick = {}
         )
     }
     composable<Registration> {

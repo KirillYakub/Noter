@@ -10,3 +10,6 @@ data object Login
 
 @Serializable
 data object Intro
+
+@Serializable
+data object Accounts

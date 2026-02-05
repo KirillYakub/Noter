@@ -75,4 +75,6 @@ dependencies {
     implementation(project(":feature:data"))
     implementation(project(":auth:data"))
     implementation(project(":auth:presentation"))
+    implementation(project(":settings:data"))
+    implementation(project(":settings:presentation"))
 }

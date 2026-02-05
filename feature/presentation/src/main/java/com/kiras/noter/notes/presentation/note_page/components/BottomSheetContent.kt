@@ -40,7 +40,7 @@ fun BottomSheetContent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(24.dp,),
+            .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
         Row(

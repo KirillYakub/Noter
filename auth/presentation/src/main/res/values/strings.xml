@@ -8,7 +8,6 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
-    <string name="your_email">Your email</string>
     <string name="at_least_8_characters">At least 8 characters</string>
     <string name="at_least_one_number">At least one number</string>
     <string name="contains_lowercase_character">Contains lowercase character</string>
@@ -22,4 +21,10 @@
     <string name="note_description">Organize your thoughts, ideas, and tasks effortlessly, all in one place.</string>
     <string name="registration_success">Registration successful!</string>
     <string name="login_success">Login success!</string>
+    <string name="name">Name</string>
+    <string name="your_name">Your name</string>
+    <string name="your_email">Your email</string>
+    <string name="accounts_icon">Accounts icon</string>
+    <string name="last_sign_in">Last sign in: %1$s</string>
+    <string name="accounts">Accounts</string>
 </resources>

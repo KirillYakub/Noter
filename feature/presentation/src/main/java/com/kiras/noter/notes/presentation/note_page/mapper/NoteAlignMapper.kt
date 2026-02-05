@@ -1,4 +1,4 @@
-package com.kiras.noter.notes.presentation.util
+package com.kiras.noter.notes.presentation.note_page.mapper
 
 import androidx.compose.ui.text.style.TextAlign
 import com.kiras.noter.notes.presentation.note_page.model.NoteAlignment

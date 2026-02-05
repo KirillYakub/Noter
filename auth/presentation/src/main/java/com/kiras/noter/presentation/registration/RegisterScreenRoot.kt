@@ -18,7 +18,7 @@ import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.components.NoterScaffold
 import com.kiras.noter.presentation.R
 import com.kiras.noter.designsystem.components.NoterActionButton
-import com.kiras.noter.presentation.components.AuthEmailTextField
+import com.kiras.noter.presentation.components.AuthTextField
 import com.kiras.noter.presentation.components.AuthPasswordTextField
 import com.kiras.noter.presentation.registration.components.PasswordRequirement
 import com.kiras.noter.presentation.registration.components.RegistrationIconsRow
@@ -78,12 +78,18 @@ private fun RegisterScreen(
             ) {
                 RegistrationIconsRow(
                     modifier = Modifier.padding(top = 25.dp),
-                    authIcon = state.authIcon,
+                    accountIcon = state.accountIcon,
                     onSelected = { onAction(RegisterAction.OnAuthIconChange(it)) }
                 )
-                AuthEmailTextField(
+                AuthTextField(
+                    state = state.name,
+                    hint = stringResource(id = R.string.your_name),
+                    title = stringResource(id = R.string.name),
+                    modifier = Modifier.padding(top = 20.dp)
+                )
+                AuthTextField(
                     state = state.email,
-                    hint = stringResource(id = R.string.your_email),
+                    hint = stringResource(id = R.string.email),
                     title = stringResource(id = R.string.email),
                     modifier = Modifier.padding(top = 20.dp)
                 )

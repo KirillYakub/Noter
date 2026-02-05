@@ -116,6 +116,10 @@ val PasswordIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.lock_icon)
 
+val NameIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.name_icon)
+
 val EyeIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.eye_icon)

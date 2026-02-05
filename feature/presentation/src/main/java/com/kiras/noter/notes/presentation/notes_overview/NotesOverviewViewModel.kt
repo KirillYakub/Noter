@@ -14,7 +14,7 @@ import com.kiras.noter.domain.util.date.toEpochDayRange
 import com.kiras.noter.notes.presentation.notes_overview.mapper.toCalendarDayUi
 import com.kiras.noter.notes.mapper.toNoteUi
 import com.kiras.noter.notes.presentation.notes_overview.model.CalendarDayUi
-import com.kiras.noter.notes.presentation.notes_overview.model.NoteDisplay
+import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 fun TextFieldState.textAsFlow() = snapshotFlow { text }
@@ -86,6 +87,11 @@ class NotesOverviewViewModel(
     fun onAction(action: NotesOverviewActions) {
         when (action) {
             NotesOverviewActions.OnNotesDisplayChange -> changeNotesDisplayStyle()
+            is NotesOverviewActions.OnDeleteNote -> {
+                viewModelScope.launch {
+                    notesRepository.deleteNote(action.noteId)
+                }
+            }
             is NotesOverviewActions.OnCalendarDaySelected -> {
                 val newSelectedId =
                     if (action.dayId == state.selectedDayId) null
@@ -106,10 +112,10 @@ class NotesOverviewViewModel(
     }
 
     private fun changeNotesDisplayStyle() {
-        val displayStyle = if(state.noteDisplay == NoteDisplay.LIST)
-            NoteDisplay.GRID
+        val displayStyle = if(state.notesDisplayType == NotesDisplayType.LIST)
+            NotesDisplayType.GRID
         else
-            NoteDisplay.LIST
-        state = state.copy(noteDisplay = displayStyle)
+            NotesDisplayType.LIST
+        state = state.copy(notesDisplayType = displayStyle)
     }
 }

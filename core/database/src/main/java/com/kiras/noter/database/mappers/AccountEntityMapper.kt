@@ -10,6 +10,7 @@ fun AccountEntity.toAccount(): Account {
         id = id,
         email = email,
         passwordHash = passwordHash,
+        name = name,
         icon = icon,
         lastSignIn = Instant.ofEpochMilli(lastSignIn).atZone(ZoneId.systemDefault()),
     )
@@ -20,6 +21,7 @@ fun Account.toAccountEntity(): AccountEntity {
         id = id,
         email = email,
         passwordHash = passwordHash,
+        name = name,
         icon = icon,
         lastSignIn = lastSignIn.toInstant().toEpochMilli()
     )

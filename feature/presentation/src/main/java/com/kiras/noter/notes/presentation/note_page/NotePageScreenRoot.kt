@@ -23,7 +23,7 @@ import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.notes.R
 import com.kiras.noter.notes.presentation.note_page.components.BottomSheetContent
 import com.kiras.noter.notes.presentation.note_page.components.NoteTextField
-import com.kiras.noter.notes.presentation.util.toTextAlign
+import com.kiras.noter.notes.presentation.note_page.mapper.toTextAlign
 import com.kiras.noter.ui.getColorForUiTheme
 import org.koin.androidx.compose.koinViewModel
 

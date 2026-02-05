@@ -2,20 +2,19 @@ package com.kiras.noter.data.auth
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.kiras.noter.domain.AuthInfo
-import com.kiras.noter.domain.SessionStorage
+import com.kiras.noter.domain.accounts.model.AuthInfo
+import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 
-class SessionStorageImpl(
+class AuthActiveAuthActiveSessionStorageImpl(
     private val dataStore: DataStore<Preferences>,
-): SessionStorage {
+): AuthActiveSessionStorage {
 
     private companion object {
         private val ACTIVE_ACCOUNT_KEY = stringPreferencesKey("active_account_id")

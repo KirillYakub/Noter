@@ -1,6 +1,6 @@
 package com.kiras.noter.domain.use_case
 
-import com.kiras.noter.domain.SessionStorage
+import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
 import com.kiras.noter.domain.notes.model.Note
 import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.domain.ClockProvider
@@ -11,7 +11,7 @@ class NoteUseCase(
     private val notesRepository: NotesRepository,
     private val idProvider: IdProvider,
     private val clockProvider: ClockProvider,
-    private val sessionStorage: SessionStorage
+    private val authActiveSessionStorage: AuthActiveSessionStorage
 ) {
 
     suspend fun upsertNote(note: Note) {
@@ -29,7 +29,7 @@ class NoteUseCase(
     suspend fun createEmptyNote(): Note {
         return Note(
             id = idProvider.newId(),
-            ownerAccountId = sessionStorage.get()!!.userId,
+            ownerAccountId = authActiveSessionStorage.get()!!.userId,
             title = "",
             content = "",
             color = NoteColor.DEFAULT,

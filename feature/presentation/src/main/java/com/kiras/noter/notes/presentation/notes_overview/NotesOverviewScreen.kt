@@ -20,7 +20,7 @@ import com.kiras.noter.notes.R
 import com.kiras.noter.notes.presentation.notes_overview.components.calendar.CalendarRow
 import com.kiras.noter.notes.presentation.notes_overview.components.note_list.NotesList
 import com.kiras.noter.notes.presentation.notes_overview.model.CalendarDayUi
-import com.kiras.noter.notes.presentation.notes_overview.model.NoteDisplay
+import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
 import com.kiras.noter.notes.model.NoteUi
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -28,6 +28,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun NotesOverviewScreenRoot(
     onNoteClick: (String) -> Unit,
     onAddNoteClick: () -> Unit,
+    onMenuClick: () -> Unit,
     viewModel: NotesOverviewViewModel = koinViewModel(),
 ) {
     NotesOverviewScreen(
@@ -36,6 +37,7 @@ fun NotesOverviewScreenRoot(
             when (action) {
                 is NotesOverviewActions.OnNoteClick -> onNoteClick(action.noteId)
                 NotesOverviewActions.OnAddNote -> onAddNoteClick()
+                NotesOverviewActions.OnMenuClick -> onMenuClick()
                 else -> viewModel.onAction(action)
             }
         }
@@ -56,7 +58,7 @@ private fun NotesOverviewScreen(
                 modifier = Modifier.fillMaxWidth(),
                 state = state.searchQuery,
                 hint = stringResource(id = R.string.search),
-                onMenuClick = {}
+                onMenuClick = { onAction(NotesOverviewActions.OnMenuClick) },
             )
         },
         floatingActionButton = {
@@ -81,8 +83,9 @@ private fun NotesOverviewScreen(
                 )
                 NotesList(
                     notes = state.notes,
-                    noteDisplay = state.noteDisplay,
-                    onNoteClick = { id -> onAction(NotesOverviewActions.OnNoteClick(id)) }
+                    notesDisplayType = state.notesDisplayType,
+                    onNoteClick = { id -> onAction(NotesOverviewActions.OnNoteClick(id)) },
+                    onNoteLongClick = { id -> onAction(NotesOverviewActions.OnDeleteNote(id)) }
                 )
             }
         }
@@ -95,7 +98,7 @@ fun NotesOverviewScreenPreview() {
     NoterTheme {
         NotesOverviewScreen(
             state = NotesOverviewState(
-                noteDisplay = NoteDisplay.GRID,
+                notesDisplayType = NotesDisplayType.GRID,
                 calendarDays = listOf(
                     CalendarDayUi(
                         id = "2024-02-01",

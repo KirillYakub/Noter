@@ -1,6 +1,6 @@
 package com.kiras.noter.domain.accounts.model
 
-enum class AuthIcon {
+enum class AccountIcon {
     ICON_1,
     ICON_2,
     ICON_3,

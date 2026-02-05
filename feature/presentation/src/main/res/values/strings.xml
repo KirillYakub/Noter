@@ -9,4 +9,5 @@
     <string name="align_center_icon">Align center icon</string>
     <string name="align_end_icon">Align end icon</string>
     <string name="color">Color</string>
+    <string name="delete">Delete</string>
 </resources>

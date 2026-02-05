@@ -34,7 +34,7 @@ import com.kiras.noter.designsystem.components.NoterScaffold
 import com.kiras.noter.designsystem.getLoginButtonColor
 import com.kiras.noter.presentation.R
 import com.kiras.noter.designsystem.components.NoterActionButton
-import com.kiras.noter.presentation.components.AuthEmailTextField
+import com.kiras.noter.presentation.components.AuthTextField
 import com.kiras.noter.presentation.components.AuthPasswordTextField
 import com.kiras.noter.ui.ObserveAsEvents
 import org.koin.androidx.compose.koinViewModel
@@ -99,7 +99,7 @@ private fun LoginScreen(
                     .fillMaxSize()
                     .padding(paddingValues)
             ) {
-                AuthEmailTextField(
+                AuthTextField(
                     state = state.email,
                     hint = stringResource(id = R.string.your_email),
                     title = stringResource(id = R.string.email),

@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey3
 import com.kiras.noter.designsystem.NoterTheme
-import com.kiras.noter.domain.accounts.model.AuthIcon
-import com.kiras.noter.ui.getAuthIcon
+import com.kiras.noter.domain.accounts.model.AccountIcon
+import com.kiras.noter.ui.getAccountIcon
 import kotlinx.coroutines.delay
 import kotlin.math.abs
 import com.kiras.noter.presentation.R
@@ -33,18 +33,18 @@ import com.kiras.noter.presentation.R
 @Composable
 fun RegistrationIconsRow(
     modifier: Modifier = Modifier,
-    authIcon: AuthIcon,
-    onSelected: (AuthIcon) -> Unit
+    accountIcon: AccountIcon,
+    onSelected: (AccountIcon) -> Unit
 ) {
 
     val pagerState = rememberPagerState(
-        initialPage = authIcon.ordinal,
-        pageCount = { AuthIcon.entries.size }
+        initialPage = accountIcon.ordinal,
+        pageCount = { AccountIcon.entries.size }
     )
 
     LaunchedEffect(pagerState.currentPage) {
         delay(300)
-        onSelected(AuthIcon.entries[pagerState.currentPage])
+        onSelected(AccountIcon.entries[pagerState.currentPage])
     }
 
     Column(
@@ -88,7 +88,7 @@ fun RegistrationIconsRow(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        imageVector = AuthIcon.entries[page].getAuthIcon(),
+                        imageVector = AccountIcon.entries[page].getAccountIcon(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -112,7 +112,7 @@ private fun lerpDp(start: Dp, end: Dp, fraction: Float): Dp {
 fun RegistrationIconsRowPreview() {
     NoterTheme {
         RegistrationIconsRow(
-            authIcon = AuthIcon.ICON_5,
+            accountIcon = AccountIcon.ICON_5,
             onSelected = {}
         )
     }

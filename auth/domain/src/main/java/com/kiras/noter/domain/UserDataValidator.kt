@@ -6,6 +6,10 @@ class UserDataValidator(private val patternValidator: PatternValidator) {
         return patternValidator.matches(email.trim())
     }
 
+    fun isValidName(name: String): Boolean {
+        return name.isNotBlank() && name.length <= MAX_NAME_LENGTH
+    }
+
     fun validatePassword(password: String): PasswordValidationState {
         val hasMinLength = password.length >= MIN_PASSWORD_LENGTH
         val hasNumber = password.any { it.isDigit() }
@@ -21,5 +25,6 @@ class UserDataValidator(private val patternValidator: PatternValidator) {
 
     companion object {
         const val MIN_PASSWORD_LENGTH = 8
+        const val MAX_NAME_LENGTH = 50
     }
 }

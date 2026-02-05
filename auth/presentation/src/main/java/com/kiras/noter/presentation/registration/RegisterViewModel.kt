@@ -8,7 +8,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kiras.noter.domain.UserDataValidator
-import com.kiras.noter.domain.accounts.repository.AccountsRepository
 import com.kiras.noter.domain.use_case.AuthUseCase
 import com.kiras.noter.domain.util.DataError
 import com.kiras.noter.domain.util.Result
@@ -39,8 +38,17 @@ class RegisterViewModel(
             val isEmailValid = userDataValidator.isValidEmail(email.toString())
             state = state.copy(
                 isEmailValid = isEmailValid,
-                canRegister = isEmailValid && state.passwordValidationState.isValidPassword
-                        && !state.isRegistering
+                canRegister = isEmailValid && state.isNameValid
+                        && state.passwordValidationState.isValidPassword && !state.isRegistering
+            )
+        }.launchIn(viewModelScope)
+
+        state.name.textAsFlow().onEach { name ->
+            val isNameValid = userDataValidator.isValidName(name.toString())
+            state = state.copy(
+                isNameValid = isNameValid,
+                canRegister = isNameValid && state.isEmailValid
+                        && state.passwordValidationState.isValidPassword && !state.isRegistering
             )
         }.launchIn(viewModelScope)
 
@@ -48,8 +56,8 @@ class RegisterViewModel(
             val passwordValidationState = userDataValidator.validatePassword(password.toString())
             state = state.copy(
                 passwordValidationState = passwordValidationState,
-                canRegister = state.isEmailValid && passwordValidationState.isValidPassword
-                        && !state.isRegistering
+                canRegister = state.isEmailValid && state.isNameValid &&
+                        passwordValidationState.isValidPassword && !state.isRegistering
             )
         }.launchIn(viewModelScope)
     }
@@ -57,7 +65,7 @@ class RegisterViewModel(
     fun onAction(action: RegisterAction) {
         when (action) {
             is RegisterAction.OnAuthIconChange -> {
-                state = state.copy(authIcon = action.authIcon)
+                state = state.copy(accountIcon = action.accountIcon)
             }
             RegisterAction.OnRegisterClick -> register()
             RegisterAction.OnTogglePasswordVisibilityClick -> {
@@ -73,7 +81,8 @@ class RegisterViewModel(
             val result = authUseCase.register(
                 email = state.email.text.toString().trim(),
                 password = state.password.text.toString(),
-                icon = state.authIcon
+                name = state.name.text.toString().trim(),
+                icon = state.accountIcon
             )
             state = state.copy(isRegistering = false)
             when(result) {

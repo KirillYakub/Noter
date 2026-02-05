@@ -1,6 +1,6 @@
 package com.kiras.noter.data.offline_first.note
 
-import com.kiras.noter.domain.SessionStorage
+import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
 import com.kiras.noter.domain.notes.model.Note
 import com.kiras.noter.domain.notes.repository.NoteId
 import com.kiras.noter.domain.notes.repository.NotesLocalDataSource
@@ -15,12 +15,12 @@ import kotlinx.coroutines.flow.Flow
 class OfflineFirstNoteRepositoryImpl(
     private val localDataSource: NotesLocalDataSource,
     private val applicationScope: CoroutineScope,
-    private val sessionStorage: SessionStorage
+    private val authActiveSessionStorage: AuthActiveSessionStorage
 ): NotesRepository {
 
     override suspend fun getNotes(): Flow<List<Note>> {
         return localDataSource.getNotes(
-            ownerAccountId = sessionStorage.get()!!.userId
+            ownerAccountId = authActiveSessionStorage.get()!!.userId
         )
     }
 
@@ -29,7 +29,7 @@ class OfflineFirstNoteRepositoryImpl(
         dayEnd: Long,
     ): Flow<List<Note>> {
         return localDataSource.getNotesByDay(
-            ownerAccountId = sessionStorage.get()!!.userId,
+            ownerAccountId = authActiveSessionStorage.get()!!.userId,
             dayStart = dayStart,
             dayEnd = dayEnd
         )
@@ -37,7 +37,7 @@ class OfflineFirstNoteRepositoryImpl(
 
     override suspend fun getNote(id: NoteId): Note {
         return localDataSource.getNote(
-            ownerAccountId = sessionStorage.get()!!.userId,
+            ownerAccountId = authActiveSessionStorage.get()!!.userId,
             id = id
         )
     }
@@ -52,14 +52,14 @@ class OfflineFirstNoteRepositoryImpl(
 
     override suspend fun deleteNote(id: NoteId) {
         localDataSource.deleteNote(
-            ownerAccountId = sessionStorage.get()!!.userId,
+            ownerAccountId = authActiveSessionStorage.get()!!.userId,
             id = id
         )
     }
 
     override suspend fun deleteAllNotes() {
         localDataSource.deleteAllNotes(
-            ownerAccountId = sessionStorage.get()!!.userId
+            ownerAccountId = authActiveSessionStorage.get()!!.userId
         )
     }
 }
