@@ -24,9 +24,10 @@
             <option value="$PROJECT_DIR$/core/presentation/designsystem" />
             <option value="$PROJECT_DIR$/core/presentation/ui" />
             <option value="$PROJECT_DIR$/feature" />
-            <option value="$PROJECT_DIR$/feature/data" />
-            <option value="$PROJECT_DIR$/feature/domain" />
-            <option value="$PROJECT_DIR$/feature/presentation" />
+            <option value="$PROJECT_DIR$/feature/notes" />
+            <option value="$PROJECT_DIR$/feature/notes/data" />
+            <option value="$PROJECT_DIR$/feature/notes/domain" />
+            <option value="$PROJECT_DIR$/feature/notes/presentation" />
             <option value="$PROJECT_DIR$/settings" />
             <option value="$PROJECT_DIR$/settings/data" />
             <option value="$PROJECT_DIR$/settings/domain" />

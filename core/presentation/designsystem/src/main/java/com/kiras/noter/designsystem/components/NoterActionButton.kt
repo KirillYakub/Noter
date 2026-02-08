@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey1
-import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.getActiveAuthButtonColor
 import com.kiras.noter.designsystem.getNonActiveAuthButtonColor
@@ -41,7 +41,7 @@ fun NoterActionButton(
             containerColor = getActiveAuthButtonColor,
             contentColor = Color.White,
             disabledContainerColor = getNonActiveAuthButtonColor,
-            disabledContentColor = if(isSystemInDarkTheme()) Grey1 else Grey4
+            disabledContentColor = if(isSystemInDarkTheme()) Grey1 else Grey5
         ),
         shape = RoundedCornerShape(100.dp),
         modifier = modifier

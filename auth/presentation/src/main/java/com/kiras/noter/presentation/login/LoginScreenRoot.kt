@@ -28,7 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey1
-import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.components.NoterScaffold
 import com.kiras.noter.designsystem.getLoginButtonColor
@@ -135,7 +135,7 @@ private fun LoginScreen(
                     Text(
                         text = stringResource(R.string.do_not_have_an_account),
                         style = MaterialTheme.typography.titleSmall,
-                        color = if (isSystemInDarkTheme()) Grey1 else Grey4
+                        color = if (isSystemInDarkTheme()) Grey1 else Grey5
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Card(

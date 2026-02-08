@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey1
 import com.kiras.noter.designsystem.Grey2
-import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.designsystem.LogoDay
 import com.kiras.noter.designsystem.LogoNight
 import com.kiras.noter.designsystem.NameIcon
@@ -100,13 +100,13 @@ fun IntroScreen(onAction: (IntroAction) -> Unit) {
                 Text(
                     text = stringResource(R.string.welcome_to_noter),
                     style = MaterialTheme.typography.headlineMedium,
-                    color = if(isSystemInDarkTheme()) Grey1 else Grey4
+                    color = if(isSystemInDarkTheme()) Grey1 else Grey5
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = stringResource(R.string.note_description),
                     style = MaterialTheme.typography.bodySmall,
-                    color = if(isSystemInDarkTheme()) Grey1 else Grey4
+                    color = if(isSystemInDarkTheme()) Grey1 else Grey5
                 )
                 Spacer(modifier = Modifier.height(32.dp))
                 NoterOutlinedActionButton(

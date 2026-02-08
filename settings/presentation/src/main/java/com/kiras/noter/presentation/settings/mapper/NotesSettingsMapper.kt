@@ -12,3 +12,12 @@ fun NotesSettings.toNotesSettingsUi(): NotesSettingsUi {
     )
 }
 
+fun NotesSettingsUi.toNotesSettings(): NotesSettings {
+    return NotesSettings(
+        ownerAccountId = ownerAccountId,
+        isDateSearchEnabled = isDateSearchEnabled,
+        displayType = displayType,
+        sortType = sortType
+    )
+}
+

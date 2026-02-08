@@ -3,15 +3,15 @@ package com.kiras.noter
 import android.app.Application
 import com.kiras.noter.data.di.authDataModule
 import com.kiras.noter.data.di.coreDataModule
-import com.kiras.noter.data.di.noteUseCaseModule
+import com.kiras.noter.data.di.noteEditUseCaseModule
 import com.kiras.noter.data.di.passwordHasherModule
 import com.kiras.noter.data.notesSettingsDataModule
 import com.kiras.noter.database.di.databaseModule
 import com.kiras.noter.di.appModule
-import com.kiras.noter.notes.presentation.note_page.di.notePageViewModelModule
-import com.kiras.noter.notes.presentation.notes_overview.di.notesOverviewViewModelModule
 import com.kiras.noter.presentation.accounts.di.accountsViewModelModule
 import com.kiras.noter.presentation.login.di.loginViewModelModule
+import com.kiras.noter.presentation.note_page.di.notePageViewModelModule
+import com.kiras.noter.presentation.notes_overview.di.notesOverviewViewModelModule
 import com.kiras.noter.presentation.registration.di.registrationViewModelModule
 import com.kiras.noter.presentation.settings.di.settingsViewModelModule
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +33,7 @@ class App : Application() {
                 databaseModule,
                 coreDataModule,
                 notesOverviewViewModelModule,
-                noteUseCaseModule,
+                noteEditUseCaseModule,
                 notePageViewModelModule,
                 authDataModule,
                 registrationViewModelModule,

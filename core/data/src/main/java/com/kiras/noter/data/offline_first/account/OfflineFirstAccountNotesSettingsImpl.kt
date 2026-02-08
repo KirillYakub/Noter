@@ -10,6 +10,8 @@ import com.kiras.noter.domain.util.Result
 import com.kiras.noter.domain.util.asEmptyDataResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 
 class OfflineFirstAccountNotesSettingsImpl(
     private val localDataSource: AccountNotesSettingsLocalDataSource,
@@ -17,9 +19,12 @@ class OfflineFirstAccountNotesSettingsImpl(
     private val applicationScope: CoroutineScope
 ): AccountNotesSettingsRepository {
 
-    override suspend fun getAccountNotesSettingsAsFlow(): Flow<NotesSettings> {
-        return localDataSource.getAccountNotesSettingsAsFlow(
-            ownerAccountId = authActiveSessionStorage.get()!!.userId
+    override fun getAccountNotesSettingsAsFlow(): Flow<NotesSettings> = flow {
+        val userId = authActiveSessionStorage.get()!!.userId
+        emitAll(flow =
+            localDataSource.getAccountNotesSettingsAsFlow(
+                ownerAccountId = userId
+            )
         )
     }
 

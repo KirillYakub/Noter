@@ -7,17 +7,18 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.kiras.noter.notes.presentation.note_page.NotePageScreenRoot
-import com.kiras.noter.notes.presentation.notes_overview.NotesOverviewScreenRoot
-import com.kiras.noter.notes.presentation.util.NotePage
-import com.kiras.noter.notes.presentation.util.NotesOverview
 import com.kiras.noter.presentation.accounts.AccountsOverviewScreenRoot
 import com.kiras.noter.presentation.intro.IntroScreenRoot
 import com.kiras.noter.presentation.login.LoginScreenRoot
+import com.kiras.noter.presentation.note_page.NotePageScreenRoot
+import com.kiras.noter.presentation.notes_overview.NotesOverviewScreenRoot
 import com.kiras.noter.presentation.registration.RegisterScreenRoot
+import com.kiras.noter.presentation.settings.SettingsScreenRoot
 import com.kiras.noter.presentation.util.Accounts
 import com.kiras.noter.presentation.util.Intro
 import com.kiras.noter.presentation.util.Login
+import com.kiras.noter.presentation.util.NotePage
+import com.kiras.noter.presentation.util.NotesOverview
 import com.kiras.noter.presentation.util.Registration
 import com.kiras.noter.presentation.util.Settings
 
@@ -37,6 +38,17 @@ fun NavigationRoot(
 }
 
 private fun NavGraphBuilder.notesGraph(navHostController: NavHostController) {
+    composable<Settings> {
+        SettingsScreenRoot(
+            onBackClick = { navHostController.navigateUp() },
+            onLogoutClick = {
+                navHostController.navigate(Intro) {
+                    launchSingleTop = true
+                    popUpTo(Intro)
+                }
+            }
+        )
+    }
     composable<NotesOverview> {
         NotesOverviewScreenRoot(
             onNoteClick = { id ->

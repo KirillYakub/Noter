@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.CheckIcon
 import com.kiras.noter.designsystem.CloseIcon
-import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.getAuthCheckIconColor
 import com.kiras.noter.designsystem.getAuthCloseIconColor
@@ -41,7 +41,7 @@ fun PasswordRequirement(
         Text(
             text = text,
             style = MaterialTheme.typography.titleSmall,
-            color = if(isSystemInDarkTheme()) Color.White else Grey4
+            color = if(isSystemInDarkTheme()) Color.White else Grey5
         )
     }
 }

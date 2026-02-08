@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -23,10 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey1
-import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.designsystem.NoterTheme
-import com.kiras.noter.designsystem.getActiveAuthButtonColor
-import com.kiras.noter.designsystem.getNonActiveAuthButtonColor
 
 @Composable
 fun NoterOutlinedActionButton(
@@ -41,11 +38,11 @@ fun NoterOutlinedActionButton(
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Transparent,
-            contentColor = if(isSystemInDarkTheme()) Grey1 else Grey4,
+            contentColor = if(isSystemInDarkTheme()) Grey1 else Grey5,
         ),
         border = BorderStroke(
             width = 0.5.dp,
-            color = if(isSystemInDarkTheme()) Grey1 else Grey4,
+            color = if(isSystemInDarkTheme()) Grey1 else Grey5,
         ),
         shape = RoundedCornerShape(100.dp),
         modifier = modifier

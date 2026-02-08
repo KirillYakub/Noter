@@ -139,3 +139,11 @@ val LogoDay: ImageVector
 val LogoNight: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.app_logo_night)
+
+val PopUpIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.pop_up_icon)
+
+val PopUpOpenIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.pop_up_open_icon)

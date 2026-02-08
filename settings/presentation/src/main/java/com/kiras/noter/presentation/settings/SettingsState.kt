@@ -1,8 +1,7 @@
 package com.kiras.noter.presentation.settings
 
-import com.kiras.noter.domain.notes.model.settings.NotesSettings
+import com.kiras.noter.presentation.settings.model.NotesSettingsUi
 
 data class SettingsState(
-    val accountNotesSettings: NotesSettings? = null,
-    val isLoading: Boolean = true
+    val accountNotesSettings: NotesSettingsUi = NotesSettingsUi(),
 )

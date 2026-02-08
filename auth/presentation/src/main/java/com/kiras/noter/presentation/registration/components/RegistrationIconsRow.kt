@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.kiras.noter.designsystem.Grey3
+import com.kiras.noter.designsystem.Grey4
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.domain.accounts.model.AccountIcon
 import com.kiras.noter.ui.getAccountIcon
@@ -56,7 +56,7 @@ fun RegistrationIconsRow(
         Text(
             text = stringResource(id = R.string.icon),
             style = MaterialTheme.typography.titleSmall,
-            color = if(isSystemInDarkTheme()) Color.White else Grey3
+            color = if(isSystemInDarkTheme()) Color.White else Grey4
         )
         BoxWithConstraints(
             modifier = Modifier.fillMaxWidth(),

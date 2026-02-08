@@ -1,9 +1,0 @@
-package com.kiras.noter.notes.presentation.notes_overview.model
-
-data class CalendarDayUi(
-    val id: String,
-    val dayOfWeek: String,
-    val dayOfMonth: String,
-    val month: String,
-    val isSelected: Boolean
-)

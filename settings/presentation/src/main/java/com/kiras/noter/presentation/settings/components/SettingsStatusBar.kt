@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.kiras.noter.designsystem.BackIcon
-import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.presentation.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +35,7 @@ fun SettingsStatusBar(
                 Icon(
                     imageVector = BackIcon,
                     contentDescription = stringResource(com.kiras.noter.designsystem.R.string.go_back),
-                    tint = if(isSystemInDarkTheme()) Color.White else Grey4
+                    tint = if(isSystemInDarkTheme()) Color.White else Grey5
                 )
             }
         },

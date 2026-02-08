@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kiras.noter.domain.use_case.LogoutUseCase
 import com.kiras.noter.domain.use_case.NotesSettingsUseCase
+import com.kiras.noter.presentation.settings.mapper.toNotesSettings
+import com.kiras.noter.presentation.settings.mapper.toNotesSettingsUi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -19,16 +21,13 @@ class SettingsViewModel(
     var state by mutableStateOf(SettingsState())
         private set
 
-    private val eventChannel = Channel<Unit>(
-        capacity = Channel.BUFFERED,
-    )
+    private val eventChannel = Channel<Unit>()
     val events = eventChannel.receiveAsFlow()
 
     init {
         viewModelScope.launch {
             state = state.copy(
-                accountNotesSettings = notesSettingsUseCase.getNotesSettings(),
-                isLoading = false
+                accountNotesSettings = notesSettingsUseCase.getNotesSettings().toNotesSettingsUi(),
             )
         }
     }
@@ -38,19 +37,19 @@ class SettingsViewModel(
             SettingsActions.OnLogoutClick -> logout()
             is SettingsActions.OnDateSearchEnableChange -> {
                 state = state.copy(accountNotesSettings =
-                    state.accountNotesSettings!!.copy(isDateSearchEnabled = action.enable)
+                    state.accountNotesSettings.copy(isDateSearchEnabled = action.enable)
                 )
                 updateNote(state)
             }
             is SettingsActions.OnNotesDisplayChange -> {
                 state = state.copy(accountNotesSettings =
-                    state.accountNotesSettings!!.copy(displayType = action.displayType)
+                    state.accountNotesSettings.copy(displayType = action.displayType)
                 )
                 updateNote(state)
             }
             is SettingsActions.OnNotesSortChange -> {
                 state = state.copy(accountNotesSettings =
-                    state.accountNotesSettings!!.copy(sortType = action.sortType)
+                    state.accountNotesSettings.copy(sortType = action.sortType)
                 )
                 updateNote(state)
             }
@@ -60,7 +59,7 @@ class SettingsViewModel(
 
     private fun updateNote(state: SettingsState) {
         viewModelScope.launch {
-            notesSettingsUseCase.setNotesSettings(state.accountNotesSettings!!)
+            notesSettingsUseCase.setNotesSettings(state.accountNotesSettings.toNotesSettings())
         }
     }
 

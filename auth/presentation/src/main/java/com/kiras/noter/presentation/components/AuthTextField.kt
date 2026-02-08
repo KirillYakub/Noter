@@ -21,7 +21,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.EmailIcon
-import com.kiras.noter.designsystem.Grey3
+import com.kiras.noter.designsystem.Grey4
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.getAuthTextFieldsColor
 import com.kiras.noter.designsystem.getAuthTextFieldsIconsColor
@@ -44,7 +44,7 @@ fun AuthTextField(
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleSmall,
-                color = if (isSystemInDarkTheme()) Color.White else Grey3
+                color = if (isSystemInDarkTheme()) Color.White else Grey4
             )
         }
         TextField(
