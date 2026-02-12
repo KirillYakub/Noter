@@ -76,7 +76,7 @@ fun NoterActionButtonPreview() {
     NoterTheme {
         NoterActionButton(
             text = "Login",
-            isLoading = false,
+            isLoading = true,
             onClick = {}
         )
     }

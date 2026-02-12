@@ -73,6 +73,7 @@ class NotesOverviewViewModel(
         notesSettingsFlow.onEach { settings ->
             state = state.copy(
                 notesSortType = settings.sortType,
+                notesStyle = settings.notesStyle,
                 notesDisplayType = settings.displayType,
                 isCalendarDaysVisible = settings.isDateSearchEnabled
             )

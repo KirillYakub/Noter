@@ -16,12 +16,12 @@ class AuthUseCase(
     private val accountsRepository: AccountsRepository
 ) {
     suspend fun login(email: String, password: String): EmptyResult<DataError> {
-        val passwordHash = passwordHasher.hash(password)
+        val passwordHash = getPasswordHash(password)
         return accountsRepository.loginAccount(email, passwordHash)
     }
 
     suspend fun register(email: String, password: String, name: String, icon: AccountIcon): EmptyResult<DataError> {
-        val passwordHash = passwordHasher.hash(password)
+        val passwordHash = getPasswordHash(password)
         val account = Account(
             id = idProvider.newId(),
             email = email,
@@ -31,5 +31,9 @@ class AuthUseCase(
             lastSignIn = clockProvider.now()
         )
         return accountsRepository.registerAccount(account)
+    }
+
+    private fun getPasswordHash(password: String): String {
+        return passwordHasher.hash(password)
     }
 }

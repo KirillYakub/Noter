@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -19,9 +20,10 @@ class MainViewModel(
         viewModelScope.launch {
             state = state.copy(isCheckingAuth = true)
             state = state.copy(
-                isCheckingAuth = false,
                 isLoggedIn = authActiveSessionStorage.get() != null
             )
+            delay(500)
+            state = state.copy(isCheckingAuth = false)
         }
     }
 }

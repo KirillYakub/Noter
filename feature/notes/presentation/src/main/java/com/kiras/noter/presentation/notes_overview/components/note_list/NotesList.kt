@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
+import com.kiras.noter.domain.notes.model.settings.NotesStyleType
 import com.kiras.noter.model.NoteUi
 import com.kiras.noter.ui.getColorForUiTheme
 
@@ -18,6 +19,7 @@ import com.kiras.noter.ui.getColorForUiTheme
 fun NotesList(
     notes: List<NoteUi>,
     notesDisplayType: NotesDisplayType,
+    noteStyle: NotesStyleType,
     onNoteClick: (String) -> Unit,
     onNoteLongClick: (String) -> Unit
 ) {
@@ -34,6 +36,7 @@ fun NotesList(
                 content = note.content,
                 title = note.title,
                 color = note.color.getColorForUiTheme(),
+                isNotesStyleLine = noteStyle == NotesStyleType.COLOR_LINE,
                 isColorDefault = note.color == NoteColor.DEFAULT,
                 onClick = { onNoteClick(note.id) },
                 onDeleteClick = { onNoteLongClick(note.id) }

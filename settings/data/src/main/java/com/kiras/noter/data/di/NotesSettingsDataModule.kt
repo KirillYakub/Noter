@@ -1,4 +1,4 @@
-package com.kiras.noter.data
+package com.kiras.noter.data.di
 
 import com.kiras.noter.domain.use_case.LogoutUseCase
 import com.kiras.noter.domain.use_case.NotesSettingsUseCase

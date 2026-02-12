@@ -61,6 +61,10 @@ val getDefaultColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) Color.Black else Color.White
 
+val getDefaultLineColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Color.White else Color.Black
+
 val getCalendarSelectedItemColor: Color
     get() = Grey5
 
@@ -79,7 +83,7 @@ val getSearchBarColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) Grey5 else Grey1
 
-val getBottomSheetColor: Color
+val getBottomSheetDefaultColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) Grey5 else Grey1
 

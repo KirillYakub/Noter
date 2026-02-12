@@ -35,6 +35,7 @@ import com.kiras.noter.ui.getColorForUiTheme
 
 @Composable
 fun BottomSheetContent(
+    contentColor: Color,
     onAction: (NotePageActions) -> Unit
 ) {
     Column(
@@ -51,7 +52,7 @@ fun BottomSheetContent(
             Text(
                 text = stringResource(R.string.alignment),
                 style = MaterialTheme.typography.titleMedium,
-                color = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                color = contentColor,
                 modifier = Modifier.weight(1f)
             )
             Row(
@@ -67,7 +68,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignLeftIcon,
                         contentDescription = stringResource(R.string.align_left_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey5
+                        tint = contentColor
                     )
                 }
                 IconButton(
@@ -78,7 +79,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignJustifyIcon,
                         contentDescription = stringResource(R.string.align_justify_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey5
+                        tint = contentColor
                     )
                 }
                 IconButton(
@@ -89,7 +90,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignCenterIcon,
                         contentDescription = stringResource(R.string.align_center_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey5
+                        tint = contentColor
                     )
                 }
                 IconButton(
@@ -100,7 +101,7 @@ fun BottomSheetContent(
                     Icon(
                         imageVector = AlignRightIcon,
                         contentDescription = stringResource(R.string.align_end_icon),
-                        tint = if(isSystemInDarkTheme()) Color.White else Grey5
+                        tint = contentColor
                     )
                 }
             }
@@ -113,7 +114,7 @@ fun BottomSheetContent(
             Text(
                 text = stringResource(R.string.color),
                 style = MaterialTheme.typography.titleMedium,
-                color = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                color = contentColor,
                 modifier = Modifier.weight(1f)
             )
             Row(

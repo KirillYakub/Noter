@@ -20,15 +20,13 @@ import com.kiras.noter.designsystem.NoterTheme
 @Composable
 fun NoteTextField(
     modifier: Modifier = Modifier,
-    isBackgroundColorDefault: Boolean,
+    contentColor: Color,
     textAlign: TextAlign,
     value: String,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle,
     placeholder: String = ""
 ) {
-    val contentColors = if(isBackgroundColorDefault) Color.White else Color.Black
-
     TextField(
         value = value,
         onValueChange = onValueChange,
@@ -40,9 +38,9 @@ fun NoteTextField(
             imeAction = ImeAction.Done
         ),
         colors = TextFieldDefaults.colors(
-            cursorColor = contentColors.copy(alpha = 0.6f),
-            focusedTextColor = contentColors,
-            unfocusedTextColor = contentColors,
+            cursorColor = contentColor.copy(alpha = 0.6f),
+            focusedTextColor = contentColor,
+            unfocusedTextColor = contentColor,
             focusedContainerColor = Color.Transparent,
             unfocusedContainerColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
@@ -56,7 +54,7 @@ fun NoteTextField(
                     text = placeholder,
                     textAlign = textAlign,
                     style = textStyle,
-                    color = contentColors.copy(alpha = 0.6f),
+                    color = contentColor.copy(alpha = 0.6f),
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -71,7 +69,7 @@ fun NoteTextFieldPreview() {
     NoterTheme {
         NoteTextField(
             value = "",
-            isBackgroundColorDefault = true,
+            contentColor = Color.White,
             onValueChange = {},
             textStyle = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Start,

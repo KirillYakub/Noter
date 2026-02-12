@@ -8,6 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.kiras.noter.domain.use_case.GetNotesSettingsUseCase
 import com.kiras.noter.domain.use_case.NoteEditUseCase
 import com.kiras.noter.mapper.toNote
 import com.kiras.noter.mapper.toNoteUi
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 @OptIn(FlowPreview::class)
 class NotePageViewModel(
     private val noteEditUseCase: NoteEditUseCase,
+    private val getNotesSettingsUseCase: GetNotesSettingsUseCase,
     private val applicationScope: CoroutineScope,
     saveStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -38,6 +40,7 @@ class NotePageViewModel(
         viewModelScope.launch {
             val note = args.id?.let { id -> noteEditUseCase.getNote(id) }
                 ?: noteEditUseCase.createEmptyNote()
+            val noteStyleType = getNotesSettingsUseCase.getNotesSettings().notesStyle
             noteDraft = NoteDraft(
                 noteCreateTime = note.createTime,
                 ownerAccountId = note.ownerAccountId
@@ -45,6 +48,7 @@ class NotePageViewModel(
             notePageState = with(notePageState) {
                 val noteUi = note.toNoteUi()
                 copy(
+                    noteStyleType = noteStyleType,
                     noteUi = noteUi.copy(
                         id = noteUi.id,
                         title = noteUi.title,

@@ -6,6 +6,7 @@ import com.kiras.noter.presentation.settings.model.NotesSettingsUi
 fun NotesSettings.toNotesSettingsUi(): NotesSettingsUi {
     return NotesSettingsUi(
         ownerAccountId = ownerAccountId,
+        notesStyle = notesStyle,
         isDateSearchEnabled = isDateSearchEnabled,
         displayType = displayType,
         sortType = sortType
@@ -15,6 +16,7 @@ fun NotesSettings.toNotesSettingsUi(): NotesSettingsUi {
 fun NotesSettingsUi.toNotesSettings(): NotesSettings {
     return NotesSettings(
         ownerAccountId = ownerAccountId,
+        notesStyle = notesStyle,
         isDateSearchEnabled = isDateSearchEnabled,
         displayType = displayType,
         sortType = sortType

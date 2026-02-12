@@ -10,4 +10,8 @@ class GetNotesSettingsUseCase(
     fun getNotesSettingsAsFlow(): Flow<NotesSettings> {
         return accountNotesSettingsStorage.getAccountNotesSettingsAsFlow()
     }
+
+    suspend fun getNotesSettings(): NotesSettings {
+        return accountNotesSettingsStorage.getAccountNotesSettings()
+    }
 }

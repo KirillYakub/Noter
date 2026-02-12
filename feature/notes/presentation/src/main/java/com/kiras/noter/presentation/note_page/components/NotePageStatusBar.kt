@@ -23,7 +23,7 @@ import com.kiras.noter.designsystem.SendIcon
 @Composable
 fun NotePageStatusBar(
     modifier: Modifier = Modifier,
-    isBackgroundColorDefault: Boolean,
+    contentColor: Color,
     onBackClick: () -> Unit,
     onLikeClick: () -> Unit,
     onFolderClick: () -> Unit,
@@ -37,7 +37,7 @@ fun NotePageStatusBar(
                 Icon(
                     imageVector = BackIcon,
                     contentDescription = stringResource(R.string.go_back),
-                    tint = if(isBackgroundColorDefault) Color.White else Grey5
+                    tint = contentColor
                 )
             }
         },
@@ -46,21 +46,21 @@ fun NotePageStatusBar(
                 Icon(
                     imageVector = LikeIcon,
                     contentDescription = stringResource(R.string.like_note),
-                    tint = if(isBackgroundColorDefault) Color.White else Grey5
+                    tint = contentColor
                 )
             }
             IconButton(onClick = onFolderClick) {
                 Icon(
                     imageVector = FolderIcon,
                     contentDescription = stringResource(R.string.add_note_to_folder),
-                    tint = if(isBackgroundColorDefault) Color.White else Grey5
+                    tint = contentColor
                 )
             }
             IconButton(onClick = onSendClick) {
                 Icon(
                     imageVector = SendIcon,
                     contentDescription = stringResource(R.string.send_note),
-                    tint = if(isBackgroundColorDefault) Color.White else Grey5
+                    tint = contentColor
                 )
             }
         },
@@ -77,7 +77,7 @@ fun NotePageStatusBarPreview() {
     NoterTheme {
         NotePageStatusBar(
             modifier = Modifier.fillMaxWidth(),
-            isBackgroundColorDefault = true,
+            contentColor = Color.White,
             onBackClick = {},
             onLikeClick = {},
             onFolderClick = {},

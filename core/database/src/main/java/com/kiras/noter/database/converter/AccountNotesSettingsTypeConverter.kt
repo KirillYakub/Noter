@@ -3,6 +3,7 @@ package com.kiras.noter.database.converter
 import androidx.room.TypeConverter
 import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
 import com.kiras.noter.domain.notes.model.settings.NotesSortType
+import com.kiras.noter.domain.notes.model.settings.NotesStyleType
 
 class AccountNotesSettingsTypeConverter {
 
@@ -23,6 +24,16 @@ class AccountNotesSettingsTypeConverter {
 
     @TypeConverter
     fun fromNotesSortType(value: NotesSortType): String {
+        return value.name
+    }
+
+    @TypeConverter
+    fun toNotesStyleType(value: String): NotesStyleType {
+        return NotesStyleType.valueOf(value)
+    }
+
+    @TypeConverter
+    fun fromNotesStyleType(value: NotesStyleType): String {
         return value.name
     }
 }

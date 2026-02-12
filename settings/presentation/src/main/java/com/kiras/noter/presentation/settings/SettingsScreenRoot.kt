@@ -6,23 +6,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey4
 import com.kiras.noter.designsystem.components.NoterScaffold
-import com.kiras.noter.designsystem.getSettingsContainerColor
 import com.kiras.noter.presentation.R
 import com.kiras.noter.presentation.settings.components.DisplayNotesSortDropDownMenu
-import com.kiras.noter.presentation.settings.components.DisplayNotesStyleDropDownMenu
-import com.kiras.noter.presentation.settings.components.SettingsContentRow
+import com.kiras.noter.presentation.settings.components.DisplayNotesDisplayStyleDropDownMenu
+import com.kiras.noter.presentation.settings.components.SettingsContentCard
+import com.kiras.noter.presentation.settings.components.SettingsDropDown
+import com.kiras.noter.presentation.settings.components.SettingsNoteStyle
 import com.kiras.noter.presentation.settings.components.SettingsStatusBar
 import com.kiras.noter.presentation.settings.components.SettingsSwitcher
 import com.kiras.noter.ui.ObserveAsEvents
@@ -79,13 +78,13 @@ fun SettingsScreen(
                         style = MaterialTheme.typography.titleSmall,
                         color = if (isSystemInDarkTheme()) Color.White else Grey4
                     )
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = getSettingsContainerColor,
-                            contentColor = if (isSystemInDarkTheme()) Color.White else Color.Black
-                        ),
-                        shape = RoundedCornerShape(16.dp),
-                        modifier = Modifier.fillMaxWidth()
+                    SettingsContentCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 15.dp,
+                                vertical = 5.dp
+                            )
                     ) {
                         SettingsSwitcher(
                             text = stringResource(R.string.dates_search),
@@ -93,49 +92,81 @@ fun SettingsScreen(
                             onCheckedChange = {
                                 onAction(SettingsActions.OnDateSearchEnableChange(it))
                             },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(15.dp)
+                            modifier = Modifier.fillMaxWidth()
                         )
                     }
-                    Card(
-                        colors = CardDefaults.cardColors(
-                            containerColor = getSettingsContainerColor,
-                            contentColor = if (isSystemInDarkTheme()) Color.White else Color.Black
-                        ),
-                        shape = RoundedCornerShape(16.dp),
-                        modifier = Modifier.fillMaxWidth()
+                    SettingsContentCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 15.dp,
+                                vertical = 5.dp
+                            )
                     ) {
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(15.dp),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(15.dp)
-                        ) {
-                            SettingsContentRow(
-                                text = stringResource(R.string.display_style),
-                                dropdown = @Composable { expanded, onDismiss ->
-                                    DisplayNotesStyleDropDownMenu(
-                                        expanded = expanded,
-                                        onDismiss = onDismiss,
-                                        onAction = onAction
-                                    )
-                                }
+                        SettingsDropDown(
+                            text = stringResource(R.string.display_style),
+                            dropdown = @Composable { expanded, onDismiss ->
+                                DisplayNotesDisplayStyleDropDownMenu(
+                                    selected = state.accountNotesSettings.displayType,
+                                    expanded = expanded,
+                                    onDismiss = onDismiss,
+                                    onAction = onAction
+                                )
+                            }
+                        )
+                        SettingsDropDown(
+                            text = stringResource(R.string.sort_by),
+                            dropdown = @Composable { expanded, onDismiss ->
+                                DisplayNotesSortDropDownMenu(
+                                    selected = state.accountNotesSettings.sortType,
+                                    expanded = expanded,
+                                    onDismiss = onDismiss,
+                                    onAction = onAction
+                                )
+                            }
+                        )
+                    }
+                }
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(top = 10.dp)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.note_edit),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = if (isSystemInDarkTheme()) Color.White else Grey4
+                    )
+                    SettingsContentCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 15.dp,
                             )
-                            SettingsContentRow(
-                                text = stringResource(R.string.sort_by),
-                                dropdown = @Composable { expanded, onDismiss ->
-                                    DisplayNotesSortDropDownMenu(
-                                        expanded = expanded,
-                                        onDismiss = onDismiss,
-                                        onAction = onAction
-                                    )
-                                }
+                            .padding(
+                                top = 20.dp,
+                                bottom = 10.dp
                             )
-                        }
+                    ) {
+                        SettingsNoteStyle(
+                            selected = state.accountNotesSettings.notesStyle,
+                            onStyleChange = {
+                                onAction(SettingsActions.OnNotesStyleChange(it))
+                            }
+                        )
                     }
                 }
             }
         }
+    )
+}
+
+@Preview
+@Composable
+fun SettingsScreenPreview() {
+    SettingsScreen(
+        state = SettingsState(),
+        onAction = {}
     )
 }

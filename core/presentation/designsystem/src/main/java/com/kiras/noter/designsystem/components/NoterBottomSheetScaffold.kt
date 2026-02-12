@@ -9,13 +9,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.kiras.noter.designsystem.getBottomSheetColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoterBottomSheetScaffold(
     modifier: Modifier = Modifier,
     containerColor: Color,
+    sheetContainerColor: Color,
     topAppBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
     bottomSheetContent: @Composable ColumnScope.() -> Unit
@@ -30,7 +30,7 @@ fun NoterBottomSheetScaffold(
                 content = { content(padding) }
             )
         },
-        sheetContainerColor = getBottomSheetColor,
+        sheetContainerColor = sheetContainerColor,
         sheetContent = bottomSheetContent
     )
 }

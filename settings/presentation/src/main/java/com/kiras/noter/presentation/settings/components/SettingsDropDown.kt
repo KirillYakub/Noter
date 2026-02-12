@@ -29,12 +29,13 @@ import com.kiras.noter.designsystem.PopUpIcon
 import com.kiras.noter.designsystem.PopUpOpenIcon
 import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
 import com.kiras.noter.domain.notes.model.settings.NotesSortType
+import com.kiras.noter.domain.notes.model.settings.NotesStyleType
 import com.kiras.noter.presentation.R
 import com.kiras.noter.presentation.settings.SettingsActions
 import com.kiras.noter.presentation.settings.mapper.toText
 
 @Composable
-fun SettingsContentRow(
+fun SettingsDropDown(
     text: String,
     dropdown: @Composable (expanded: Boolean, onDismiss: () -> Unit) -> Unit
 ) {
@@ -67,7 +68,8 @@ fun SettingsContentRow(
 }
 
 @Composable
-fun DisplayNotesStyleDropDownMenu(
+fun DisplayNotesDisplayStyleDropDownMenu(
+    selected: NotesDisplayType,
     expanded: Boolean,
     onDismiss: () -> Unit,
     onAction: (SettingsActions) -> Unit
@@ -86,7 +88,9 @@ fun DisplayNotesStyleDropDownMenu(
                     Text(
                         text = type.toText(),
                         style = MaterialTheme.typography.titleSmall,
-                        color = (if(isSystemInDarkTheme()) Color.White else Color.Black).copy(alpha = 0.8f)
+                        color = (if(isSystemInDarkTheme()) Color.White else Color.Black).copy(
+                            alpha = if(type == selected) 1f else 0.6f
+                        )
                     )
                 },
                 onClick = {
@@ -100,6 +104,7 @@ fun DisplayNotesStyleDropDownMenu(
 
 @Composable
 fun DisplayNotesSortDropDownMenu(
+    selected: NotesSortType,
     expanded: Boolean,
     onDismiss: () -> Unit,
     onAction: (SettingsActions) -> Unit
@@ -118,7 +123,9 @@ fun DisplayNotesSortDropDownMenu(
                     Text(
                         text = type.toText(),
                         style = MaterialTheme.typography.titleSmall,
-                        color = (if(isSystemInDarkTheme()) Color.White else Color.Black).copy(alpha = 0.8f)
+                        color = (if(isSystemInDarkTheme()) Color.White else Color.Black).copy(
+                            alpha = if(type == selected) 1f else 0.6f
+                        )
                     )
                 },
                 onClick = {

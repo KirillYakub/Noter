@@ -13,6 +13,7 @@ import com.kiras.noter.domain.accounts.repository.AccountId
 import com.kiras.noter.domain.accounts.repository.AccountsLocalDataSource
 import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
 import com.kiras.noter.domain.notes.model.settings.NotesSortType
+import com.kiras.noter.domain.notes.model.settings.NotesStyleType
 import com.kiras.noter.domain.util.DataError
 import com.kiras.noter.domain.util.Result
 import kotlinx.coroutines.flow.Flow
@@ -39,7 +40,8 @@ class RoomAccountLocalDataSourceImpl(
                 settingsDao.updateAccountNotesSettings(accountNotesSettingsEntity =
                     AccountNotesSettingsEntity(
                         ownerAccountId = accountAsEntity.id,
-                        isDateSearchEnabled = false,
+                        isDateSearchEnabled = true,
+                        notesStyleType = NotesStyleType.COLOR_FULL,
                         displayType = NotesDisplayType.GRID,
                         sortType = NotesSortType.DATE
                     )

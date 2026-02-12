@@ -6,6 +6,7 @@ import com.kiras.noter.domain.notes.model.settings.NotesSettings
 fun AccountNotesSettingsEntity.toNotesSettings(): NotesSettings {
     return NotesSettings(
         ownerAccountId = ownerAccountId,
+        notesStyle = notesStyleType,
         isDateSearchEnabled = isDateSearchEnabled,
         displayType = displayType,
         sortType = sortType
@@ -15,6 +16,7 @@ fun AccountNotesSettingsEntity.toNotesSettings(): NotesSettings {
 fun NotesSettings.toNotesSettingsEntity(): AccountNotesSettingsEntity {
     return AccountNotesSettingsEntity(
         ownerAccountId = ownerAccountId,
+        notesStyleType = notesStyle,
         isDateSearchEnabled = isDateSearchEnabled,
         displayType = displayType,
         sortType = sortType

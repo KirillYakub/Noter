@@ -6,6 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
 import com.kiras.noter.domain.notes.model.settings.NotesSortType
+import com.kiras.noter.domain.notes.model.settings.NotesStyleType
 
 @Entity(
     tableName = "account_notes_settings",
@@ -23,6 +24,7 @@ data class AccountNotesSettingsEntity(
     @PrimaryKey(autoGenerate = false)
     val ownerAccountId: String,
     val isDateSearchEnabled: Boolean,
+    val notesStyleType: NotesStyleType,
     val displayType: NotesDisplayType,
     val sortType: NotesSortType
 )

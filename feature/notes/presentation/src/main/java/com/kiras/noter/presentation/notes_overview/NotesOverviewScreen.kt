@@ -86,6 +86,7 @@ private fun NotesOverviewScreen(
                 NotesList(
                     notes = state.notes,
                     notesDisplayType = state.notesDisplayType,
+                    noteStyle = state.notesStyle,
                     onNoteClick = { id -> onAction(NotesOverviewActions.OnNoteClick(id)) },
                     onNoteLongClick = { id -> onAction(NotesOverviewActions.OnDeleteNote(id)) }
                 )

@@ -53,6 +53,12 @@ class SettingsViewModel(
                 )
                 updateNote(state)
             }
+            is SettingsActions.OnNotesStyleChange -> {
+                state = state.copy(accountNotesSettings =
+                    state.accountNotesSettings.copy(notesStyle = action.notesStyle)
+                )
+                updateNote(state)
+            }
             else -> Unit
         }
     }
