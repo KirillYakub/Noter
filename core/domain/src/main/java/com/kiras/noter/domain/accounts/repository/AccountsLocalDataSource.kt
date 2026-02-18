@@ -11,6 +11,6 @@ interface AccountsLocalDataSource {
     fun getAccounts(): Flow<List<Account>>
     suspend fun registerAccount(account: Account): Result<AccountId, DataError.Local>
     suspend fun loginAccount(email: String, passwordHash: String): Result<AccountId, DataError.Local>
-    suspend fun getAccount(id: AccountId): Account?
+    suspend fun getAccount(id: AccountId): Account
     suspend fun deleteAccount(id: AccountId)
 }

@@ -12,8 +12,9 @@ data class NotesOverviewState(
     val notesStyle: NotesStyleType = NotesStyleType.COLOR_FULL,
     val notesSortType: NotesSortType = NotesSortType.DATE,
     val notesDisplayType: NotesDisplayType = NotesDisplayType.GRID,
-    val isCalendarDaysVisible: Boolean = true,
+    val isCalendarDaysVisible: Boolean = false,
     val calendarDays: List<CalendarDayUi> = emptyList(),
     val selectedDayId: String? = null,
-    val notes: List<NoteUi> = emptyList()
+    val notes: List<NoteUi> = emptyList(),
+    val isLoading: Boolean = false,
 )

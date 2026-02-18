@@ -2,9 +2,11 @@ package com.kiras.noter.database
 
 import android.database.sqlite.SQLiteFullException
 import com.kiras.noter.database.dao.NotesDao
+import com.kiras.noter.database.entity.NoteEntity
 import com.kiras.noter.database.mappers.toNote
 import com.kiras.noter.database.mappers.toNoteEntity
 import com.kiras.noter.domain.notes.model.Note
+import com.kiras.noter.domain.notes.model.settings.NotesSortType
 import com.kiras.noter.domain.notes.repository.NoteId
 import com.kiras.noter.domain.notes.repository.NotesLocalDataSource
 import com.kiras.noter.domain.util.DataError
@@ -16,19 +18,41 @@ class RoomNotesLocalDataSourceImpl(
     private val notesDao: NotesDao
 ): NotesLocalDataSource {
 
-    override fun getNotes(ownerAccountId: String): Flow<List<Note>> {
-        return notesDao.getAllNotes(ownerAccountId).map { notes ->
-            notes.map { it.toNote() }
-        }
+    override fun getNotes(
+        ownerAccountId: String,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>> {
+        return when {
+            query.isBlank() && sortType == NotesSortType.DATE ->
+                notesDao.getAllNotesByDate(ownerAccountId)
+            query.isBlank() && sortType == NotesSortType.ALPHABETICALLY ->
+                notesDao.getAllNotesAlphabetically(ownerAccountId)
+            query.isNotBlank() && sortType == NotesSortType.DATE ->
+                notesDao.searchNotesByDate(ownerAccountId, query)
+            else ->
+                notesDao.searchNotesAlphabetically(ownerAccountId, query)
+        }.map { list -> list.map { it.toNote() } }
     }
 
     override fun getNotesByDay(
         ownerAccountId: String,
         dayStart: Long,
         dayEnd: Long,
+        query: String,
+        sortType: NotesSortType
     ): Flow<List<Note>> {
-        return notesDao.getNotesByDay(ownerAccountId, dayStart, dayEnd).map { notes ->
-            notes.map { it.toNote() }
+        return when {
+            query.isBlank() && sortType == NotesSortType.DATE ->
+                notesDao.getNotesByDayByDate(ownerAccountId, dayStart, dayEnd)
+            query.isBlank() && sortType == NotesSortType.ALPHABETICALLY ->
+                notesDao.getNotesByDayAlphabetically(ownerAccountId, dayStart, dayEnd)
+            query.isNotBlank() && sortType == NotesSortType.DATE ->
+                notesDao.searchNotesByDayByDate(ownerAccountId, dayStart, dayEnd, query)
+            else ->
+                notesDao.searchNotesByDayAlphabetically(ownerAccountId, dayStart, dayEnd, query)
+        }.map { list ->
+            list.map { it.toNote() }
         }
     }
 

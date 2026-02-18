@@ -15,8 +15,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.Grey4
+import com.kiras.noter.designsystem.anim.SlideFadeAnimatedContent
 import com.kiras.noter.designsystem.components.NoterScaffold
 import com.kiras.noter.presentation.R
+import com.kiras.noter.presentation.settings.components.DisplayAccountDropDownMenu
 import com.kiras.noter.presentation.settings.components.DisplayNotesSortDropDownMenu
 import com.kiras.noter.presentation.settings.components.DisplayNotesDisplayStyleDropDownMenu
 import com.kiras.noter.presentation.settings.components.SettingsContentCard
@@ -52,114 +54,125 @@ fun SettingsScreen(
     state: SettingsState,
     onAction: (SettingsActions) -> Unit
 ) {
-    NoterScaffold(
-        modifier = Modifier.fillMaxSize(),
-        containerColor = if (isSystemInDarkTheme()) Color.Black else Color.White,
-        topAppBar = {
-            SettingsStatusBar(
-                onBackClick = { onAction(SettingsActions.OnBackClick) }
-            )
-        },
-        content = { paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                verticalArrangement = Arrangement.spacedBy(15.dp)
-            ) {
+    SlideFadeAnimatedContent(visible = state.showContent) {
+        NoterScaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor = if (isSystemInDarkTheme()) Color.Black else Color.White,
+            topAppBar = {
+                SettingsStatusBar(
+                    icon = state.accountNotesSettings.accountIcon,
+                    onBackClick = { onAction(SettingsActions.OnBackClick) },
+                    dropdown = @Composable { expanded, onDismiss ->
+                        DisplayAccountDropDownMenu(
+                            expanded = expanded,
+                            onDismiss = onDismiss,
+                            onAction = onAction
+                        )
+                    },
+                    modifier = Modifier.padding(end = 10.dp)
+                )
+            },
+            content = { paddingValues ->
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
                     modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 25.dp),
+                        .fillMaxSize()
+                        .padding(paddingValues),
+                    verticalArrangement = Arrangement.spacedBy(15.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.menu),
-                        style = MaterialTheme.typography.titleSmall,
-                        color = if (isSystemInDarkTheme()) Color.White else Grey4
-                    )
-                    SettingsContentCard(
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                horizontal = 15.dp,
-                                vertical = 5.dp
-                            )
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 25.dp),
                     ) {
-                        SettingsSwitcher(
-                            text = stringResource(R.string.dates_search),
-                            isChecked = state.accountNotesSettings.isDateSearchEnabled,
-                            onCheckedChange = {
-                                onAction(SettingsActions.OnDateSearchEnableChange(it))
-                            },
-                            modifier = Modifier.fillMaxWidth()
+                        Text(
+                            text = stringResource(id = R.string.menu),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = if (isSystemInDarkTheme()) Color.White else Grey4
                         )
-                    }
-                    SettingsContentCard(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                horizontal = 15.dp,
-                                vertical = 5.dp
-                            )
-                    ) {
-                        SettingsDropDown(
-                            text = stringResource(R.string.display_style),
-                            dropdown = @Composable { expanded, onDismiss ->
-                                DisplayNotesDisplayStyleDropDownMenu(
-                                    selected = state.accountNotesSettings.displayType,
-                                    expanded = expanded,
-                                    onDismiss = onDismiss,
-                                    onAction = onAction
+                        SettingsContentCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 15.dp,
+                                    vertical = 5.dp
                                 )
-                            }
-                        )
-                        SettingsDropDown(
-                            text = stringResource(R.string.sort_by),
-                            dropdown = @Composable { expanded, onDismiss ->
-                                DisplayNotesSortDropDownMenu(
-                                    selected = state.accountNotesSettings.sortType,
-                                    expanded = expanded,
-                                    onDismiss = onDismiss,
-                                    onAction = onAction
+                        ) {
+                            SettingsSwitcher(
+                                text = stringResource(R.string.dates_search),
+                                isChecked = state.accountNotesSettings.isDateSearchEnabled,
+                                onCheckedChange = {
+                                    onAction(SettingsActions.OnDateSearchEnableChange(it))
+                                },
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                        SettingsContentCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 15.dp,
+                                    vertical = 5.dp
                                 )
-                            }
-                        )
+                        ) {
+                            SettingsDropDown(
+                                text = stringResource(R.string.display_style),
+                                dropdown = @Composable { expanded, onDismiss ->
+                                    DisplayNotesDisplayStyleDropDownMenu(
+                                        selected = state.accountNotesSettings.displayType,
+                                        expanded = expanded,
+                                        onDismiss = onDismiss,
+                                        onAction = onAction
+                                    )
+                                }
+                            )
+                            SettingsDropDown(
+                                text = stringResource(R.string.sort_by),
+                                dropdown = @Composable { expanded, onDismiss ->
+                                    DisplayNotesSortDropDownMenu(
+                                        selected = state.accountNotesSettings.sortType,
+                                        expanded = expanded,
+                                        onDismiss = onDismiss,
+                                        onAction = onAction
+                                    )
+                                }
+                            )
+                        }
                     }
-                }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(top = 10.dp)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.note_edit),
-                        style = MaterialTheme.typography.titleSmall,
-                        color = if (isSystemInDarkTheme()) Color.White else Grey4
-                    )
-                    SettingsContentCard(
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(
-                                horizontal = 15.dp,
-                            )
-                            .padding(
-                                top = 20.dp,
-                                bottom = 10.dp
-                            )
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 10.dp)
                     ) {
-                        SettingsNoteStyle(
-                            selected = state.accountNotesSettings.notesStyle,
-                            onStyleChange = {
-                                onAction(SettingsActions.OnNotesStyleChange(it))
-                            }
+                        Text(
+                            text = stringResource(id = R.string.note_edit),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = if (isSystemInDarkTheme()) Color.White else Grey4
                         )
+                        SettingsContentCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(
+                                    horizontal = 15.dp,
+                                )
+                                .padding(
+                                    top = 20.dp,
+                                    bottom = 10.dp
+                                )
+                        ) {
+                            SettingsNoteStyle(
+                                selected = state.accountNotesSettings.notesStyle,
+                                onStyleChange = {
+                                    onAction(SettingsActions.OnNotesStyleChange(it))
+                                }
+                            )
+                        }
                     }
                 }
             }
-        }
-    )
+        )
+    }
 }
 
 @Preview

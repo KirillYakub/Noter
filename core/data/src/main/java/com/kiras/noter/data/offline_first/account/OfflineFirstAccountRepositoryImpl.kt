@@ -44,7 +44,7 @@ class OfflineFirstAccountRepositoryImpl(
         return Result.Success(Unit)
     }
 
-    override suspend fun getAccount(id: AccountId): Account? {
+    override suspend fun getAccount(id: AccountId): Account {
         return localDataSource.getAccount(id)
     }
 

@@ -67,8 +67,8 @@ class RoomAccountLocalDataSourceImpl(
         }
     }
 
-    override suspend fun getAccount(id: AccountId): Account? {
-        return accountDao.getAccountById(id)?.toAccount()
+    override suspend fun getAccount(id: AccountId): Account {
+        return accountDao.getAccountById(id).toAccount()
     }
 
     override suspend fun deleteAccount(id: AccountId) {

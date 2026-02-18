@@ -5,6 +5,7 @@ import com.kiras.noter.model.NoteUi
 import com.kiras.noter.presentation.note_page.model.NoteAlignment
 
 data class NotePageState (
+    val showNoteContent: Boolean = false,
     val alignment: NoteAlignment = NoteAlignment.START,
     val noteStyleType: NotesStyleType = NotesStyleType.COLOR_FULL,
     val noteUi: NoteUi = NoteUi()

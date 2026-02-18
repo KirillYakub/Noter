@@ -1,5 +1,7 @@
 package com.kiras.noter.presentation.notes_overview
 
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -75,7 +77,7 @@ private fun NotesOverviewScreen(
                         bottom = padding.calculateBottomPadding(),
                     )
             ) {
-                if(state.isCalendarDaysVisible) {
+                AnimatedVisibility(state.isCalendarDaysVisible) {
                     CalendarRow(
                         days = state.calendarDays,
                         onDayClick = { id ->

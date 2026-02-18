@@ -1,5 +1,6 @@
 package com.kiras.noter.presentation.notes_overview
 
+import android.util.Log
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,7 +31,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -51,6 +54,7 @@ class NotesOverviewViewModel(
     init {
         domainDays = lastMonthToToday()
         state = state.copy(
+            isLoading = true,
             calendarDays = rebuildCalendarUi(null)
         )
 
@@ -70,49 +74,43 @@ class NotesOverviewViewModel(
                 replay = 1
             )
 
-        notesSettingsFlow.onEach { settings ->
-            state = state.copy(
-                notesSortType = settings.sortType,
-                notesStyle = settings.notesStyle,
-                notesDisplayType = settings.displayType,
-                isCalendarDaysVisible = settings.isDateSearchEnabled
-            )
-        }.launchIn(viewModelScope)
-
         combine(
             selectedCalendarDayFlow,
             searchQueryFlow,
             notesSettingsFlow
-        ) { selectedDay, query, notesSettings ->
-            Triple(selectedDay, query, notesSettings)
+        ) { selectedDay, query, settings ->
+            Triple(selectedDay, query, settings)
         }
-            .flowOn(Dispatchers.IO)
-            .flatMapLatest { (selectedDay, query, notesSettings) ->
-
-                val base = when {
-                    selectedDay == null || !notesSettings.isDateSearchEnabled -> {
-                        notesRepository.getNotes()
-                    }
-                    else -> {
-                        val (start, end) = LocalDate.parse(selectedDay).toEpochDayRange()
-                        notesRepository.getNotesByDay(start, end)
-                    }
+            .flatMapLatest { (selectedDay, query, settings) ->
+                val notesFlow = if (selectedDay != null && settings.isDateSearchEnabled) {
+                    val (start, end) = LocalDate.parse(selectedDay).toEpochDayRange()
+                    notesRepository.getNotesByDay(
+                        dayStart = start,
+                        dayEnd = end,
+                        query = query,
+                        sortType = settings.sortType
+                    )
                 }
-
-                if (query.isBlank()) base
                 else {
-                    base.map { list ->
-                        list.filter { note ->
-                            note.title.contains(query, ignoreCase = true) ||
-                                    note.content.contains(query, ignoreCase = true)
-                        }
-                    }
+                    notesRepository.getNotes(
+                        query = query,
+                        sortType = settings.sortType
+                    )
                 }
+                notesFlow.map { notes -> notes to settings }
             }
-            .filterNotNull()
-            .map { notes -> notes.sortedWith(state.notesSortType.toComparator()) }
-            .map { notes -> notes.map { it.toNoteUi() } }
-            .onEach { uiNotes -> state = state.copy(notes = uiNotes) }
+            .map { (notes, settings) -> notes.map { it.toNoteUi() } to settings }
+            .flowOn(Dispatchers.IO)
+            .onEach { (uiNotes, settings) ->
+                state = state.copy(
+                    notesSortType = settings.sortType,
+                    notesStyle = settings.notesStyle,
+                    notesDisplayType = settings.displayType,
+                    isCalendarDaysVisible = settings.isDateSearchEnabled,
+                    notes = uiNotes,
+                    isLoading = false
+                )
+            }
             .launchIn(viewModelScope)
     }
 

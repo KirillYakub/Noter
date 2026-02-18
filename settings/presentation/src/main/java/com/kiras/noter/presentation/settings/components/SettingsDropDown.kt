@@ -3,6 +3,7 @@ package com.kiras.noter.presentation.settings.components
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.DropdownMenu
@@ -74,13 +75,9 @@ fun DisplayNotesDisplayStyleDropDownMenu(
     onDismiss: () -> Unit,
     onAction: (SettingsActions) -> Unit
 ) {
-    val screenWidthDp = LocalWindowInfo.current.containerDpSize.width
-
-    DropdownMenu(
+    DropdownMenuContainer(
         expanded = expanded,
-        onDismissRequest = onDismiss,
-        containerColor = if(isSystemInDarkTheme()) Grey5 else Grey1,
-        offset = remember { DpOffset(screenWidthDp, 0.dp) }
+        onDismiss = onDismiss
     ) {
         NotesDisplayType.entries.forEach { type ->
             DropdownMenuItem(
@@ -109,13 +106,9 @@ fun DisplayNotesSortDropDownMenu(
     onDismiss: () -> Unit,
     onAction: (SettingsActions) -> Unit
 ) {
-    val screenWidthDp = LocalWindowInfo.current.containerDpSize.width
-
-    DropdownMenu(
+    DropdownMenuContainer(
         expanded = expanded,
-        onDismissRequest = onDismiss,
-        containerColor = if(isSystemInDarkTheme()) Grey5 else Grey1,
-        offset = remember { DpOffset(screenWidthDp, 0.dp) }
+        onDismiss = onDismiss
     ) {
         NotesSortType.entries.forEach { type ->
             DropdownMenuItem(
@@ -135,4 +128,47 @@ fun DisplayNotesSortDropDownMenu(
             )
         }
     }
+}
+
+@Composable
+fun DisplayAccountDropDownMenu(
+    expanded: Boolean,
+    onDismiss: () -> Unit,
+    onAction: (SettingsActions) -> Unit
+) {
+    DropdownMenuContainer(
+        expanded = expanded,
+        onDismiss = onDismiss
+    ) {
+        DropdownMenuItem(
+            text = {
+                Text(
+                    text = stringResource(R.string.logout),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = if(isSystemInDarkTheme()) Color.White else Color.Black
+                )
+            },
+            onClick = {
+                onAction(SettingsActions.OnLogoutClick)
+                onDismiss()
+            }
+        )
+    }
+}
+
+@Composable
+private fun DropdownMenuContainer(
+    expanded: Boolean,
+    onDismiss: () -> Unit,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    val screenWidthDp = LocalWindowInfo.current.containerDpSize.width
+
+    DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = onDismiss,
+        containerColor = if(isSystemInDarkTheme()) Grey5 else Grey1,
+        offset = remember { DpOffset(screenWidthDp, 0.dp) },
+        content = content
+    )
 }

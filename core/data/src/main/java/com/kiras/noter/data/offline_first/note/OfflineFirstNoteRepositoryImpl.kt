@@ -2,6 +2,7 @@ package com.kiras.noter.data.offline_first.note
 
 import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
 import com.kiras.noter.domain.notes.model.Note
+import com.kiras.noter.domain.notes.model.settings.NotesSortType
 import com.kiras.noter.domain.notes.repository.NoteId
 import com.kiras.noter.domain.notes.repository.NotesLocalDataSource
 import com.kiras.noter.domain.notes.repository.NotesRepository
@@ -18,22 +19,31 @@ class OfflineFirstNoteRepositoryImpl(
     private val authActiveSessionStorage: AuthActiveSessionStorage
 ): NotesRepository {
 
-    override suspend fun getNotes(): Flow<List<Note>> {
+    override suspend fun getNotes(query: String, sortType: NotesSortType): Flow<List<Note>> {
+        val userId = authActiveSessionStorage.get()!!.userId
         return localDataSource.getNotes(
-            ownerAccountId = authActiveSessionStorage.get()!!.userId
+            ownerAccountId = userId,
+            query = query,
+            sortType = sortType
         )
     }
 
     override suspend fun getNotesByDay(
         dayStart: Long,
         dayEnd: Long,
+        query: String,
+        sortType: NotesSortType
     ): Flow<List<Note>> {
+        val userId = authActiveSessionStorage.get()!!.userId
         return localDataSource.getNotesByDay(
-            ownerAccountId = authActiveSessionStorage.get()!!.userId,
+            ownerAccountId = userId,
             dayStart = dayStart,
-            dayEnd = dayEnd
+            dayEnd = dayEnd,
+            query = query,
+            sortType = sortType
         )
     }
+
 
     override suspend fun getNote(id: NoteId): Note {
         return localDataSource.getNote(

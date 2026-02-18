@@ -16,4 +16,6 @@
     <string name="full_color">Full color</string>
     <string name="your_text">Your text</string>
     <string name="color_line">Color line</string>
+    <string name="logout">Logout</string>
+    <string name="account_settings_icon">Account settings icon</string>
 </resources>

@@ -17,7 +17,7 @@ import org.bson.types.ObjectId
             onDelete = ForeignKey.CASCADE
         )],
     indices = [
-        Index("ownerAccountId")
+        Index("ownerAccountId", "createTime")
     ]
 )
 data class NoteEntity(

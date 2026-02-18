@@ -27,7 +27,7 @@ fun NotesList(
         modifier = Modifier
             .fillMaxWidth()
             .padding(18.dp),
-        columns = StaggeredGridCells.Fixed(if(notesDisplayType == NotesDisplayType.LIST) 1 else 2),
+        columns = StaggeredGridCells.Fixed(if (notesDisplayType == NotesDisplayType.LIST) 1 else 2),
         verticalItemSpacing = 12.dp,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {

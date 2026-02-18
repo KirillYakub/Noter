@@ -16,6 +16,8 @@ import com.kiras.noter.presentation.note_page.model.NoteDraft
 import com.kiras.noter.presentation.util.NotePage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.async
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
@@ -38,26 +40,24 @@ class NotePageViewModel(
     init {
         val args = saveStateHandle.toRoute<NotePage>()
         viewModelScope.launch {
-            val note = args.id?.let { id -> noteEditUseCase.getNote(id) }
-                ?: noteEditUseCase.createEmptyNote()
-            val noteStyleType = getNotesSettingsUseCase.getNotesSettings().notesStyle
+            val noteResult = async {
+                args.id?.let { id -> noteEditUseCase.getNote(id) }
+                    ?: noteEditUseCase.createEmptyNote()
+            }
+            val noteStyleTypeResult = async {
+                getNotesSettingsUseCase.getNotesSettings().notesStyle
+            }
+            val note = noteResult.await()
+            val noteStyleType = noteStyleTypeResult.await()
             noteDraft = NoteDraft(
                 noteCreateTime = note.createTime,
                 ownerAccountId = note.ownerAccountId
             )
-            notePageState = with(notePageState) {
-                val noteUi = note.toNoteUi()
-                copy(
-                    noteStyleType = noteStyleType,
-                    noteUi = noteUi.copy(
-                        id = noteUi.id,
-                        title = noteUi.title,
-                        content = noteUi.content,
-                        color = noteUi.color,
-                        createTime = noteUi.createTime
-                    )
-                )
-            }
+            notePageState = notePageState.copy(
+                showNoteContent = true,
+                noteStyleType = noteStyleType,
+                noteUi = note.toNoteUi()
+            )
         }
 
         snapshotFlow { notePageState }

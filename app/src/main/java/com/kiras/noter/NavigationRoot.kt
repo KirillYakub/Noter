@@ -44,7 +44,9 @@ private fun NavGraphBuilder.notesGraph(navHostController: NavHostController) {
             onLogoutClick = {
                 navHostController.navigate(Intro) {
                     launchSingleTop = true
-                    popUpTo(Intro)
+                    popUpTo<NotesOverview> {
+                        inclusive = true
+                    }
                 }
             }
         )

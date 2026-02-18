@@ -5,17 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kiras.noter.domain.accounts.repository.AccountsRepository
 import com.kiras.noter.domain.use_case.LogoutUseCase
 import com.kiras.noter.domain.use_case.NotesSettingsUseCase
 import com.kiras.noter.presentation.settings.mapper.toNotesSettings
 import com.kiras.noter.presentation.settings.mapper.toNotesSettingsUi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val logoutUseCase: LogoutUseCase,
     private val notesSettingsUseCase: NotesSettingsUseCase,
+    private val applicationScope: CoroutineScope
 ) : ViewModel() {
 
     var state by mutableStateOf(SettingsState())
@@ -27,7 +31,12 @@ class SettingsViewModel(
     init {
         viewModelScope.launch {
             state = state.copy(
-                accountNotesSettings = notesSettingsUseCase.getNotesSettings().toNotesSettingsUi(),
+                showContent = true,
+                accountNotesSettings = notesSettingsUseCase.getNotesSettings()
+                    .toNotesSettingsUi()
+                    .copy(
+                        accountIcon = logoutUseCase.getAccountById().icon
+                    )
             )
         }
     }
@@ -64,13 +73,13 @@ class SettingsViewModel(
     }
 
     private fun updateNote(state: SettingsState) {
-        viewModelScope.launch {
+        applicationScope.launch {
             notesSettingsUseCase.setNotesSettings(state.accountNotesSettings.toNotesSettings())
         }
     }
 
     private fun logout() {
-        viewModelScope.launch {
+        applicationScope.launch {
             logoutUseCase.logout()
             eventChannel.send(Unit)
         }

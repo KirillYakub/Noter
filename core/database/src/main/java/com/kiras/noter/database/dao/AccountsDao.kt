@@ -19,7 +19,7 @@ interface AccountsDao {
     suspend fun loginAccount(email: String, passwordHash: String): AccountEntity?
 
     @Query("SELECT * FROM accounts WHERE id = :id LIMIT 1")
-    suspend fun getAccountById(id: String): AccountEntity?
+    suspend fun getAccountById(id: String): AccountEntity
 
     @Query("DELETE FROM notes WHERE id = :id")
     suspend fun deleteAccountById(id: String)

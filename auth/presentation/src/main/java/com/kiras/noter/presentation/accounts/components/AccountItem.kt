@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -34,7 +36,7 @@ fun AccountItem(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = CircleShape,
         colors = CardDefaults.cardColors(
             containerColor = getAuthTextFieldsColor
         ),
@@ -42,14 +44,15 @@ fun AccountItem(
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(15.dp)
+            horizontalArrangement = Arrangement.spacedBy(15.dp),
+            modifier = Modifier.padding(10.dp)
         ) {
             Image(
                 imageVector = icon.getAccountIcon(),
                 contentDescription = null,
                 modifier = Modifier.size(40.dp)
             )
-            Column {
+            Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
                 Text(
                     text = name,
                     style = MaterialTheme.typography.titleMedium,
