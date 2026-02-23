@@ -3,10 +3,10 @@ package com.kiras.noter.presentation.util
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object Registration
+data class Login(val email: String? = null)
 
 @Serializable
-data object Login
+data object Registration
 
 @Serializable
 data object Intro

@@ -63,10 +63,13 @@ fun RegistrationIconsRow(
             contentAlignment = Alignment.Center
         ) {
             val pageMaxSize = 80.dp
-            val sidePadding = ((maxWidth - pageMaxSize) / 2).coerceAtLeast(0.dp)
+            val sidePadding = remember {
+                ((maxWidth - pageMaxSize) / 2).coerceAtLeast(0.dp)
+            }
 
             HorizontalPager(
                 state = pagerState,
+                key = { id -> AccountIcon.entries[id].name },
                 pageSize = PageSize.Fixed(pageSize = pageMaxSize),
                 contentPadding = PaddingValues(horizontal = sidePadding),
                 flingBehavior = PagerDefaults.flingBehavior(state = pagerState),
@@ -74,13 +77,28 @@ fun RegistrationIconsRow(
                 modifier = Modifier.fillMaxWidth()
             ) { page ->
 
-                val offset = pagerState.getOffsetDistanceInPages(page)
-                val dist = abs(offset)
-
-                val (size: Dp, alpha: Float) = when {
-                    dist <= 1f -> lerpDp(80.dp, 60.dp, dist) to 1f
-                    dist <= 2f -> lerpDp(60.dp, 40.dp, dist - 1f) to 0.8f
-                    else -> 40.dp to 0.6f
+                val dist by remember(pagerState, page) {
+                    derivedStateOf {
+                        abs(pagerState.getOffsetDistanceInPages(page))
+                    }
+                }
+                val size by remember(dist) {
+                    derivedStateOf {
+                        when {
+                            dist <= 1f -> lerpDp(80.dp, 60.dp, dist)
+                            dist <= 2f -> lerpDp(60.dp, 40.dp, dist - 1f)
+                            else -> 40.dp
+                        }
+                    }
+                }
+                val alpha by remember(dist) {
+                    derivedStateOf {
+                        when {
+                            dist <= 1f -> 1f
+                            dist <= 2f -> 0.8f
+                            else -> 0.6f
+                        }
+                    }
                 }
 
                 Box(

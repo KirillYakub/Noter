@@ -1,30 +1,51 @@
 package com.kiras.noter.presentation.note_page
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.anim.SlideFadeAnimatedContent
@@ -42,6 +63,9 @@ import com.kiras.noter.presentation.note_page.components.NotePageStatusBar
 import com.kiras.noter.presentation.note_page.components.NoteTextField
 import com.kiras.noter.presentation.note_page.mapper.toTextAlign
 import com.kiras.noter.ui.getColorForUiTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -90,9 +114,20 @@ fun NotePageScreen(
     val bottomSheetContentColor = bottomSheetColor.getTextColorForBackground()
 
     SlideFadeAnimatedContent(visible = state.showNoteContent) {
+
+        val scaffoldState = rememberBottomSheetScaffoldState(
+            bottomSheetState = rememberStandardBottomSheetState(
+                initialValue = SheetValue.PartiallyExpanded,
+                skipHiddenState = false
+            )
+        )
+        var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+        val scope = rememberCoroutineScope()
+
         NoterBottomSheetScaffold(
             modifier = Modifier
                 .fillMaxSize(),
+            state = scaffoldState,
             containerColor = noteContainerColor,
             sheetContainerColor = bottomSheetColor,
             topAppBar = {
@@ -108,11 +143,21 @@ fun NotePageScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(
-                            top = padding.calculateTopPadding(),
-                            bottom = padding.calculateBottomPadding(),
-                        )
-                        .padding(horizontal = 14.dp),
+                        .windowInsetsPadding(WindowInsets.systemBars)
+                        .windowInsetsPadding(WindowInsets.displayCutout)
+                        .padding(padding)
+                        .padding(horizontal = 14.dp)
+                        .pointerInput(Unit) {
+                            awaitEachGesture {
+                                awaitFirstDown(
+                                    pass = PointerEventPass.Initial,
+                                    requireUnconsumed = false
+                                )
+                                scope.launch {
+                                    scaffoldState.bottomSheetState.partialExpand()
+                                }
+                            }
+                        },
                     horizontalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     Column(

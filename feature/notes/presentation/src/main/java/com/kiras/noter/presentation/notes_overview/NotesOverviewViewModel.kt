@@ -14,6 +14,7 @@ import com.kiras.noter.domain.util.date.lastMonthToToday
 import com.kiras.noter.domain.util.date.toEpochDayRange
 import com.kiras.noter.domain.notes.model.settings.toComparator
 import com.kiras.noter.domain.use_case.GetNotesSettingsUseCase
+import com.kiras.noter.domain.use_case.NoteEditUseCase
 import com.kiras.noter.mapper.toNoteUi
 import com.kiras.noter.presentation.notes_overview.mapper.toCalendarDayUi
 import com.kiras.noter.presentation.notes_overview.model.CalendarDayUi
@@ -42,6 +43,7 @@ fun TextFieldState.textAsFlow() = snapshotFlow { text }
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class NotesOverviewViewModel(
     private val notesRepository: NotesRepository,
+    private val noteEditUseCase: NoteEditUseCase,
     private val getNotesSettingsUseCase: GetNotesSettingsUseCase,
     private val applicationScope: CoroutineScope
 ) : ViewModel() {
@@ -119,6 +121,11 @@ class NotesOverviewViewModel(
             is NotesOverviewActions.OnDeleteNote -> {
                 viewModelScope.launch {
                     notesRepository.deleteNote(action.noteId)
+                }
+            }
+            is NotesOverviewActions.OnCopyNote -> {
+                viewModelScope.launch {
+                    noteEditUseCase.upsertNoteCopy(action.noteId)
                 }
             }
             is NotesOverviewActions.OnCalendarDaySelected -> {

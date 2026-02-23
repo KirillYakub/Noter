@@ -6,7 +6,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 fun Account.toAccountUi(): AccountUi {
-    val formatTimePattern = "dd.MM.yyyy"
+    val formatTimePattern = "dd.MM.yyyy HH:mm"
     val createTimeInLocalTime = lastSignIn
         .withZoneSameInstant(ZoneId.systemDefault())
 
@@ -18,6 +18,7 @@ fun Account.toAccountUi(): AccountUi {
         id = id,
         name = name,
         icon = icon,
+        email = email,
         lastSignIn = formattedSignInTimeAsString
     )
 }

@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,7 +29,9 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kiras.noter.designsystem.EmailIcon
 import com.kiras.noter.designsystem.Grey1
+import com.kiras.noter.designsystem.Grey4
 import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.components.NoterScaffold
@@ -98,11 +102,19 @@ private fun LoginScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
+                    .verticalScroll(rememberScrollState())
             ) {
                 AuthTextField(
                     state = state.email,
+                    icon = EmailIcon,
                     hint = stringResource(id = R.string.your_email),
-                    title = stringResource(id = R.string.email),
+                    titleContent = {
+                        Text(
+                            text = stringResource(id = R.string.email),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = if (isSystemInDarkTheme()) Color.White else Grey4
+                        )
+                    },
                     modifier = Modifier.padding(top = 25.dp)
                 )
                 AuthPasswordTextField(

@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
 import com.kiras.noter.domain.notes.model.settings.NotesStyleType
+import com.kiras.noter.domain.util.extensions.takeFirst
 import com.kiras.noter.model.NoteUi
 import com.kiras.noter.ui.getColorForUiTheme
 
@@ -21,7 +22,8 @@ fun NotesList(
     notesDisplayType: NotesDisplayType,
     noteStyle: NotesStyleType,
     onNoteClick: (String) -> Unit,
-    onNoteLongClick: (String) -> Unit
+    onDeleteClick: (String) -> Unit,
+    onCopyClick: (String) -> Unit
 ) {
     LazyVerticalStaggeredGrid(
         modifier = Modifier
@@ -33,13 +35,15 @@ fun NotesList(
     ) {
         items(items = notes, key = { it.id }) { note ->
             NoteOverviewItem(
-                content = note.content,
-                title = note.title,
+                content = note.content.takeFirst(),
+                title = note.title.takeFirst(),
                 color = note.color.getColorForUiTheme(),
+                date = note.createTime,
                 isNotesStyleLine = noteStyle == NotesStyleType.COLOR_LINE,
                 isColorDefault = note.color == NoteColor.DEFAULT,
                 onClick = { onNoteClick(note.id) },
-                onDeleteClick = { onNoteLongClick(note.id) }
+                onDeleteClick = { onDeleteClick(note.id) },
+                onCopyClick = { onCopyClick(note.id) }
             )
         }
     }

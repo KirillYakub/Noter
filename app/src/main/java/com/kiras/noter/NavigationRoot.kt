@@ -1,6 +1,11 @@
 package com.kiras.noter
 
+import android.util.Log
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
@@ -28,7 +33,8 @@ fun NavigationRoot(
     navHostController: NavHostController
 ) {
     NavHost(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         navController = navHostController,
         startDestination = if(!isLoggedIn) Intro else NotesOverview
     ) {
@@ -96,7 +102,7 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
                 }
             },
             onLoginClick = {
-                navController.navigate(Login) {
+                navController.navigate(Login()) {
                     launchSingleTop = true
                     popUpTo(Intro)
                 }
@@ -106,14 +112,18 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
     composable<Accounts> {
         AccountsOverviewScreenRoot(
             onBackClick = { navController.navigateUp() },
-            onAccountDelete = {},
-            onAccountClick = {}
+            onAccountClick = { email ->
+                navController.navigate(Login(email)) {
+                    launchSingleTop = true
+                    popUpTo(Intro)
+                }
+            }
         )
     }
     composable<Registration> {
         RegisterScreenRoot(
             onLoginClick = {
-                navController.navigate(Login) {
+                navController.navigate(Login()) {
                     launchSingleTop = true
                     restoreState = true
                     popUpTo(Registration) {
@@ -137,7 +147,7 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
                 navController.navigate(Registration) {
                     launchSingleTop = true
                     restoreState = true
-                    popUpTo(Login) {
+                    popUpTo(Login()) {
                         inclusive = true
                         saveState = true
                     }

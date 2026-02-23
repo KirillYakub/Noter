@@ -49,11 +49,13 @@ fun NoteOverviewItem(
     modifier: Modifier = Modifier,
     title: String,
     content: String,
+    date: String,
     color: Color,
     isNotesStyleLine: Boolean,
     isColorDefault: Boolean,
     onClick: () -> Unit,
-    onDeleteClick: () -> Unit
+    onDeleteClick: () -> Unit,
+    onCopyClick: () -> Unit
 ) {
     val density = LocalDensity.current
     var colorLineHeightDp by remember { mutableStateOf(0.dp) }
@@ -112,7 +114,7 @@ fun NoteOverviewItem(
                 if (title.isNotBlank()) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = MaterialTheme.typography.bodyLarge,
                         color = textColor,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -120,11 +122,17 @@ fun NoteOverviewItem(
                 if (content.isNotBlank()) {
                     Text(
                         text = content,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = textColor,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
+                Text(
+                    text = date,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = textColor,
+                    overflow = TextOverflow.Ellipsis
+                )
             }
         }
         DropdownMenu(
@@ -132,6 +140,19 @@ fun NoteOverviewItem(
             onDismissRequest = { showDropDown = false },
             containerColor = if(isSystemInDarkTheme()) Grey5 else Grey1,
         ) {
+            DropdownMenuItem(
+                text = {
+                    Text(
+                        text = stringResource(R.string.create_copy),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = (if(isSystemInDarkTheme()) Color.White else Color.Black).copy(alpha = 0.8f)
+                    )
+                },
+                onClick = {
+                    showDropDown = false
+                    onCopyClick()
+                }
+            )
             DropdownMenuItem(
                 text = {
                     Text(
@@ -159,8 +180,10 @@ fun NoteOverviewItemPreview() {
             color = PinkLightTheme,
             isColorDefault = false,
             isNotesStyleLine = true,
+            date = "2024-02-02 14:02",
             onClick = {},
-            onDeleteClick = {}
+            onDeleteClick = {},
+            onCopyClick = {}
         )
     }
 }
@@ -177,8 +200,10 @@ fun NoteOverviewItemPreviewNight() {
             color = PinkDarkTheme,
             isColorDefault = false,
             isNotesStyleLine = true,
+            date = "2024-02-02 14:02",
             onClick = {},
-            onDeleteClick = {}
+            onDeleteClick = {},
+            onCopyClick = {}
         )
     }
 }

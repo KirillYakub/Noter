@@ -65,7 +65,7 @@ fun SettingsStatusBar(
                     imageVector = icon.getAccountIcon(),
                     contentDescription = stringResource(R.string.account_settings_icon),
                     modifier = Modifier
-                        .size(40.dp)
+                        .size(30.dp)
                         .clickable(
                             indication = null,
                             interactionSource = null,

@@ -6,15 +6,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kiras.noter.domain.notes.model.NoteColor
+import com.kiras.noter.domain.util.extensions.takeFirst
 import com.kiras.noter.presentation.accounts.model.AccountUi
-import com.kiras.noter.ui.getColorForUiTheme
 
 @Composable
 fun AccountsList(
     modifier: Modifier = Modifier,
     accounts: List<AccountUi>,
-    onNoteClick: (String) -> Unit
+    onAccountClick: (email: String) -> Unit,
+    onDeleteClick: (id: String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -22,10 +22,11 @@ fun AccountsList(
     ) {
         items(items = accounts, key = { it.id }) { account ->
             AccountItem(
-                name = account.name,
+                name = account.name.takeFirst(),
                 lastSignIn = account.lastSignIn,
                 icon = account.icon,
-                onClick = { onNoteClick(account.id) }
+                onClick = { onAccountClick(account.email) },
+                onDeleteClick = { onDeleteClick(account.id) }
             )
         }
     }

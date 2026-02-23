@@ -53,6 +53,8 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.androidx.navigation.compose)
+
     implementation(project(":core:domain"))
     implementation(project(":core:presentation:ui"))
     implementation(project(":core:presentation:designsystem"))

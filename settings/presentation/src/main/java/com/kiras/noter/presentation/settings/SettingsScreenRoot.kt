@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,7 +78,8 @@ fun SettingsScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(paddingValues),
+                        .padding(paddingValues)
+                        .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.spacedBy(15.dp)
                 ) {
                     Column(
@@ -143,7 +146,10 @@ fun SettingsScreen(
                         verticalArrangement = Arrangement.spacedBy(10.dp),
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
-                            .padding(top = 10.dp)
+                            .padding(
+                                top = 10.dp,
+                                bottom = 20.dp
+                            )
                     ) {
                         Text(
                             text = stringResource(id = R.string.note_edit),

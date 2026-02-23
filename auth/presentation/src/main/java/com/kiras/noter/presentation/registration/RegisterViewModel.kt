@@ -47,6 +47,7 @@ class RegisterViewModel(
             val isNameValid = userDataValidator.isValidName(name.toString())
             state = state.copy(
                 isNameValid = isNameValid,
+                nameLength = name.length,
                 canRegister = isNameValid && state.isEmailValid
                         && state.passwordValidationState.isValidPassword && !state.isRegistering
             )

@@ -1,19 +1,22 @@
 package com.kiras.noter.presentation.notes_overview
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.NoterTheme
+import com.kiras.noter.designsystem.components.EmptyListLabel
 import com.kiras.noter.designsystem.components.NoterScaffold
 import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.domain.notes.model.settings.NotesDisplayType
@@ -57,7 +60,9 @@ private fun NotesOverviewScreen(
         containerColor = if(isSystemInDarkTheme()) Color.Black else Color.White,
         topAppBar = {
             NoterOverviewStatusBar(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
                 state = state.searchQuery,
                 hint = stringResource(id = R.string.search),
                 onMenuClick = { onAction(NotesOverviewActions.OnMenuClick) },
@@ -72,10 +77,7 @@ private fun NotesOverviewScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(
-                        top = padding.calculateTopPadding(),
-                        bottom = padding.calculateBottomPadding(),
-                    )
+                    .padding(padding)
             ) {
                 AnimatedVisibility(state.isCalendarDaysVisible) {
                     CalendarRow(
@@ -85,13 +87,24 @@ private fun NotesOverviewScreen(
                         }
                     )
                 }
-                NotesList(
-                    notes = state.notes,
-                    notesDisplayType = state.notesDisplayType,
-                    noteStyle = state.notesStyle,
-                    onNoteClick = { id -> onAction(NotesOverviewActions.OnNoteClick(id)) },
-                    onNoteLongClick = { id -> onAction(NotesOverviewActions.OnDeleteNote(id)) }
-                )
+                if(state.notes.isNotEmpty()) {
+                    NotesList(
+                        notes = state.notes,
+                        notesDisplayType = state.notesDisplayType,
+                        noteStyle = state.notesStyle,
+                        onNoteClick = { id -> onAction(NotesOverviewActions.OnNoteClick(id)) },
+                        onDeleteClick = { id -> onAction(NotesOverviewActions.OnDeleteNote(id)) },
+                        onCopyClick = { id -> onAction(NotesOverviewActions.OnCopyNote(id)) }
+                    )
+                }
+                else {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        EmptyListLabel()
+                    }
+                }
             }
         }
     )

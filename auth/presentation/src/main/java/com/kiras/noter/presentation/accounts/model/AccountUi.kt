@@ -6,5 +6,6 @@ data class AccountUi(
     val id: String = "",
     val name: String = "",
     val icon: AccountIcon = AccountIcon.ICON_1,
+    val email: String = "",
     val lastSignIn: String = ""
 )

@@ -1,6 +1,8 @@
 package com.kiras.noter.presentation.intro
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -78,17 +83,25 @@ fun IntroScreen(onAction: (IntroAction) -> Unit) {
         },
         containerColor = if(isSystemInDarkTheme()) Color.Black else Color.White,
         modifier = Modifier.fillMaxSize()
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Column(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Image(
-                    imageVector = if (isSystemInDarkTheme()) LogoNight else LogoDay,
-                    contentDescription = stringResource(R.string.logo),
-                )
-                Spacer(modifier = Modifier.fillMaxHeight(0.3f))
+    ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            val configuration = LocalConfiguration.current
+            if(configuration.orientation != Configuration.ORIENTATION_LANDSCAPE) {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.Center),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Image(
+                        imageVector = if (isSystemInDarkTheme()) LogoNight else LogoDay,
+                        contentDescription = stringResource(R.string.logo),
+                    )
+                    Spacer(modifier = Modifier.fillMaxHeight(0.3f))
+                }
             }
             Column(
                 modifier = Modifier

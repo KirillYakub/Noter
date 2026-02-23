@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun SlideFadeAnimatedContent(
     visible: Boolean,
     modifier: Modifier = Modifier,
-    durationMillis: Int = 200,
+    durationMillis: Int = 100,
     easing: Easing = EaseInOut,
     content: @Composable () -> Unit
 ) {

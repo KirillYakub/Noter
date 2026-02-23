@@ -7,7 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.maxLength
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,22 +20,26 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.kiras.noter.designsystem.EmailIcon
 import com.kiras.noter.designsystem.Grey4
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.getAuthTextFieldsColor
 import com.kiras.noter.designsystem.getAuthTextFieldsIconsColor
 import com.kiras.noter.designsystem.getAuthTextFieldsTextColor
+import com.kiras.noter.presentation.R
 
 @Composable
 fun AuthTextField(
+    modifier: Modifier = Modifier,
     state: TextFieldState,
+    icon: ImageVector? = null,
     hint: String,
-    title: String?,
-    modifier: Modifier = Modifier
+    maxLength: Int? = null,
+    titleContent: @Composable (() -> Unit)? = null,
 ) {
     Column(
         modifier = modifier
@@ -40,15 +47,10 @@ fun AuthTextField(
             .padding(horizontal = 14.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        if(title != null) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleSmall,
-                color = if (isSystemInDarkTheme()) Color.White else Grey4
-            )
-        }
+        titleContent?.invoke()
         TextField(
             state = state,
+            inputTransformation = maxLength?.let { InputTransformation.maxLength(it) },
             textStyle = MaterialTheme.typography.titleMedium,
             placeholder = {
                 Text(
@@ -57,6 +59,7 @@ fun AuthTextField(
                     color = getAuthTextFieldsTextColor.copy(alpha = 0.8f)
                 )
             },
+            lineLimits = TextFieldLineLimits.SingleLine,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password
             ),
@@ -70,11 +73,13 @@ fun AuthTextField(
                 unfocusedTextColor = getAuthTextFieldsTextColor.copy(alpha = 0.8f),
             ),
             leadingIcon = {
-                Icon(
-                    imageVector = EmailIcon,
-                    contentDescription = null,
-                    tint = getAuthTextFieldsIconsColor
-                )
+                icon?.let {
+                    Icon(
+                        imageVector = it,
+                        contentDescription = null,
+                        tint = getAuthTextFieldsIconsColor
+                    )
+                }
             },
             modifier = Modifier.fillMaxWidth()
         )
@@ -88,7 +93,13 @@ fun RegistrationEmailTextFieldPreview() {
         AuthTextField(
             state = rememberTextFieldState(),
             hint = "Email example",
-            title = "Email",
+            titleContent = {
+                Text(
+                    text = stringResource(id = R.string.email),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = if (isSystemInDarkTheme()) Color.White else Grey4
+                )
+            },
             modifier = Modifier.fillMaxWidth(),
         )
     }

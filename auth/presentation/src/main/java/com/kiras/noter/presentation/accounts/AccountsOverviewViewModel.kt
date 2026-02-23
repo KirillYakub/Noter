@@ -9,6 +9,7 @@ import com.kiras.noter.domain.accounts.repository.AccountsRepository
 import com.kiras.noter.presentation.accounts.mapper.toAccountUi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class AccountsOverviewViewModel(
     private val accountsRepository: AccountsRepository
@@ -20,7 +21,21 @@ class AccountsOverviewViewModel(
     init {
         accountsRepository.getAccounts().onEach { accounts ->
             val accountsUi = accounts.map { it.toAccountUi() }
-            state = state.copy(accounts = accountsUi)
+            state = state.copy(
+                showContent = true,
+                accounts = accountsUi
+            )
         }.launchIn(viewModelScope)
+    }
+
+    fun onAction(action: AccountsOverviewAction) {
+        when(action) {
+            is AccountsOverviewAction.OnAccountDelete -> {
+                viewModelScope.launch {
+                    accountsRepository.deleteAccount(action.id)
+                }
+            }
+            else -> Unit
+        }
     }
 }

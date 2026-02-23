@@ -7,7 +7,7 @@ class UserDataValidator(private val patternValidator: PatternValidator) {
     }
 
     fun isValidName(name: String): Boolean {
-        return name.isNotBlank() && name.length <= MAX_NAME_LENGTH
+        return name.isNotBlank()
     }
 
     fun validatePassword(password: String): PasswordValidationState {
@@ -25,6 +25,5 @@ class UserDataValidator(private val patternValidator: PatternValidator) {
 
     companion object {
         const val MIN_PASSWORD_LENGTH = 8
-        const val MAX_NAME_LENGTH = 50
     }
 }

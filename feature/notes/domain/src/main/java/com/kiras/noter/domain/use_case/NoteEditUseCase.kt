@@ -20,6 +20,14 @@ class NoteEditUseCase(
         )
     }
 
+    suspend fun upsertNoteCopy(id: String) {
+        val noteCopy = notesRepository.getNote(id).copy(
+            id = idProvider.newId(),
+            createTime = clockProvider.now()
+        )
+        notesRepository.upsertNote(note = noteCopy)
+    }
+
     suspend fun getNote(id: String): Note {
         return notesRepository.getNote(id).copy(
             createTime = clockProvider.now()

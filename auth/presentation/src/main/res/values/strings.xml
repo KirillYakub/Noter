@@ -27,4 +27,5 @@
     <string name="accounts_icon">Accounts icon</string>
     <string name="last_sign_in">Last sign in: %1$s</string>
     <string name="accounts">Accounts</string>
+    <string name="delete">Delete</string>
 </resources>

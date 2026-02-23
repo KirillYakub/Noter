@@ -1,6 +1,9 @@
 package com.kiras.noter.presentation.registration
 
+import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.maxLength
+import androidx.compose.ui.text.TextRange
 import com.kiras.noter.domain.PasswordValidationState
 import com.kiras.noter.domain.accounts.model.AccountIcon
 
@@ -10,6 +13,7 @@ data class RegisterState(
     val isEmailValid: Boolean = false,
     val name: TextFieldState = TextFieldState(),
     val isNameValid: Boolean = false,
+    val nameLength: Int = 0,
     val password: TextFieldState = TextFieldState(),
     val isPasswordValid: Boolean = false,
     val isPasswordVisible: Boolean = false,

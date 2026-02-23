@@ -1,16 +1,19 @@
 package com.kiras.noter.presentation.login
 
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.kiras.noter.domain.UserDataValidator
 import com.kiras.noter.domain.use_case.AuthUseCase
 import com.kiras.noter.domain.util.DataError
 import com.kiras.noter.domain.util.Result
-import com.kiras.noter.presentation.registration.RegisterEvent
 import com.kiras.noter.presentation.registration.textAsFlow
+import com.kiras.noter.presentation.util.Login
 import com.kiras.noter.ui.R
 import com.kiras.noter.ui.UiText
 import com.kiras.noter.ui.asUiText
@@ -20,9 +23,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
+fun String.toTextFieldState() = TextFieldState(initialText = this)
+
 class LoginViewModel(
     private val userDataValidator: UserDataValidator,
-    private val authUseCase: AuthUseCase
+    private val authUseCase: AuthUseCase,
+    saveStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     var state by mutableStateOf(LoginState())
@@ -32,6 +38,10 @@ class LoginViewModel(
     val events = eventChannel.receiveAsFlow()
 
     init {
+        val args = saveStateHandle.toRoute<Login>()
+        args.email?.let {
+            state = state.copy(email = it.toTextFieldState())
+        }
         combine(
             flow = state.email.textAsFlow(),
             flow2 = state.password.textAsFlow()
