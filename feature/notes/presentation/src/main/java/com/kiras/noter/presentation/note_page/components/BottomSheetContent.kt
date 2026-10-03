@@ -30,7 +30,7 @@ import com.kiras.noter.designsystem.Grey5
 import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.presentation.R
 import com.kiras.noter.presentation.note_page.NotePageActions
-import com.kiras.noter.presentation.note_page.model.NoteAlignment
+import com.kiras.noter.domain.notes.model.NoteAlignment
 import com.kiras.noter.ui.getColorForUiTheme
 
 @Composable

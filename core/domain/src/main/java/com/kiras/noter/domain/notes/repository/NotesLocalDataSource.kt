@@ -23,6 +23,7 @@ interface NotesLocalDataSource {
         sortType: NotesSortType
     ): Flow<List<Note>>
 
+    fun getActiveUserNotesCount(ownerAccountId: String): Flow<Int>
     suspend fun getNote(ownerAccountId: String, id: NoteId): Note
     suspend fun upsertNote(note: Note): Result<NoteId, DataError.Local>
     suspend fun deleteNote(ownerAccountId: String, id: NoteId)

@@ -4,6 +4,7 @@ import com.kiras.noter.domain.ClockProvider
 import com.kiras.noter.domain.IdProvider
 import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
 import com.kiras.noter.domain.notes.model.Note
+import com.kiras.noter.domain.notes.model.NoteAlignment
 import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.domain.notes.repository.NotesRepository
 
@@ -41,6 +42,7 @@ class NoteEditUseCase(
             title = "",
             content = "",
             color = NoteColor.DEFAULT,
+            alignment = NoteAlignment.START,
             createTime = clockProvider.now()
         )
     }

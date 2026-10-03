@@ -11,13 +11,22 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import kotlinx.coroutines.flow.Flow
 
-class AuthActiveAuthActiveSessionStorageImpl(
+class AuthActiveSessionStorageImpl(
     private val dataStore: DataStore<Preferences>,
 ): AuthActiveSessionStorage {
 
     private companion object {
         private val ACTIVE_ACCOUNT_KEY = stringPreferencesKey("active_account_id")
+    }
+
+    override fun getAsFlow(): Flow<AuthInfo?> {
+        return dataStore.data.map { prefs ->
+            prefs[ACTIVE_ACCOUNT_KEY]?.let {
+                Json.decodeFromString<AuthInfoSerializable>(it).toAuthInfo()
+            }
+        }
     }
 
     override suspend fun get(): AuthInfo? {

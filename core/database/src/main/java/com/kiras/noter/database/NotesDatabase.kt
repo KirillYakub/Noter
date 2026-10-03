@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.kiras.noter.database.converter.AccountIconTypeConverter
 import com.kiras.noter.database.converter.AccountNotesSettingsTypeConverter
+import com.kiras.noter.database.converter.NoteAlignmentTypeConverter
 import com.kiras.noter.database.converter.NoteColorTypeConverter
 import com.kiras.noter.database.dao.AccountNotesSettingsDao
 import com.kiras.noter.database.dao.AccountsDao
@@ -22,6 +23,7 @@ import com.kiras.noter.database.entity.NoteEntity
     version = 1
 )
 @TypeConverters(
+    NoteAlignmentTypeConverter::class,
     NoteColorTypeConverter::class,
     AccountIconTypeConverter::class,
     AccountNotesSettingsTypeConverter::class

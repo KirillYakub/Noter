@@ -20,6 +20,7 @@ fun Note.toNoteUi(): NoteUi {
         title = title,
         content = content,
         color = color,
+        alignment = alignment,
         createTime = formattedCreateTimeAsString
     )
 }
@@ -34,6 +35,7 @@ fun NoteUi.toNote(
         title = title,
         content = content,
         color = color,
+        alignment = alignment,
         createTime = createTimeAsZoneDateTime
     )
 }

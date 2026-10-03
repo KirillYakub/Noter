@@ -2,7 +2,7 @@ package com.kiras.noter.data.di
 
 import com.kiras.noter.data.ClockProviderImpl
 import com.kiras.noter.data.IdProviderImpl
-import com.kiras.noter.data.auth.AuthActiveAuthActiveSessionStorageImpl
+import com.kiras.noter.data.auth.AuthActiveSessionStorageImpl
 import com.kiras.noter.data.offline_first.account.OfflineFirstAccountNotesSettingsImpl
 import com.kiras.noter.data.offline_first.account.OfflineFirstAccountRepositoryImpl
 import com.kiras.noter.data.offline_first.note.OfflineFirstNoteRepositoryImpl
@@ -17,7 +17,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 
 val coreDataModule = module {
-    singleOf(::AuthActiveAuthActiveSessionStorageImpl).bind<AuthActiveSessionStorage>()
+    singleOf(::AuthActiveSessionStorageImpl).bind<AuthActiveSessionStorage>()
 
     singleOf(::OfflineFirstAccountNotesSettingsImpl).bind<AccountNotesSettingsRepository>()
     singleOf(::OfflineFirstNoteRepositoryImpl).bind<NotesRepository>()

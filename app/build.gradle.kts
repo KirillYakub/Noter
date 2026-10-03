@@ -73,6 +73,7 @@ dependencies {
     implementation(project(":core:presentation:designsystem"))
     implementation(project(":feature:notes:presentation"))
     implementation(project(":feature:notes:data"))
+    implementation(project(":feature:notes:widgets"))
     implementation(project(":auth:data"))
     implementation(project(":auth:presentation"))
     implementation(project(":settings:data"))

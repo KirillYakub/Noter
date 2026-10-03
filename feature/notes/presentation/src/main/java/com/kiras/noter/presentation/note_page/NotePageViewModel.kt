@@ -114,7 +114,9 @@ class NotePageViewModel(
             is NotePageActions.OnAlignChange -> {
                 notePageState = with(notePageState) {
                     copy(
-                        alignment = action.align
+                        noteUi = noteUi.copy(
+                            alignment = action.align
+                        )
                     )
                 }
             }

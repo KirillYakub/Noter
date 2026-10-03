@@ -18,6 +18,7 @@ interface NotesRepository {
         sortType: NotesSortType,
     ): Flow<List<Note>>
 
+    fun getActiveUserNotesCount(): Flow<Int>
     suspend fun getNote(id: NoteId): Note
     suspend fun upsertNote(note: Note): EmptyResult<DataError>
     suspend fun deleteNote(id: NoteId)

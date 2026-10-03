@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_note_widget">Create Note Widget</string>
+    <string name="add_note_widget_description">Do not forget to write your daily tasks</string>
+    <string name="add_note_with_user_data_widget">Total Notes Count Widget</string>
+    <string name="total_notes">Total Notes:</string>
+    <string name="tap_to_create_new_note">Tap to create note</string>
+</resources>

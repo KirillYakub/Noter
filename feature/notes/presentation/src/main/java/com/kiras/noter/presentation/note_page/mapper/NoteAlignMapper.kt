@@ -1,7 +1,7 @@
 package com.kiras.noter.presentation.note_page.mapper
 
 import androidx.compose.ui.text.style.TextAlign
-import com.kiras.noter.presentation.note_page.model.NoteAlignment
+import com.kiras.noter.domain.notes.model.NoteAlignment
 
 fun NoteAlignment.toTextAlign(): TextAlign {
     return when (this) {

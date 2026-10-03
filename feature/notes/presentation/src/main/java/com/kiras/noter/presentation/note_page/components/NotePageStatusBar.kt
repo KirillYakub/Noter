@@ -42,7 +42,8 @@ fun NotePageStatusBar(
             }
         },
         actions = {
-            IconButton(onClick = onLikeClick) {
+            // Add in version 2.0
+            /*IconButton(onClick = onLikeClick) {
                 Icon(
                     imageVector = LikeIcon,
                     contentDescription = stringResource(R.string.like_note),
@@ -55,7 +56,7 @@ fun NotePageStatusBar(
                     contentDescription = stringResource(R.string.add_note_to_folder),
                     tint = contentColor
                 )
-            }
+            }*/
             IconButton(onClick = onSendClick) {
                 Icon(
                     imageVector = SendIcon,

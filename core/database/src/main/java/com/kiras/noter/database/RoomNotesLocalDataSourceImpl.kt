@@ -56,6 +56,10 @@ class RoomNotesLocalDataSourceImpl(
         }
     }
 
+    override fun getActiveUserNotesCount(ownerAccountId: String): Flow<Int> {
+        return notesDao.getNotesCount(ownerAccountId)
+    }
+
     override suspend fun getNote(ownerAccountId: String, id: NoteId): Note {
         return notesDao.getNoteById(ownerAccountId, id).toNote()
     }

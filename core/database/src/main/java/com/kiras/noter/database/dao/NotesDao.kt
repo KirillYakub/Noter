@@ -114,6 +114,9 @@ interface NotesDao {
         query: String
     ): Flow<List<NoteEntity>>
 
+    @Query("SELECT COUNT(*) FROM notes WHERE ownerAccountId = :ownerAccountId")
+    fun getNotesCount(ownerAccountId: String): Flow<Int>
+
     @Query("SELECT * FROM notes WHERE ownerAccountId = :ownerAccountId AND id = :id LIMIT 1")
     suspend fun getNoteById(ownerAccountId: String, id: String): NoteEntity
 

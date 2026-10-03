@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <receiver
+            android:name=".AddNoteWidgetReceiver"
+            android:label="@string/add_note_widget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/add_note_widget_info" />
+        </receiver>
+        <receiver
+            android:name=".AddNoteWidgetWithUserDataReceiver"
+            android:label="@string/add_note_with_user_data_widget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/add_note_widget_with_user_data_info" />
+        </receiver>
+    </application>
+</manifest>

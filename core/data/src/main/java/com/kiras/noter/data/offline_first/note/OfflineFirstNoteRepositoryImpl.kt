@@ -11,8 +11,14 @@ import com.kiras.noter.domain.util.EmptyResult
 import com.kiras.noter.domain.util.Result
 import com.kiras.noter.domain.util.asEmptyDataResult
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class OfflineFirstNoteRepositoryImpl(
     private val localDataSource: NotesLocalDataSource,
     private val applicationScope: CoroutineScope,
@@ -44,6 +50,14 @@ class OfflineFirstNoteRepositoryImpl(
         )
     }
 
+    override fun getActiveUserNotesCount(): Flow<Int> {
+        return authActiveSessionStorage.getAsFlow()
+            .flatMapLatest { authInfo ->
+                authInfo?.userId?.let { userId ->
+                    localDataSource.getActiveUserNotesCount(userId)
+                } ?: flowOf(0)
+            }
+    }
 
     override suspend fun getNote(id: NoteId): Note {
         return localDataSource.getNote(

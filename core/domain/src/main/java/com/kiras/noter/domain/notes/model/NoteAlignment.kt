@@ -1,4 +1,4 @@
-package com.kiras.noter.presentation.note_page.model
+package com.kiras.noter.domain.notes.model
 
 enum class NoteAlignment {
     START,

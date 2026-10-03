@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/feature/notes/data" />
             <option value="$PROJECT_DIR$/feature/notes/domain" />
             <option value="$PROJECT_DIR$/feature/notes/presentation" />
+            <option value="$PROJECT_DIR$/feature/notes/widgets" />
             <option value="$PROJECT_DIR$/settings" />
             <option value="$PROJECT_DIR$/settings/data" />
             <option value="$PROJECT_DIR$/settings/domain" />

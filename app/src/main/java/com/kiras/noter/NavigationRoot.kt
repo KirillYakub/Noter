@@ -7,11 +7,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navDeepLink
 import com.kiras.noter.presentation.accounts.AccountsOverviewScreenRoot
 import com.kiras.noter.presentation.intro.IntroScreenRoot
 import com.kiras.noter.presentation.login.LoginScreenRoot
@@ -26,24 +28,31 @@ import com.kiras.noter.presentation.util.NotePage
 import com.kiras.noter.presentation.util.NotesOverview
 import com.kiras.noter.presentation.util.Registration
 import com.kiras.noter.presentation.util.Settings
+import com.kiras.noter.widgets.ACTION_CREATE_NOTE
 
 @Composable
 fun NavigationRoot(
+    isCheckingAuth: Boolean,
     isLoggedIn: Boolean,
     navHostController: NavHostController
 ) {
-    NavHost(
-        modifier = Modifier
-            .fillMaxSize(),
-        navController = navHostController,
-        startDestination = if(!isLoggedIn) Intro else NotesOverview
-    ) {
-        authGraph(navHostController)
-        notesGraph(navHostController)
+    if (!isCheckingAuth) {
+        NavHost(
+            modifier = Modifier
+                .fillMaxSize(),
+            navController = navHostController,
+            startDestination = if (!isLoggedIn) Intro else NotesOverview
+        ) {
+            authGraph(navHostController)
+            notesGraph(navHostController, isLoggedIn)
+        }
     }
 }
 
-private fun NavGraphBuilder.notesGraph(navHostController: NavHostController) {
+private fun NavGraphBuilder.notesGraph(
+    navHostController: NavHostController,
+    isLoggedIn: Boolean
+) {
     composable<Settings> {
         SettingsScreenRoot(
             onBackClick = { navHostController.navigateUp() },
@@ -79,10 +88,28 @@ private fun NavGraphBuilder.notesGraph(navHostController: NavHostController) {
             }
         )
     }
-    composable<NotePage> {
-        NotePageScreenRoot(
-            onBackClick = { navHostController.navigateUp() }
+    composable<NotePage>(
+        deepLinks = listOf(
+            navDeepLink<NotePage>(
+                basePath = "https://noter.com/create_note"
+            ) {
+                action = ACTION_CREATE_NOTE
+            }
         )
+    ) {
+        if (!isLoggedIn) {
+            LaunchedEffect(Unit) {
+                navHostController.navigate(Intro) {
+                    popUpTo(0) { inclusive = true }
+                }
+            }
+        } else {
+            NotePageScreenRoot(
+                onBackClick = {
+                    navHostController.navigateUp()
+                }
+            )
+        }
     }
 }
 

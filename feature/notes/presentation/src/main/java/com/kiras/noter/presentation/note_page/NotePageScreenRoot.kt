@@ -1,6 +1,8 @@
 package com.kiras.noter.presentation.note_page
 
+import android.content.Intent
 import android.util.Log
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -73,11 +75,32 @@ fun NotePageScreenRoot(
     onBackClick: () -> Unit,
     model: NotePageViewModel = koinViewModel()
 ) {
+    val context = LocalContext.current
     NotePageScreen(
         state = model.notePageState,
         onAction = { action ->
             when(action) {
                 is NotePageActions.OnBackClick -> onBackClick()
+                is NotePageActions.OnSendClick -> {
+                    val noteText = buildString {
+                        if (model.notePageState.noteUi.title.isNotBlank()) {
+                            append(model.notePageState.noteUi.title)
+                            if (model.notePageState.noteUi.content.isNotBlank()) {
+                                append("\n\n")
+                            }
+                        }
+                        append(model.notePageState.noteUi.content)
+                    }
+                    if (noteText.isNotBlank()) {
+                        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_SUBJECT, model.notePageState.noteUi.title)
+                            putExtra(Intent.EXTRA_TEXT, noteText)
+                        }
+                        val shareIntent = Intent.createChooser(sendIntent, null)
+                        context.startActivity(shareIntent)
+                    }
+                }
                 else -> model.onAction(action)
             }
         }
@@ -136,7 +159,7 @@ fun NotePageScreen(
                     onBackClick = { onAction(NotePageActions.OnBackClick) },
                     onLikeClick = {},
                     onFolderClick = {},
-                    onSendClick = {}
+                    onSendClick = { onAction(NotePageActions.OnSendClick) }
                 )
             },
             content = { padding ->
@@ -168,7 +191,7 @@ fun NotePageScreen(
                         NoteTextField(
                             value = state.noteUi.title,
                             contentColor = contentColor,
-                            textAlign = state.alignment.toTextAlign(),
+                            textAlign = state.noteUi.alignment.toTextAlign(),
                             onValueChange = { onAction(NotePageActions.OnTitleChange(it)) },
                             textStyle = MaterialTheme.typography.displayMedium,
                             placeholder = stringResource(R.string.write_title_here),
@@ -179,7 +202,7 @@ fun NotePageScreen(
                         if (state.noteUi.createTime.isNotBlank()) {
                             Text(
                                 text = state.noteUi.createTime,
-                                textAlign = state.alignment.toTextAlign(),
+                                textAlign = state.noteUi.alignment.toTextAlign(),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = contentColor.copy(alpha = 0.8f),
                                 modifier = Modifier
@@ -191,7 +214,7 @@ fun NotePageScreen(
                         NoteTextField(
                             value = state.noteUi.content,
                             contentColor = contentColor,
-                            textAlign = state.alignment.toTextAlign(),
+                            textAlign = state.noteUi.alignment.toTextAlign(),
                             onValueChange = { onAction(NotePageActions.OnContentChange(it)) },
                             textStyle = MaterialTheme.typography.labelMedium,
                             placeholder = stringResource(R.string.write_here),
