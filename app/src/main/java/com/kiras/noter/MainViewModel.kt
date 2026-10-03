@@ -6,22 +6,22 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kiras.noter.domain.accounts.repository.AuthActiveSessionStorage
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
-class MainViewModel(
-    private val authActiveSessionStorage: AuthActiveSessionStorage
-): ViewModel() {
+class MainViewModel(authActiveSessionStorage: AuthActiveSessionStorage): ViewModel() {
 
     var state by mutableStateOf(MainState())
         private set
 
     init {
-        viewModelScope.launch {
-            val isLoggedIn = authActiveSessionStorage.get() != null
-            state = state.copy(
-                isLoggedIn = isLoggedIn,
-                isCheckingAuth = false
-            )
-        }
+        authActiveSessionStorage.getAsFlow()
+            .onEach { authInfo ->
+                state = state.copy(
+                    isLoggedIn = authInfo != null,
+                    isCheckingAuth = false
+                )
+            }
+            .launchIn(viewModelScope)
     }
 }
