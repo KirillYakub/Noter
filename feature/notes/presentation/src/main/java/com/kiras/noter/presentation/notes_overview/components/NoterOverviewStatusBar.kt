@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kiras.noter.designsystem.CalendarIcon
 import com.kiras.noter.designsystem.MenuIcon
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.SearchIcon
@@ -37,6 +38,7 @@ fun NoterOverviewStatusBar(
     modifier: Modifier = Modifier,
     state: TextFieldState,
     hint: String,
+    onCalendarClick: () -> Unit,
     onMenuClick: () -> Unit
 ) {
     TopAppBar(
@@ -44,7 +46,7 @@ fun NoterOverviewStatusBar(
         title = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TextField(
@@ -82,12 +84,21 @@ fun NoterOverviewStatusBar(
                     },
                     modifier = Modifier.weight(1f),
                 )
-                IconButton(onClick = onMenuClick) {
-                    Icon(
-                        imageVector = MenuIcon,
-                        contentDescription = null,
-                        tint = if (isSystemInDarkTheme()) Color.White else Color.Black
-                    )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    IconButton(onClick = onCalendarClick) {
+                        Icon(
+                            imageVector = CalendarIcon,
+                            contentDescription = null,
+                            tint = if (isSystemInDarkTheme()) Color.White else Color.Black
+                        )
+                    }
+                    IconButton(onClick = onMenuClick) {
+                        Icon(
+                            imageVector = MenuIcon,
+                            contentDescription = null,
+                            tint = if (isSystemInDarkTheme()) Color.White else Color.Black
+                        )
+                    }
                 }
             }
         },
@@ -105,6 +116,7 @@ fun NotesOverviewStatusBarPreview() {
         NoterOverviewStatusBar(
             state = TextFieldState(),
             hint = "Search",
+            onCalendarClick = {},
             onMenuClick = {}
         )
     }

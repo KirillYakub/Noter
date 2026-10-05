@@ -13,6 +13,7 @@ data class NotesOverviewState(
     val notesSortType: NotesSortType = NotesSortType.DATE,
     val notesDisplayType: NotesDisplayType = NotesDisplayType.GRID,
     val isCalendarDaysVisible: Boolean = false,
+    val isFullCalendarVisible: Boolean = false,
     val calendarDays: List<CalendarDayUi> = emptyList(),
     val selectedDayId: String? = null,
     val notes: List<NoteUi> = emptyList(),

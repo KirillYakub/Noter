@@ -13,7 +13,7 @@ android {
         minSdk = 28
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,6 +33,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
+        jvmToolchain(21)
         compilerOptions {
             optIn.add("kotlin.RequiresOptIn")
         }

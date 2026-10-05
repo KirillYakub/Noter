@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +24,7 @@ import com.kiras.noter.presentation.R
 import com.kiras.noter.presentation.notes_overview.components.NoteAddButton
 import com.kiras.noter.presentation.notes_overview.components.NoterOverviewStatusBar
 import com.kiras.noter.presentation.notes_overview.components.calendar.CalendarRow
+import com.kiras.noter.presentation.notes_overview.components.calendar.FullCalendarDialog
 import com.kiras.noter.presentation.notes_overview.components.note_list.NotesList
 import com.kiras.noter.presentation.notes_overview.model.CalendarDayUi
 import org.koin.compose.viewmodel.koinViewModel
@@ -49,65 +49,79 @@ fun NotesOverviewScreenRoot(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun NotesOverviewScreen(
     state: NotesOverviewState,
     onAction: (NotesOverviewActions) -> Unit,
 ) {
-    NoterScaffold(
-        modifier = Modifier.fillMaxSize(),
-        containerColor = if(isSystemInDarkTheme()) Color.Black else Color.White,
-        topAppBar = {
-            NoterOverviewStatusBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp),
-                state = state.searchQuery,
-                hint = stringResource(id = R.string.search),
-                onMenuClick = { onAction(NotesOverviewActions.OnMenuClick) },
-            )
-        },
-        floatingActionButton = {
-            NoteAddButton(
-                onClick = { onAction(NotesOverviewActions.OnAddNote) }
-            )
-        },
-        content = { padding ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-            ) {
-                AnimatedVisibility(state.isCalendarDaysVisible) {
-                    CalendarRow(
-                        days = state.calendarDays,
-                        onDayClick = { id ->
-                            onAction(NotesOverviewActions.OnCalendarDaySelected(id))
+    Box(modifier = Modifier.fillMaxSize()) {
+        NoterScaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor = if(isSystemInDarkTheme()) Color.Black else Color.White,
+            topAppBar = {
+                NoterOverviewStatusBar(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 10.dp),
+                    state = state.searchQuery,
+                    hint = stringResource(id = R.string.search),
+                    onCalendarClick = { onAction(NotesOverviewActions.OnFullCalendarClick) },
+                    onMenuClick = { onAction(NotesOverviewActions.OnMenuClick) },
+                )
+            },
+            floatingActionButton = {
+                NoteAddButton(
+                    onClick = { onAction(NotesOverviewActions.OnAddNote) }
+                )
+            },
+            content = { padding ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                ) {
+                    AnimatedVisibility(state.isCalendarDaysVisible) {
+                        CalendarRow(
+                            days = state.calendarDays,
+                            onDayClick = { id ->
+                                onAction(NotesOverviewActions.OnCalendarDaySelected(id))
+                            }
+                        )
+                    }
+                    if(state.notes.isNotEmpty()) {
+                        NotesList(
+                            notes = state.notes,
+                            notesDisplayType = state.notesDisplayType,
+                            noteStyle = state.notesStyle,
+                            onNoteClick = { id -> onAction(NotesOverviewActions.OnNoteClick(id)) },
+                            onDeleteClick = { id -> onAction(NotesOverviewActions.OnDeleteNote(id)) },
+                            onCopyClick = { id -> onAction(NotesOverviewActions.OnCopyNote(id)) }
+                        )
+                    }
+                    else {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            EmptyListLabel()
                         }
-                    )
-                }
-                if(state.notes.isNotEmpty()) {
-                    NotesList(
-                        notes = state.notes,
-                        notesDisplayType = state.notesDisplayType,
-                        noteStyle = state.notesStyle,
-                        onNoteClick = { id -> onAction(NotesOverviewActions.OnNoteClick(id)) },
-                        onDeleteClick = { id -> onAction(NotesOverviewActions.OnDeleteNote(id)) },
-                        onCopyClick = { id -> onAction(NotesOverviewActions.OnCopyNote(id)) }
-                    )
-                }
-                else {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        EmptyListLabel()
                     }
                 }
             }
+        )
+
+        if (state.isFullCalendarVisible) {
+            FullCalendarDialog(
+                selectedDayId = state.selectedDayId,
+                onDaySelected = { id ->
+                    onAction(NotesOverviewActions.OnCalendarDaySelected(id))
+                },
+                onDismiss = {
+                    onAction(NotesOverviewActions.OnDismissFullCalendar)
+                }
+            )
         }
-    )
+    }
 }
 
 @Preview

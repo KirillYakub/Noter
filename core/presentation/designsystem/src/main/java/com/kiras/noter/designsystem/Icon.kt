@@ -32,6 +32,10 @@ val SendIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.send_icon)
 
+val CalendarIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(id = R.drawable.calendar_icon)
+
 val AlignLeftIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(id = R.drawable.align_left_icon)

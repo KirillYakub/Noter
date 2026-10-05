@@ -1,6 +1,5 @@
 package com.kiras.noter.presentation.notes_overview
 
-import android.util.Log
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,7 +11,6 @@ import com.kiras.noter.domain.notes.model.CalendarDay
 import com.kiras.noter.domain.notes.repository.NotesRepository
 import com.kiras.noter.domain.util.date.lastMonthToToday
 import com.kiras.noter.domain.util.date.toEpochDayRange
-import com.kiras.noter.domain.notes.model.settings.toComparator
 import com.kiras.noter.domain.use_case.GetNotesSettingsUseCase
 import com.kiras.noter.domain.use_case.NoteEditUseCase
 import com.kiras.noter.mapper.toNoteUi
@@ -26,15 +24,12 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
-import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -134,7 +129,18 @@ class NotesOverviewViewModel(
                     else action.dayId
                 state = state.copy(
                     selectedDayId = newSelectedId,
-                    calendarDays = rebuildCalendarUi(newSelectedId)
+                    calendarDays = rebuildCalendarUi(newSelectedId),
+                    isFullCalendarVisible = false
+                )
+            }
+            is NotesOverviewActions.OnFullCalendarClick -> {
+                state = state.copy(
+                    isFullCalendarVisible = true
+                )
+            }
+            is NotesOverviewActions.OnDismissFullCalendar -> {
+                state = state.copy(
+                    isFullCalendarVisible = false
                 )
             }
             else -> Unit

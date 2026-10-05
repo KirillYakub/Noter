@@ -42,7 +42,7 @@ fun NotePageStatusBar(
             }
         },
         actions = {
-            // Add in version 2.0
+            // Add in 1.2
             /*IconButton(onClick = onLikeClick) {
                 Icon(
                     imageVector = LikeIcon,
