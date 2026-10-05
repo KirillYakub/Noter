@@ -65,6 +65,7 @@ private fun NotesOverviewScreen(
                         .padding(top = 10.dp),
                     state = state.searchQuery,
                     hint = stringResource(id = R.string.search),
+                    isCalendarIconVisible = state.isCalendarDaysVisible,
                     onCalendarClick = { onAction(NotesOverviewActions.OnFullCalendarClick) },
                     onMenuClick = { onAction(NotesOverviewActions.OnMenuClick) },
                 )

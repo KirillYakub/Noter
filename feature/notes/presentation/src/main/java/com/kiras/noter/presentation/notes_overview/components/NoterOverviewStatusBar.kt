@@ -38,6 +38,7 @@ fun NoterOverviewStatusBar(
     modifier: Modifier = Modifier,
     state: TextFieldState,
     hint: String,
+    isCalendarIconVisible: Boolean,
     onCalendarClick: () -> Unit,
     onMenuClick: () -> Unit
 ) {
@@ -85,12 +86,14 @@ fun NoterOverviewStatusBar(
                     modifier = Modifier.weight(1f),
                 )
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(onClick = onCalendarClick) {
-                        Icon(
-                            imageVector = CalendarIcon,
-                            contentDescription = null,
-                            tint = if (isSystemInDarkTheme()) Color.White else Color.Black
-                        )
+                    if(isCalendarIconVisible) {
+                        IconButton(onClick = onCalendarClick) {
+                            Icon(
+                                imageVector = CalendarIcon,
+                                contentDescription = null,
+                                tint = if (isSystemInDarkTheme()) Color.White else Color.Black
+                            )
+                        }
                     }
                     IconButton(onClick = onMenuClick) {
                         Icon(
@@ -116,6 +119,7 @@ fun NotesOverviewStatusBarPreview() {
         NoterOverviewStatusBar(
             state = TextFieldState(),
             hint = "Search",
+            isCalendarIconVisible = true,
             onCalendarClick = {},
             onMenuClick = {}
         )
