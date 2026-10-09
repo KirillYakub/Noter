@@ -4,12 +4,15 @@ import androidx.room.Room
 import com.kiras.noter.database.NotesDatabase
 import com.kiras.noter.database.RoomAccountLocalDataSourceImpl
 import com.kiras.noter.database.RoomAccountNotesSettingsLocalDataSourceImpl
+import com.kiras.noter.database.RoomFolderLocalDataSourceImpl
 import com.kiras.noter.database.RoomNotesLocalDataSourceImpl
 import com.kiras.noter.database.dao.AccountNotesSettingsDao
 import com.kiras.noter.database.dao.AccountsDao
+import com.kiras.noter.database.dao.FolderDao
 import com.kiras.noter.database.dao.NotesDao
 import com.kiras.noter.domain.accounts.repository.AccountsLocalDataSource
 import com.kiras.noter.domain.accounts.repository.settings.AccountNotesSettingsLocalDataSource
+import com.kiras.noter.domain.notes.repository.FolderLocalDataSource
 import com.kiras.noter.domain.notes.repository.NotesLocalDataSource
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.singleOf
@@ -22,7 +25,9 @@ val databaseModule = module {
             androidApplication(),
             NotesDatabase::class.java,
             "notes_db"
-        ).build()
+        )
+            .addMigrations(NotesDatabase.MIGRATION_1_2)
+            .build()
     }
     single<NotesDao> {
         get<NotesDatabase>().notesDao
@@ -33,6 +38,9 @@ val databaseModule = module {
     single<AccountNotesSettingsDao> {
         get<NotesDatabase>().notesSettingsDao
     }
+    single<FolderDao> {
+        get<NotesDatabase>().folderDao
+    }
 
     singleOf(::RoomAccountNotesSettingsLocalDataSourceImpl)
         .bind<AccountNotesSettingsLocalDataSource>()
@@ -40,4 +48,6 @@ val databaseModule = module {
         .bind<NotesLocalDataSource>()
     singleOf(::RoomAccountLocalDataSourceImpl)
         .bind<AccountsLocalDataSource>()
+    singleOf(::RoomFolderLocalDataSourceImpl)
+        .bind<FolderLocalDataSource>()
 }

@@ -25,6 +25,8 @@ import com.kiras.noter.presentation.notes_overview.components.NoteAddButton
 import com.kiras.noter.presentation.notes_overview.components.NoterOverviewStatusBar
 import com.kiras.noter.presentation.notes_overview.components.calendar.CalendarRow
 import com.kiras.noter.presentation.notes_overview.components.calendar.FullCalendarDialog
+import com.kiras.noter.presentation.notes_overview.components.folder.FolderEditDialog
+import com.kiras.noter.presentation.notes_overview.components.folder.FolderRow
 import com.kiras.noter.presentation.notes_overview.components.note_list.NotesList
 import com.kiras.noter.presentation.notes_overview.model.CalendarDayUi
 import org.koin.compose.viewmodel.koinViewModel
@@ -89,6 +91,19 @@ private fun NotesOverviewScreen(
                             }
                         )
                     }
+                    FolderRow(
+                        folders = state.folders,
+                        selectedFolder = state.selectedFolder,
+                        onFolderClick = { folderId ->
+                            onAction(NotesOverviewActions.OnFolderSelected(folderId))
+                        },
+                        onFolderLongClick = { folder ->
+                            onAction(NotesOverviewActions.OnEditFolderClick(folder))
+                        },
+                        onCreateFolderClick = {
+                            onAction(NotesOverviewActions.OnCreateFolderClick)
+                        }
+                    )
                     if(state.notes.isNotEmpty()) {
                         NotesList(
                             notes = state.notes,
@@ -120,6 +135,20 @@ private fun NotesOverviewScreen(
                 onDismiss = {
                     onAction(NotesOverviewActions.OnDismissFullCalendar)
                 }
+            )
+        }
+
+        if (state.isFolderDialogOpen) {
+            FolderEditDialog(
+                mode = state.folderDialogMode,
+                folder = state.folderToEdit,
+                onDismiss = { onAction(NotesOverviewActions.OnDismissFolderDialog) },
+                onSave = { name -> onAction(NotesOverviewActions.OnSaveFolder(name)) },
+                onDeleteClick = { state.folderToEdit?.let { folder ->
+                    onAction(NotesOverviewActions.OnDeleteFolderClick(folder.id))
+                } },
+                onShowDeleteConfirmation = { onAction(NotesOverviewActions.OnShowDeleteFolderConfirmation) },
+                onCancelDeleteConfirmation = { onAction(NotesOverviewActions.OnCancelDeleteConfirmation) }
             )
         }
     }

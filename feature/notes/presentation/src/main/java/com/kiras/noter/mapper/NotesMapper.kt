@@ -21,13 +21,16 @@ fun Note.toNoteUi(): NoteUi {
         content = content,
         color = color,
         alignment = alignment,
-        createTime = formattedCreateTimeAsString
+        createTime = formattedCreateTimeAsString,
+        isImportant = isImportant
     )
 }
 
 fun NoteUi.toNote(
     ownerAccountId: String,
-    createTimeAsZoneDateTime: ZonedDateTime
+    createTimeAsZoneDateTime: ZonedDateTime,
+    isImportant: Boolean = false,
+    folderIds: List<String> = emptyList()
 ): Note {
     return Note(
         id = id,
@@ -36,6 +39,8 @@ fun NoteUi.toNote(
         content = content,
         color = color,
         alignment = alignment,
-        createTime = createTimeAsZoneDateTime
+        createTime = createTimeAsZoneDateTime,
+        isImportant = isImportant,
+        folderIds = folderIds
     )
 }

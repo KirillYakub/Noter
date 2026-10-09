@@ -8,6 +8,9 @@ sealed interface NotePageActions {
     data class OnContentChange(val content: String) : NotePageActions
     data class OnColorChange(val color: NoteColor) : NotePageActions
     data class OnAlignChange(val align: NoteAlignment) : NotePageActions
+    data object OnToggleImportant : NotePageActions
+    data class OnToggleFoldersMenu(val isOpen: Boolean) : NotePageActions
+    data class OnToggleFolderSelection(val folderId: String, val isSelected: Boolean) : NotePageActions
     data object OnBackClick : NotePageActions
     data object OnSendClick : NotePageActions
 }

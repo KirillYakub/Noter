@@ -9,5 +9,7 @@ data class Note(
     val content: String,
     val color: NoteColor,
     val alignment: NoteAlignment,
-    val createTime: ZonedDateTime
+    val createTime: ZonedDateTime,
+    val isImportant: Boolean = false,
+    val folderIds: List<String> = emptyList()
 )

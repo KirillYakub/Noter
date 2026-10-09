@@ -4,5 +4,6 @@ import java.time.ZonedDateTime
 
 data class NoteDraft(
     var noteCreateTime: ZonedDateTime? = null,
-    var ownerAccountId: String? = null
+    var ownerAccountId: String? = null,
+    val selectedFolderIds: MutableSet<String> = mutableSetOf()
 )
