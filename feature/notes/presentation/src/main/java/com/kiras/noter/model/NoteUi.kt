@@ -9,5 +9,6 @@ data class NoteUi(
     val content: String = "",
     val alignment: NoteAlignment = NoteAlignment.START,
     val color: NoteColor = NoteColor.DEFAULT,
-    val createTime: String = ""
+    val createTime: String = "",
+    val isImportant: Boolean = false
 )

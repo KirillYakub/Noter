@@ -6,7 +6,7 @@ import org.bson.types.ObjectId
 import java.time.Instant
 import java.time.ZoneId
 
-fun NoteEntity.toNote(): Note {
+fun NoteEntity.toNote(folderIds: List<String> = emptyList()): Note {
     return Note(
         id = id,
         ownerAccountId = ownerAccountId,
@@ -15,6 +15,8 @@ fun NoteEntity.toNote(): Note {
         color = color,
         alignment = alignment,
         createTime = Instant.ofEpochMilli(createTime).atZone(ZoneId.systemDefault()),
+        isImportant = isImportant,
+        folderIds = folderIds
     )
 }
 
@@ -27,5 +29,6 @@ fun Note.toNoteEntity(): NoteEntity {
         color = color,
         alignment = alignment,
         createTime = createTime.toInstant().toEpochMilli(),
+        isImportant = isImportant
     )
 }

@@ -134,3 +134,25 @@ val getSettingsSwitcherColor: Color
 val getSettingsSwitcherNotActiveColor: Color
     @Composable
     get() = if(isSystemInDarkTheme()) Grey4 else Grey3
+
+val getFolderSelectedItemColor: Color
+    get() = Grey5
+
+val getFolderUnselectedItemColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Color.Black else Color.White
+
+val getFolderSelectedItemBorderColor: Color
+    get() = Color.Transparent
+
+val getFolderUnselectedItemBorderColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Color.White else Color.Black
+
+val getFolderTextFieldsTextColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey2 else Grey5
+
+val getFolderTextFieldsColor: Color
+    @Composable
+    get() = if(isSystemInDarkTheme()) Grey5 else Grey1

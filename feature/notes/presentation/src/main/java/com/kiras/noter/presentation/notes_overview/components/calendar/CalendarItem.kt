@@ -21,6 +21,10 @@ import com.kiras.noter.designsystem.getCalendarSelectedItemColor
 import com.kiras.noter.designsystem.getCalendarUnselectedItemBorderColor
 import com.kiras.noter.designsystem.getCalendarUnselectedItemColor
 import com.kiras.noter.designsystem.getCalenderSelectedItemBorderColor
+import com.kiras.noter.designsystem.getFolderSelectedItemColor
+import com.kiras.noter.designsystem.getFolderUnselectedItemBorderColor
+import com.kiras.noter.designsystem.getFolderUnselectedItemColor
+import com.kiras.noter.designsystem.getFolderSelectedItemBorderColor
 
 @Composable
 fun CalendarItem(

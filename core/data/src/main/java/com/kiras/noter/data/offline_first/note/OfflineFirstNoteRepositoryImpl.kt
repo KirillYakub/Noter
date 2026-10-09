@@ -50,6 +50,66 @@ class OfflineFirstNoteRepositoryImpl(
         )
     }
 
+    override suspend fun getNotesByFolder(
+        folderId: String,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>> {
+        val userId = authActiveSessionStorage.get()!!.userId
+        return localDataSource.getNotesByFolder(
+            ownerAccountId = userId,
+            folderId = folderId,
+            query = query,
+            sortType = sortType
+        )
+    }
+
+    override suspend fun getImportantNotes(
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>> {
+        val userId = authActiveSessionStorage.get()!!.userId
+        return localDataSource.getImportantNotes(
+            ownerAccountId = userId,
+            query = query,
+            sortType = sortType
+        )
+    }
+
+    override suspend fun getNotesByDayAndFolder(
+        folderId: String,
+        dayStart: Long,
+        dayEnd: Long,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>> {
+        val userId = authActiveSessionStorage.get()!!.userId
+        return localDataSource.getNotesByDayAndFolder(
+            ownerAccountId = userId,
+            folderId = folderId,
+            dayStart = dayStart,
+            dayEnd = dayEnd,
+            query = query,
+            sortType = sortType
+        )
+    }
+
+    override suspend fun getImportantNotesByDay(
+        dayStart: Long,
+        dayEnd: Long,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>> {
+        val userId = authActiveSessionStorage.get()!!.userId
+        return localDataSource.getImportantNotesByDay(
+            ownerAccountId = userId,
+            dayStart = dayStart,
+            dayEnd = dayEnd,
+            query = query,
+            sortType = sortType
+        )
+    }
+
     override fun getActiveUserNotesCount(): Flow<Int> {
         return authActiveSessionStorage.getAsFlow()
             .flatMapLatest { authInfo ->

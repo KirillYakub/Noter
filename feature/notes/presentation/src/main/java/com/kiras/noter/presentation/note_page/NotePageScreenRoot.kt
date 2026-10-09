@@ -1,12 +1,10 @@
 package com.kiras.noter.presentation.note_page
 
 import android.content.Intent
-import android.util.Log
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,14 +38,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.NoterTheme
 import com.kiras.noter.designsystem.anim.SlideFadeAnimatedContent
@@ -61,13 +57,12 @@ import com.kiras.noter.domain.notes.model.NoteColor
 import com.kiras.noter.domain.notes.model.settings.NotesStyleType
 import com.kiras.noter.presentation.R
 import com.kiras.noter.presentation.note_page.components.BottomSheetContent
+import com.kiras.noter.presentation.note_page.components.FolderSelectionDialog
 import com.kiras.noter.presentation.note_page.components.NotePageStatusBar
 import com.kiras.noter.presentation.note_page.components.NoteTextField
 import com.kiras.noter.presentation.note_page.mapper.toTextAlign
 import com.kiras.noter.ui.getColorForUiTheme
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -144,7 +139,6 @@ fun NotePageScreen(
                 skipHiddenState = false
             )
         )
-        var isSheetOpen by rememberSaveable { mutableStateOf(false) }
         val scope = rememberCoroutineScope()
 
         NoterBottomSheetScaffold(
@@ -156,9 +150,10 @@ fun NotePageScreen(
             topAppBar = {
                 NotePageStatusBar(
                     contentColor = contentColor.copy(alpha = 0.8f),
+                    isImportant = state.isImportant,
                     onBackClick = { onAction(NotePageActions.OnBackClick) },
-                    onLikeClick = {},
-                    onFolderClick = {},
+                    onLikeClick = { onAction(NotePageActions.OnToggleImportant) },
+                    onFolderClick = { onAction(NotePageActions.OnToggleFoldersMenu(true)) },
                     onSendClick = { onAction(NotePageActions.OnSendClick) }
                 )
             },
@@ -248,6 +243,18 @@ fun NotePageScreen(
                     contentColor = bottomSheetContentColor,
                     onAction = onAction
                 )
+            }
+        )
+    }
+
+    if (state.isFoldersMenuOpen) {
+        FolderSelectionDialog(
+            folders = state.folders,
+            onFolderToggle = { folderId, isSelected ->
+                onAction(NotePageActions.OnToggleFolderSelection(folderId, isSelected))
+            },
+            onDismiss = {
+                onAction(NotePageActions.OnToggleFoldersMenu(false))
             }
         )
     }

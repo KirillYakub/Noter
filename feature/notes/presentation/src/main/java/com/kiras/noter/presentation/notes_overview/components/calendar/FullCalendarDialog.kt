@@ -20,7 +20,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.kiras.noter.designsystem.BackIcon
 import com.kiras.noter.designsystem.getCalendarSelectedItemColor
-import com.kiras.noter.designsystem.getCalenderSelectedItemBorderColor
+import com.kiras.noter.designsystem.getFolderSelectedItemColor
+import com.kiras.noter.designsystem.getFolderSelectedItemBorderColor
 import com.kiras.noter.presentation.R
 import java.time.LocalDate
 import java.time.YearMonth
@@ -139,7 +140,7 @@ fun FullCalendarDialog(
                                             )
                                             .border(
                                                 width = 1.dp,
-                                                color = if (isSelected) getCalenderSelectedItemBorderColor else Color.Transparent,
+                                                color = Color.Transparent,
                                                 shape = RoundedCornerShape(12.dp)
                                             )
                                             .clickable {

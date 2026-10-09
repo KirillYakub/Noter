@@ -4,31 +4,26 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.kiras.noter.domain.notes.model.NoteAlignment
-import com.kiras.noter.domain.notes.model.NoteColor
 import org.bson.types.ObjectId
 
 @Entity(
-    tableName = "notes",
+    tableName = "folders",
     foreignKeys = [
         ForeignKey(
             entity = AccountEntity::class,
             parentColumns = ["id"],
             childColumns = ["ownerAccountId"],
             onDelete = ForeignKey.CASCADE
-        )],
+        )
+    ],
     indices = [
-        Index("ownerAccountId", "createTime")
+        Index("ownerAccountId")
     ]
 )
-data class NoteEntity(
+data class FolderEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: String,
+    val id: String = ObjectId().toHexString(),
     val ownerAccountId: String,
-    val title: String,
-    val content: String,
-    val color: NoteColor,
-    val alignment: NoteAlignment,
-    val createTime: Long,
-    val isImportant: Boolean = false
+    val name: String,
+    val createTime: Long = System.currentTimeMillis()
 )

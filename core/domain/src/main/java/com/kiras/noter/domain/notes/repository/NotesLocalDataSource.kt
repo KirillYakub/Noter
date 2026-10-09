@@ -23,6 +23,36 @@ interface NotesLocalDataSource {
         sortType: NotesSortType
     ): Flow<List<Note>>
 
+    fun getNotesByFolder(
+        ownerAccountId: String,
+        folderId: String,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>>
+
+    fun getImportantNotes(
+        ownerAccountId: String,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>>
+
+    fun getNotesByDayAndFolder(
+        ownerAccountId: String,
+        folderId: String,
+        dayStart: Long,
+        dayEnd: Long,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>>
+
+    fun getImportantNotesByDay(
+        ownerAccountId: String,
+        dayStart: Long,
+        dayEnd: Long,
+        query: String,
+        sortType: NotesSortType
+    ): Flow<List<Note>>
+
     fun getActiveUserNotesCount(ownerAccountId: String): Flow<Int>
     suspend fun getNote(ownerAccountId: String, id: NoteId): Note
     suspend fun upsertNote(note: Note): Result<NoteId, DataError.Local>

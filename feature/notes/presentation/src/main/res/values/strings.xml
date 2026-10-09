@@ -12,4 +12,20 @@
     <string name="delete">Delete</string>
     <string name="create_copy">Create copy</string>
     <string name="back">Back</string>
+    <string name="all">All</string>
+    <string name="important">Important</string>
+    <string name="new_folder">New Folder</string>
+    <string name="new_folder_field_label">New folder</string>
+    <string name="create_folder">Create Folder</string>
+    <string name="rename_folder">Rename Folder</string>
+    <string name="folder_name">Folder Name</string>
+    <string name="create">Create</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_folders">Select Folders</string>
+    <string name="no_custom_folders">No custom folders created yet.</string>
+    <string name="done">Done</string>
+    <string name="add_folder">Add folder</string>
+    <string name="type_here">Type here</string>
+    <string name="delete_folder_warning">Are you sure you want to delete folder \"%1$s\"? Notes assigned to this folder will be preserved and only the folder memberships will be removed.</string>
 </resources>

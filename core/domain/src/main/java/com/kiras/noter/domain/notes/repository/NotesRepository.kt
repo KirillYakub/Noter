@@ -18,6 +18,32 @@ interface NotesRepository {
         sortType: NotesSortType,
     ): Flow<List<Note>>
 
+    suspend fun getNotesByFolder(
+        folderId: String,
+        query: String,
+        sortType: NotesSortType,
+    ): Flow<List<Note>>
+
+    suspend fun getImportantNotes(
+        query: String,
+        sortType: NotesSortType,
+    ): Flow<List<Note>>
+
+    suspend fun getNotesByDayAndFolder(
+        folderId: String,
+        dayStart: Long,
+        dayEnd: Long,
+        query: String,
+        sortType: NotesSortType,
+    ): Flow<List<Note>>
+
+    suspend fun getImportantNotesByDay(
+        dayStart: Long,
+        dayEnd: Long,
+        query: String,
+        sortType: NotesSortType,
+    ): Flow<List<Note>>
+
     fun getActiveUserNotesCount(): Flow<Int>
     suspend fun getNote(id: NoteId): Note
     suspend fun upsertNote(note: Note): EmptyResult<DataError>
