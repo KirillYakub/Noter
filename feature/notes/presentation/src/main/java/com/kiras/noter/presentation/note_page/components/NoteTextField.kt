@@ -25,7 +25,8 @@ fun NoteTextField(
     value: String,
     onValueChange: (String) -> Unit,
     textStyle: TextStyle,
-    placeholder: String = ""
+    placeholder: String = "",
+    imeAction: ImeAction = ImeAction.Done
 ) {
     TextField(
         value = value,
@@ -35,7 +36,7 @@ fun NoteTextField(
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
-            imeAction = ImeAction.Done
+            imeAction = imeAction
         ),
         colors = TextFieldDefaults.colors(
             cursorColor = contentColor.copy(alpha = 0.6f),
