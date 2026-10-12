@@ -28,4 +28,5 @@
     <string name="add_folder">Add folder</string>
     <string name="type_here">Type here</string>
     <string name="delete_folder_warning">Are you sure you want to delete folder \"%1$s\"? Notes assigned to this folder will be preserved and only the folder memberships will be removed.</string>
+    <string name="note_is_empty">Note is empty</string>
 </resources>

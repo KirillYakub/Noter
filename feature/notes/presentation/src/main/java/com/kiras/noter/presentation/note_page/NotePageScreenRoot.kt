@@ -1,6 +1,8 @@
 package com.kiras.noter.presentation.note_page
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
@@ -43,6 +45,7 @@ import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kiras.noter.designsystem.NoterTheme
@@ -65,6 +68,7 @@ import com.kiras.noter.ui.getColorForUiTheme
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
+@SuppressLint("LocalContextGetResourceValueCall")
 @Composable
 fun NotePageScreenRoot(
     onBackClick: () -> Unit,
@@ -94,6 +98,13 @@ fun NotePageScreenRoot(
                         }
                         val shareIntent = Intent.createChooser(sendIntent, null)
                         context.startActivity(shareIntent)
+                    }
+                    else {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.note_is_empty),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
                 else -> model.onAction(action)
@@ -190,6 +201,7 @@ fun NotePageScreen(
                             onValueChange = { onAction(NotePageActions.OnTitleChange(it)) },
                             textStyle = MaterialTheme.typography.displayMedium,
                             placeholder = stringResource(R.string.write_title_here),
+                            imeAction = ImeAction.Unspecified,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(top = 14.dp),
@@ -213,6 +225,7 @@ fun NotePageScreen(
                             onValueChange = { onAction(NotePageActions.OnContentChange(it)) },
                             textStyle = MaterialTheme.typography.labelMedium,
                             placeholder = stringResource(R.string.write_here),
+                            imeAction = ImeAction.Unspecified,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 14.dp),
