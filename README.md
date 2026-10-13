@@ -65,20 +65,20 @@ graph TD
 
 ## 📸 Feature Tour & Screenshots
 
-| Onboarding & Account Management | Notes Overview & Folder Filters |
+| Onboarding & Account Management | Authentication & Login |
 | :---: | :---: |
-| ![Onboarding Screen](docs/screenshots/onboard_prev.png) | ![Notes Overview](docs/screenshots/notes_overview_prev.png) |
-| *Clean authentication & account switching* | *Card & list views, calendar row, & folder chips* |
+| ![Onboarding Screen](docs/screenshots/onboard_prev.png) | ![Login Screen](docs/screenshots/login_prev.png) |
+| *Onboarding flow & accounts* | *Secure local authentication & login* |
 
-| Note Editor & Customization | Settings & Preferences |
+| Notes Overview & Folder Filters | Note Editor & Customization |
 | :---: | :---: |
-| ![Note Editor](docs/screenshots/note_edit_prev.png) | ![Settings Screen](docs/screenshots/sett_prev.png) |
-| *Rich text alignment, color themes, & multi-folder assignment* | *Personalization, sorting, & date filters* |
+| ![Notes Overview](docs/screenshots/notes_overview_prev.png) | ![Note Editor](docs/screenshots/note_edit_prev.png) |
+| *Card & list views, calendar row, & folder chips* | *Rich text alignment, color themes, & multi-folder assignment* |
 
-| Authentication & Login | Home Screen Widgets |
+| Settings & Preferences | Home Screen Widgets |
 | :---: | :---: |
-| ![Login Screen](docs/screenshots/login_prev.png) | ![Widgets](docs/screenshots/widgets_prev.png) |
-| *Secure local credential handling* | *Quick access launchers & productivity widgets* |
+| ![Settings Screen](docs/screenshots/sett_prev.png) | ![Widgets](docs/screenshots/widgets_prev.png) |
+| *Personalization, sorting, & date filters* | *Quick access launchers & Glance widgets* |
 
 ---
 
