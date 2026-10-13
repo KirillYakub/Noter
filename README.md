@@ -32,13 +32,16 @@ graph TD
     NotesData --> NotesDom
     SettData --> SettDom
 
-    %% Core Foundations
+    %% Core Foundations & Cross-Module Dependencies
     AuthDom --> CoreDom[:core:domain]
     NotesDom --> CoreDom
     SettDom --> CoreDom
+    
     AuthData --> CoreData[:core:data]
     NotesData --> CoreData
     SettData --> CoreData
+    
+    CoreData --> CoreDom
     CoreData --> CoreDb[:core:database]
 ```
 
