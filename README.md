@@ -9,35 +9,37 @@
 ---
 ## 🏛️ Architectural Excellence & Multi-Modular Design
 
-Noter implements strict **Separation of Concerns (SoC)** and **Dependency Inversion Principle (DIP)** across **16 isolated Gradle sub-projects**. This ensures lightning-fast incremental builds, strict encapsulation of feature logic, and zero circular dependencies.
+Noter implements strict **Separation of Concerns (SoC)** and **Dependency Inversion Principle (DIP)** across **16 isolated Gradle sub-projects**. Presentation modules depend strictly on Domain use cases, while Data modules implement Domain repository interfaces, ensuring zero circular dependencies.
 
 ```mermaid
 graph TD
-    %% App Layer
+    %% App Layer (Composition Root)
     App([:app]) --> AuthPres[:auth:presentation]
     App --> NotesPres[:feature:notes:presentation]
     App --> SettPres[:settings:presentation]
     App --> Widgets[:feature:notes:widgets]
+    App --> AuthData[:auth:data]
+    App --> NotesData[:feature:notes:data]
+    App --> SettData[:settings:data]
 
-    %% Presentation Layer
+    %% Presentation Layer depends strictly on Domain
     AuthPres --> AuthDom[:auth:domain]
     NotesPres --> NotesDom[:feature:notes:domain]
     SettPres --> SettDom[:settings:domain]
 
-    %% Data Layer
-    AuthPres --> AuthData[:auth:data]
-    NotesPres --> NotesData[:feature:notes:data]
-    SettPres --> SettData[:settings:data]
+    %% Data Layer implements Domain interfaces
+    AuthData --> AuthDom
+    NotesData --> NotesDom
+    SettData --> SettDom
 
+    %% Core Foundations
+    AuthDom --> CoreDom[:core:domain]
+    NotesDom --> CoreDom
+    SettDom --> CoreDom
     AuthData --> CoreData[:core:data]
     NotesData --> CoreData
     SettData --> CoreData
-
     CoreData --> CoreDb[:core:database]
-    CoreData --> CoreDom[:core:domain]
-    AuthDom --> CoreDom
-    NotesDom --> CoreDom
-    SettDom --> CoreDom
 ```
 
 ### 🧩 Module Breakdown
