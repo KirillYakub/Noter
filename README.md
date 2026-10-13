@@ -7,45 +7,8 @@
 **Noter** is a production-grade, enterprise-ready Android application engineered to demonstrate skills over modern Android development. Built from the ground up to showcase **scalability, maintainability, and clean code principles**.
 
 ---
-## 🏛️ Architectural Excellence & Multi-Modular Design
 
-Noter implements strict **Separation of Concerns (SoC)** and **Dependency Inversion Principle (DIP)** across **16 isolated Gradle sub-projects**. Presentation modules depend strictly on Domain use cases, while Data modules implement Domain repository interfaces, ensuring zero circular dependencies.
-
-```mermaid
-graph TD
-    %% App Layer (Composition Root)
-    App([:app]) --> AuthPres[:auth:presentation]
-    App --> NotesPres[:feature:notes:presentation]
-    App --> SettPres[:settings:presentation]
-    App --> Widgets[:feature:notes:widgets]
-    App --> AuthData[:auth:data]
-    App --> NotesData[:feature:notes:data]
-    App --> SettData[:settings:data]
-
-    %% Presentation Layer depends strictly on Domain
-    AuthPres --> AuthDom[:auth:domain]
-    NotesPres --> NotesDom[:feature:notes:domain]
-    SettPres --> SettDom[:settings:domain]
-
-    %% Data Layer implements Domain interfaces
-    AuthData --> AuthDom
-    NotesData --> NotesDom
-    SettData --> SettDom
-
-    %% Core Foundations & Cross-Module Dependencies
-    AuthDom --> CoreDom[:core:domain]
-    NotesDom --> CoreDom
-    SettDom --> CoreDom
-    
-    AuthData --> CoreData[:core:data]
-    NotesData --> CoreData
-    SettData --> CoreData
-    
-    CoreData --> CoreDom
-    CoreData --> CoreDb[:core:database]
-```
-
-### 🧩 Module Breakdown
+## 🧩 Module Breakdown
 | Layer | Sub-Projects / Modules | Responsibility |
 | :--- | :--- | :--- |
 | **App Shell** | `:app` | Application entry point, global navigation graph, Koin DI initialization, theme configuration. |
