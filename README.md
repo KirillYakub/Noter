@@ -1,94 +1,94 @@
-# Noter — Modern Android Notes
-
-**A modern Android notes app built with Kotlin, Jetpack Compose, Room, Clean Architecture, and a multi-module structure.**
-
-Noter brings everyday notes, tasks, and ideas together in a clean, customizable experience. This project showcases a maintainable Android architecture alongside a polished Compose UI, local persistence, calendar-based browsing, and a home-screen widget.
-
-> Portfolio project focused on modern Android development, modular design, and a user-centered note-taking experience.
-
-## Highlights
-
-- **Modern Android UI** built with Jetpack Compose and a cohesive visual theme.
-- **Clean Architecture** with clear boundaries between presentation, domain, and data responsibilities.
-- **Multi-module codebase** designed to keep features and shared foundations organized and maintainable.
-- **Room persistence** for locally stored notes and folder membership.
-- **Flexible organization** with custom folders, an Important filter, and support for placing a note in multiple folders.
-- **Calendar browsing** to find notes by date, including a full-calendar view.
-- **Home-screen widget** for quick access and note creation.
-- **Personalization** for note appearance, sorting, and date-based browsing.
-- **Sharing support** to send note content to other Android apps.
-
-## Screenshots
-
-| Onboarding | Notes overview |
-|---|---|
-| ![Noter onboarding screen](noter-readme-assets/onboarding.png) | ![Noter notes overview with calendar and folder filters](noter-readme-assets/notes-overview.png) |
-
-| Note editor | Settings |
-|---|---|
-| ![Noter note editor](noter-readme-assets/note-editor.png) | ![Noter settings screen](noter-readme-assets/settings.png) |
-
-| Account creation | Home-screen widget |
-|---|---|
-| ![Noter account creation screen](noter-readme-assets/login.png) | ![Noter home-screen widget](noter-readme-assets/home-widget.png) |
-
-## Architecture
-
-Noter applies **Clean Architecture** principles in a **multi-module Android project**. The goal is to keep UI, business rules, and persistence responsibilities separate, making features easier to evolve and maintain.
-
-- **Presentation:** Compose screens and UI state for user-facing features.
-- **Domain:** Feature rules and contracts kept independent of Android UI and database details.
-- **Data:** Room-backed persistence and mappings between stored and domain data.
-- **Modules:** Feature code is organized into modules, with shared concerns kept in reusable modules where appropriate.
-
-The exact module names and dependency direction follow the project’s Gradle setup.
-
-## Built with
-
-- **Kotlin**
-- **Jetpack Compose**
-- **Room**
-- **Clean Architecture**
-- **Multi-module Gradle project**
-
-## Feature tour
-
-### Notes and organization
-
-Create and edit notes, browse them in a card-based overview, and organize them with custom folders. Mark notes as Important and assign a note to more than one folder.
-
-### Calendar and discovery
-
-Browse notes by date using the date row and full-calendar view. Search and sorting options help surface the note you need.
-
-### Personalization and quick access
-
-Adjust note presentation in Settings and use the home-screen widget to see note information or start creating a note from the launcher.
-
-### Sharing
-
-Share note data with compatible Android apps through the system share flow.
-
-## Getting started
-
-1. Clone this repository.
-2. Open the project in Android Studio.
-3. Allow Gradle to sync.
-4. Select the app run configuration and launch it on an emulator or Android device.
-
-> Add the repository URL, Android Studio version, SDK requirements, and any required local configuration here before publishing if your project needs them.
-
-## Project status
-
-Noter is an evolving portfolio project. The implementation may change as features and architecture continue to develop.
-
-## Author
-
-**Kirill** — Android developer
-
-- GitHub: [add your profile link](https://github.com/)
-- LinkedIn: [add your profile link](https://www.linkedin.com/)
+# 📝 Noter — Production-Grade Multi-Modular Android Architecture Showcase
 
 ---
 
-*Designed and developed as a showcase of modern Android UI and architecture practices.*
+## 🎯 Executive Summary
+
+**Noter** is a production-grade, enterprise-ready Android application engineered to demonstrate skills over modern Android development. Built from the ground up to showcase **scalability, maintainability, and clean code principles**.
+
+---
+## 🏛️ Architectural Excellence & Multi-Modular Design
+
+Noter implements strict **Separation of Concerns (SoC)** and **Dependency Inversion Principle (DIP)** across **16 isolated Gradle sub-projects**. This ensures lightning-fast incremental builds, strict encapsulation of feature logic, and zero circular dependencies.
+
+```mermaid
+graph TD
+    %% App Layer
+    App([:app]) --> AuthPres[:auth:presentation]
+    App --> NotesPres[:feature:notes:presentation]
+    App --> SettPres[:settings:presentation]
+    App --> Widgets[:feature:notes:widgets]
+
+    %% Presentation Layer
+    AuthPres --> AuthDom[:auth:domain]
+    NotesPres --> NotesDom[:feature:notes:domain]
+    SettPres --> SettDom[:settings:domain]
+
+    %% Data Layer
+    AuthPres --> AuthData[:auth:data]
+    NotesPres --> NotesData[:feature:notes:data]
+    SettPres --> SettData[:settings:data]
+
+    AuthData --> CoreData[:core:data]
+    NotesData --> CoreData
+    SettData --> CoreData
+
+    CoreData --> CoreDb[:core:database]
+    CoreData --> CoreDom[:core:domain]
+    AuthDom --> CoreDom
+    NotesDom --> CoreDom
+    SettDom --> CoreDom
+```
+
+### 🧩 Module Breakdown
+| Layer | Sub-Projects / Modules | Responsibility |
+| :--- | :--- | :--- |
+| **App Shell** | `:app` | Application entry point, global navigation graph, Koin DI initialization, theme configuration. |
+| **Feature: Auth** | `:auth:data`, `:auth:domain`, `:auth:presentation` | Authentication flow, account management, and session state persistence. |
+| **Feature: Notes** | `:feature:notes:data`, `:feature:notes:domain`, `:feature:notes:presentation`, `:feature:notes:widgets` | Core note CRUD, multi-folder mapping, search filtering, rich text alignment, and home screen widgets. |
+| **Feature: Settings** | `:settings:data`, `:settings:domain`, `:settings:presentation` | App preferences, sort order customization, display density, and session management. |
+| **Core Foundations** | `:core:data`, `:core:database`, `:core:domain`, `:core:presentation:designsystem`, `:core:presentation:ui` | Shared database abstractions, Room DAO implementations, type converters, domain models, and design system components. |
+
+---
+
+## 🚀 Key Technical Highlights & Engineering Decisions
+
+- **Strict Clean Architecture**: Domain models and use cases are 100% pure Kotlin with zero Android framework dependencies, maximizing testability and business logic reusability.
+- **Reactive Data Streams (Kotlin Flow & Coroutines)**: Asynchronous UI updates driven by state flows, debounced search queries (`snapshotFlow`), and reactive database queries.
+- **Advanced Room Database Persistence**: 
+  - Foreign key constraints with `ON DELETE CASCADE` ensuring referential integrity between accounts, folders, notes, and cross-references (`note_folders`).
+  - Transaction-safe upserts (`withTransaction`) guaranteeing synchronization between note entities and folder memberships.
+- **Dependency Injection (Koin)**: Modularized dependency graphs declared cleanly per module using Koin's constructor injection (`singleOf`, `viewModelOf`).
+- **Declarative UI (Jetpack Compose)**: Custom animated content transitions, full-screen custom dialogs (`FullCalendarDialog`, `FolderSelectionDialog`), and adaptive Compose layouts adhering to Material Design 3 guidelines.
+
+---
+
+## 📸 Feature Tour & Screenshots
+
+| Onboarding & Account Management | Notes Overview & Folder Filters |
+| :---: | :---: |
+| ![Onboarding Screen](docs/screenshots/onboard_prev.png) | ![Notes Overview](docs/screenshots/notes_overview_prev.png) |
+| *Clean authentication & account switching* | *Card & list views, calendar row, & folder chips* |
+
+| Note Editor & Customization | Settings & Preferences |
+| :---: | :---: |
+| ![Note Editor](docs/screenshots/note_edit_prev.png) | ![Settings Screen](docs/screenshots/sett_prev.png) |
+| *Rich text alignment, color themes, & multi-folder assignment* | *Personalization, sorting, & date filters* |
+
+| Authentication & Login | Home Screen Widgets |
+| :---: | :---: |
+| ![Login Screen](docs/screenshots/login_prev.png) | ![Widgets](docs/screenshots/widgets_prev.png) |
+| *Secure local credential handling* | *Quick access launchers & productivity widgets* |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Language:** Kotlin (2.0+)
+- **UI Toolkit:** Jetpack Compose & Material 3
+- **Architecture:** Clean Architecture + Multi-Modular Gradle Setup
+- **Local Persistence:** Room Database (SQLite with Transactions & Foreign Keys)
+- **Asynchronous Programming:** Kotlin Coroutines & Flows (`StateFlow`, `SharedFlow`, `Flow`)
+- **Dependency Injection:** Koin
+- **Navigation:** Jetpack Navigation (Type-safe Compose navigation routes)
+- **Widgets:** Glance
